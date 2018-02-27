@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.6.4
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost
--- Généré le :  lun. 26 fév. 2018 à 22:20
--- Version du serveur :  5.6.38
--- Version de PHP :  7.2.1
+-- Client :  127.0.0.1
+-- Généré le :  Mar 27 Février 2018 à 00:05
+-- Version du serveur :  5.7.14
+-- Version de PHP :  5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,22 +17,36 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `SIA2`
+-- Base de données :  `vieillesardine`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Adresse`
+-- Structure de la table `adresse`
 --
 
-CREATE TABLE `Adresse` (
+CREATE TABLE `adresse` (
   `adresseId` int(11) NOT NULL,
   `numeroRue` int(11) NOT NULL,
   `rue` char(20) NOT NULL,
   `codePostal` int(11) NOT NULL,
   `ville` char(20) NOT NULL,
   `pays` char(15) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `avisclient`
+--
+
+CREATE TABLE `avisclient` (
+  `id` int(11) NOT NULL,
+  `note` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `uId` int(11) NOT NULL,
+  `pId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -46,15 +60,15 @@ CREATE TABLE `boutique` (
   `description` int(11) NOT NULL,
   `idAdresse` int(11) NOT NULL,
   `idStock` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Commande`
+-- Structure de la table `commande`
 --
 
-CREATE TABLE `Commande` (
+CREATE TABLE `commande` (
   `numeroCMD` int(11) NOT NULL,
   `dateCMD` datetime NOT NULL,
   `etatCMD` enum('en préparation','préparée','en livraison','livrée') NOT NULL,
@@ -66,17 +80,41 @@ CREATE TABLE `Commande` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `Entreprise`
+-- Structure de la table `destination`
 --
 
-CREATE TABLE `Entreprise` (
-  `nom` char(30) NOT NULL,
-  `raisonSociale` char(30) NOT NULL,
-  `siret` int(11) NOT NULL,
-  `APE/NAF` int(11) NOT NULL,
-  `nbEmploye` int(11) NOT NULL,
-  `idEntreprise` int(11) NOT NULL,
-  `fk_adresseId` int(11) NOT NULL
+CREATE TABLE `destination` (
+  `id` int(11) NOT NULL,
+  `designation` varchar(200) NOT NULL,
+  `description` varchar(400) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `droit`
+--
+
+CREATE TABLE `droit` (
+  `id` int(11) NOT NULL,
+  `designation` varchar(200) NOT NULL,
+  `description` varchar(400) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `entreprise`
+--
+
+CREATE TABLE `entreprise` (
+  `id` int(11) NOT NULL,
+  `raisonSociale` varchar(30) NOT NULL,
+  `nom` varchar(30) NOT NULL,
+  `siret` int(14) NOT NULL,
+  `ape` varchar(5) NOT NULL,
+  `nbEmploye` int(4) NOT NULL,
+  `adresseId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -99,10 +137,22 @@ CREATE TABLE `facture` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `fraisDePort`
+-- Structure de la table `famille`
 --
 
-CREATE TABLE `fraisDePort` (
+CREATE TABLE `famille` (
+  `id` int(11) NOT NULL,
+  `designation` varchar(200) NOT NULL,
+  `description` varchar(400) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `fraisdeport`
+--
+
+CREATE TABLE `fraisdeport` (
   `idFP` int(11) NOT NULL,
   `dateDebut` datetime NOT NULL,
   `dateFin` datetime NOT NULL,
@@ -113,10 +163,22 @@ CREATE TABLE `fraisDePort` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `ligneCommande`
+-- Structure de la table `gamme`
 --
 
-CREATE TABLE `ligneCommande` (
+CREATE TABLE `gamme` (
+  `id` int(11) NOT NULL,
+  `designation` varchar(200) NOT NULL,
+  `description` varchar(400) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `lignecommande`
+--
+
+CREATE TABLE `lignecommande` (
   `fk_numeroCMD` int(11) NOT NULL,
   `fk_idProduit` int(11) NOT NULL,
   `quantite` int(11) NOT NULL
@@ -140,6 +202,18 @@ CREATE TABLE `livraison` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `marque`
+--
+
+CREATE TABLE `marque` (
+  `id` int(11) NOT NULL,
+  `designation` varchar(200) NOT NULL,
+  `description` varchar(400) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `produit`
 --
 
@@ -151,7 +225,7 @@ CREATE TABLE `produit` (
   `prix` float NOT NULL COMMENT 'Prix du produit',
   `lot` int(1) NOT NULL COMMENT 'Indique si le produit est un lot (est comoposé d''autres produit), par défaut non.',
   `placeRayon` varchar(10) NOT NULL COMMENT 'Indique aux ouvriers l''endroit où se trouve le produit dans les stocks'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -163,7 +237,7 @@ CREATE TABLE `quantite` (
   `id` int(11) NOT NULL,
   `disponibilite` int(11) NOT NULL,
   `reserve` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -176,7 +250,7 @@ CREATE TABLE `remise` (
   `pourcentageRemise` float NOT NULL COMMENT 'Pourcentage de la remise à appliquer',
   `dateDebut` datetime NOT NULL,
   `dateFin` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -188,8 +262,43 @@ CREATE TABLE `repriseavoir` (
   `id` int(11) NOT NULL COMMENT 'Correspond à numéroAvoir dans le diagramme de classe',
   `numAutRetour` int(11) NOT NULL,
   `nbProd` int(11) NOT NULL COMMENT 'Nombre de produit retournés',
-  `numCmd` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `numCmd` int(11) NOT NULL,
+  `dateV` date NOT NULL COMMENT 'validite de l''avoir'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `role`
+--
+
+CREATE TABLE `role` (
+  `id` int(11) NOT NULL,
+  `designation` varchar(200) NOT NULL,
+  `description` varchar(400) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `roledroit`
+--
+
+CREATE TABLE `roledroit` (
+  `roleId` int(11) NOT NULL,
+  `droitId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `statut`
+--
+
+CREATE TABLE `statut` (
+  `id` int(11) NOT NULL,
+  `designation` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -200,7 +309,7 @@ CREATE TABLE `repriseavoir` (
 CREATE TABLE `stock` (
   `id` int(11) NOT NULL,
   `typeStock` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -211,7 +320,7 @@ CREATE TABLE `stock` (
 CREATE TABLE `transporteur` (
   `nom` int(11) NOT NULL,
   `entrepriseId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -222,195 +331,178 @@ CREATE TABLE `transporteur` (
 CREATE TABLE `transportlivraison` (
   `nom` int(11) NOT NULL,
   `entrepriseId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
 
 --
--- Index pour les tables déchargées
+-- Structure de la table `utilisateur`
+--
+
+CREATE TABLE `utilisateur` (
+  `id` int(11) NOT NULL,
+  `nom` char(15) DEFAULT NULL,
+  `prenom` char(15) DEFAULT NULL,
+  `dateNaiss` date NOT NULL,
+  `civilite` enum('M','Mme') NOT NULL,
+  `telPrin` varchar(14) NOT NULL,
+  `telCom` varchar(14) NOT NULL,
+  `dateCrCompt` datetime NOT NULL,
+  `dateDerCnx` datetime NOT NULL,
+  `dateDerMdf` datetime NOT NULL,
+  `mdp` varchar(20) NOT NULL,
+  `cles` varchar(16) NOT NULL,
+  `sel` varchar(16) NOT NULL,
+  `etatCompte` tinyint(1) NOT NULL DEFAULT '0',
+  `MontantMaxCour` float NOT NULL,
+  `avatar` varchar(250) DEFAULT NULL,
+  `entrepriseId` int(11) NOT NULL,
+  `roleId` int(11) NOT NULL,
+  `statutId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Index pour les tables exportées
 --
 
 --
--- Index pour la table `Adresse`
+-- Index pour la table `adresse`
 --
-ALTER TABLE `Adresse`
+ALTER TABLE `adresse`
   ADD PRIMARY KEY (`adresseId`);
 
 --
--- Index pour la table `boutique`
+-- Index pour la table `avisclient`
 --
-ALTER TABLE `boutique`
+ALTER TABLE `avisclient`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `idAdresse` (`idAdresse`),
-  ADD KEY `idStock` (`idStock`);
+  ADD KEY `pId` (`pId`),
+  ADD KEY `uId` (`uId`);
 
 --
--- Index pour la table `Commande`
+-- Index pour la table `destination`
 --
-ALTER TABLE `Commande`
-  ADD PRIMARY KEY (`numeroCMD`),
-  ADD UNIQUE KEY `numeroCMD_2` (`numeroCMD`),
-  ADD KEY `numeroCMD` (`numeroCMD`,`fk_idUser`);
-
---
--- Index pour la table `Entreprise`
---
-ALTER TABLE `Entreprise`
-  ADD PRIMARY KEY (`idEntreprise`),
-  ADD KEY `fk_adresseId` (`fk_adresseId`);
-
---
--- Index pour la table `facture`
---
-ALTER TABLE `facture`
-  ADD PRIMARY KEY (`idFacture`),
-  ADD KEY `fk_numeroCMD` (`fk_numeroCMD`,`fk_adresseId`),
-  ADD KEY `fk_ad` (`fk_adresseId`);
-
---
--- Index pour la table `fraisDePort`
---
-ALTER TABLE `fraisDePort`
-  ADD KEY `fk_nCMD` (`fk_numeroCMD`);
-
---
--- Index pour la table `ligneCommande`
---
-ALTER TABLE `ligneCommande`
-  ADD KEY `fk_numeroCMD` (`fk_numeroCMD`,`fk_idProduit`),
-  ADD KEY `fk_idProduit` (`fk_idProduit`);
-
---
--- Index pour la table `livraison`
---
-ALTER TABLE `livraison`
-  ADD PRIMARY KEY (`numLivraison`),
-  ADD KEY `fk_numeroCMD` (`fk_numeroCMD`,`fk_adresseId`),
-  ADD KEY `fk_adr` (`fk_adresseId`);
-
---
--- Index pour la table `produit`
---
-ALTER TABLE `produit`
+ALTER TABLE `destination`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `quantite`
+-- Index pour la table `droit`
 --
-ALTER TABLE `quantite`
+ALTER TABLE `droit`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `remise`
+-- Index pour la table `entreprise`
 --
-ALTER TABLE `remise`
+ALTER TABLE `entreprise`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `repriseavoir`
+-- Index pour la table `famille`
 --
-ALTER TABLE `repriseavoir`
+ALTER TABLE `famille`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `stock`
+-- Index pour la table `gamme`
 --
-ALTER TABLE `stock`
+ALTER TABLE `gamme`
   ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `transporteur`
+-- Index pour la table `marque`
 --
-ALTER TABLE `transporteur`
-  ADD PRIMARY KEY (`nom`);
+ALTER TABLE `marque`
+  ADD PRIMARY KEY (`id`);
 
 --
--- Index pour la table `transportlivraison`
+-- Index pour la table `role`
 --
-ALTER TABLE `transportlivraison`
-  ADD PRIMARY KEY (`nom`,`entrepriseId`);
+ALTER TABLE `role`
+  ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- Index pour la table `roledroit`
+--
+ALTER TABLE `roledroit`
+  ADD PRIMARY KEY (`roleId`,`droitId`),
+  ADD KEY `roleId` (`roleId`),
+  ADD KEY `droitId` (`droitId`);
+
+--
+-- Index pour la table `statut`
+--
+ALTER TABLE `statut`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `entrepriseId` (`entrepriseId`),
+  ADD KEY `roleId` (`roleId`),
+  ADD KEY `statutId` (`statutId`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
 --
 
 --
--- AUTO_INCREMENT pour la table `boutique`
+-- AUTO_INCREMENT pour la table `avisclient`
 --
-ALTER TABLE `boutique`
+ALTER TABLE `avisclient`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT pour la table `produit`
+-- AUTO_INCREMENT pour la table `destination`
 --
-ALTER TABLE `produit`
+ALTER TABLE `destination`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT pour la table `quantite`
+-- AUTO_INCREMENT pour la table `droit`
 --
-ALTER TABLE `quantite`
+ALTER TABLE `droit`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT pour la table `remise`
+-- AUTO_INCREMENT pour la table `entreprise`
 --
-ALTER TABLE `remise`
+ALTER TABLE `entreprise`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
--- AUTO_INCREMENT pour la table `repriseavoir`
+-- AUTO_INCREMENT pour la table `famille`
 --
-ALTER TABLE `repriseavoir`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Correspond à numéroAvoir dans le diagramme de classe';
-
---
--- AUTO_INCREMENT pour la table `stock`
---
-ALTER TABLE `stock`
+ALTER TABLE `famille`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `gamme`
+--
+ALTER TABLE `gamme`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `role`
+--
+ALTER TABLE `role`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `statut`
+--
+ALTER TABLE `statut`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- Contraintes pour les tables exportées
+--
 
 --
--- Contraintes pour les tables déchargées
+-- Contraintes pour la table `roledroit`
 --
-
---
--- Contraintes pour la table `boutique`
---
-ALTER TABLE `boutique`
-  ADD CONSTRAINT `fk_idAdresse` FOREIGN KEY (`idAdresse`) REFERENCES `Adresse` (`adresseId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_idStock` FOREIGN KEY (`idStock`) REFERENCES `stock` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `Entreprise`
---
-ALTER TABLE `Entreprise`
-  ADD CONSTRAINT `fk_adress` FOREIGN KEY (`fk_adresseId`) REFERENCES `Adresse` (`adresseId`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `facture`
---
-ALTER TABLE `facture`
-  ADD CONSTRAINT `fk_ad` FOREIGN KEY (`fk_adresseId`) REFERENCES `Adresse` (`adresseId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_numCMD` FOREIGN KEY (`fk_numeroCMD`) REFERENCES `Commande` (`numeroCMD`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `fraisDePort`
---
-ALTER TABLE `fraisDePort`
-  ADD CONSTRAINT `fk_nCMD` FOREIGN KEY (`fk_numeroCMD`) REFERENCES `Commande` (`numeroCMD`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `ligneCommande`
---
-ALTER TABLE `ligneCommande`
-  ADD CONSTRAINT `fk_idProduit` FOREIGN KEY (`fk_idProduit`) REFERENCES `produit` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_numeroCMD` FOREIGN KEY (`fk_numeroCMD`) REFERENCES `Commande` (`numeroCMD`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `livraison`
---
-ALTER TABLE `livraison`
-  ADD CONSTRAINT `fk_adr` FOREIGN KEY (`fk_adresseId`) REFERENCES `Adresse` (`adresseId`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_numeCMD` FOREIGN KEY (`fk_numeroCMD`) REFERENCES `Commande` (`numeroCMD`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `roledroit`
+  ADD CONSTRAINT `fk1` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk2` FOREIGN KEY (`droitId`) REFERENCES `droit` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
