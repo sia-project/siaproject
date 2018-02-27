@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Client :  127.0.0.1
--- Généré le :  Mar 27 Février 2018 à 00:05
--- Version du serveur :  5.7.14
--- Version de PHP :  5.6.25
+-- Hôte : 127.0.0.1:3306
+-- Généré le :  mar. 27 fév. 2018 à 05:30
+-- Version du serveur :  5.7.19
+-- Version de PHP :  5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -26,13 +28,15 @@ SET time_zone = "+00:00";
 -- Structure de la table `adresse`
 --
 
-CREATE TABLE `adresse` (
+DROP TABLE IF EXISTS `adresse`;
+CREATE TABLE IF NOT EXISTS `adresse` (
   `adresseId` int(11) NOT NULL,
   `numeroRue` int(11) NOT NULL,
   `rue` char(20) NOT NULL,
   `codePostal` int(11) NOT NULL,
   `ville` char(20) NOT NULL,
-  `pays` char(15) NOT NULL
+  `pays` char(15) NOT NULL,
+  PRIMARY KEY (`adresseId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -41,12 +45,16 @@ CREATE TABLE `adresse` (
 -- Structure de la table `avisclient`
 --
 
-CREATE TABLE `avisclient` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `avisclient`;
+CREATE TABLE IF NOT EXISTS `avisclient` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `note` int(11) NOT NULL,
   `date` date NOT NULL,
   `uId` int(11) NOT NULL,
-  `pId` int(11) NOT NULL
+  `pId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `pId` (`pId`),
+  KEY `uId` (`uId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -55,12 +63,14 @@ CREATE TABLE `avisclient` (
 -- Structure de la table `boutique`
 --
 
-CREATE TABLE `boutique` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `boutique`;
+CREATE TABLE IF NOT EXISTS `boutique` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `description` int(11) NOT NULL,
   `idAdresse` int(11) NOT NULL,
-  `idStock` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `idStock` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -68,7 +78,8 @@ CREATE TABLE `boutique` (
 -- Structure de la table `commande`
 --
 
-CREATE TABLE `commande` (
+DROP TABLE IF EXISTS `commande`;
+CREATE TABLE IF NOT EXISTS `commande` (
   `numeroCMD` int(11) NOT NULL,
   `dateCMD` datetime NOT NULL,
   `etatCMD` enum('en préparation','préparée','en livraison','livrée') NOT NULL,
@@ -83,10 +94,12 @@ CREATE TABLE `commande` (
 -- Structure de la table `destination`
 --
 
-CREATE TABLE `destination` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `destination`;
+CREATE TABLE IF NOT EXISTS `destination` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `designation` varchar(200) NOT NULL,
-  `description` varchar(400) NOT NULL
+  `description` varchar(400) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -95,10 +108,12 @@ CREATE TABLE `destination` (
 -- Structure de la table `droit`
 --
 
-CREATE TABLE `droit` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `droit`;
+CREATE TABLE IF NOT EXISTS `droit` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `designation` varchar(200) NOT NULL,
-  `description` varchar(400) NOT NULL
+  `description` varchar(400) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -107,14 +122,16 @@ CREATE TABLE `droit` (
 -- Structure de la table `entreprise`
 --
 
-CREATE TABLE `entreprise` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `entreprise`;
+CREATE TABLE IF NOT EXISTS `entreprise` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `raisonSociale` varchar(30) NOT NULL,
   `nom` varchar(30) NOT NULL,
   `siret` int(14) NOT NULL,
   `ape` varchar(5) NOT NULL,
   `nbEmploye` int(4) NOT NULL,
-  `adresseId` int(11) NOT NULL
+  `adresseId` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -123,7 +140,8 @@ CREATE TABLE `entreprise` (
 -- Structure de la table `facture`
 --
 
-CREATE TABLE `facture` (
+DROP TABLE IF EXISTS `facture`;
+CREATE TABLE IF NOT EXISTS `facture` (
   `idFacture` int(11) NOT NULL,
   `dateFacturation` datetime NOT NULL,
   `dateEcheance` datetime NOT NULL,
@@ -140,10 +158,12 @@ CREATE TABLE `facture` (
 -- Structure de la table `famille`
 --
 
-CREATE TABLE `famille` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `famille`;
+CREATE TABLE IF NOT EXISTS `famille` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `designation` varchar(200) NOT NULL,
-  `description` varchar(400) NOT NULL
+  `description` varchar(400) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -152,7 +172,8 @@ CREATE TABLE `famille` (
 -- Structure de la table `fraisdeport`
 --
 
-CREATE TABLE `fraisdeport` (
+DROP TABLE IF EXISTS `fraisdeport`;
+CREATE TABLE IF NOT EXISTS `fraisdeport` (
   `idFP` int(11) NOT NULL,
   `dateDebut` datetime NOT NULL,
   `dateFin` datetime NOT NULL,
@@ -166,10 +187,12 @@ CREATE TABLE `fraisdeport` (
 -- Structure de la table `gamme`
 --
 
-CREATE TABLE `gamme` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `gamme`;
+CREATE TABLE IF NOT EXISTS `gamme` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `designation` varchar(200) NOT NULL,
-  `description` varchar(400) NOT NULL
+  `description` varchar(400) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -178,7 +201,8 @@ CREATE TABLE `gamme` (
 -- Structure de la table `lignecommande`
 --
 
-CREATE TABLE `lignecommande` (
+DROP TABLE IF EXISTS `lignecommande`;
+CREATE TABLE IF NOT EXISTS `lignecommande` (
   `fk_numeroCMD` int(11) NOT NULL,
   `fk_idProduit` int(11) NOT NULL,
   `quantite` int(11) NOT NULL
@@ -190,7 +214,8 @@ CREATE TABLE `lignecommande` (
 -- Structure de la table `livraison`
 --
 
-CREATE TABLE `livraison` (
+DROP TABLE IF EXISTS `livraison`;
+CREATE TABLE IF NOT EXISTS `livraison` (
   `numLivraison` int(11) NOT NULL,
   `delai` int(11) NOT NULL,
   `dateColisage` datetime NOT NULL,
@@ -205,10 +230,12 @@ CREATE TABLE `livraison` (
 -- Structure de la table `marque`
 --
 
-CREATE TABLE `marque` (
+DROP TABLE IF EXISTS `marque`;
+CREATE TABLE IF NOT EXISTS `marque` (
   `id` int(11) NOT NULL,
   `designation` varchar(200) NOT NULL,
-  `description` varchar(400) NOT NULL
+  `description` varchar(400) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -217,15 +244,17 @@ CREATE TABLE `marque` (
 -- Structure de la table `produit`
 --
 
-CREATE TABLE `produit` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `produit`;
+CREATE TABLE IF NOT EXISTS `produit` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `designation` varchar(20) NOT NULL,
   `description` varchar(150) NOT NULL,
   `poids` float NOT NULL COMMENT 'Poids du produit',
   `prix` float NOT NULL COMMENT 'Prix du produit',
   `lot` int(1) NOT NULL COMMENT 'Indique si le produit est un lot (est comoposé d''autres produit), par défaut non.',
-  `placeRayon` varchar(10) NOT NULL COMMENT 'Indique aux ouvriers l''endroit où se trouve le produit dans les stocks'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `placeRayon` varchar(10) NOT NULL COMMENT 'Indique aux ouvriers l''endroit où se trouve le produit dans les stocks',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -233,11 +262,13 @@ CREATE TABLE `produit` (
 -- Structure de la table `quantite`
 --
 
-CREATE TABLE `quantite` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `quantite`;
+CREATE TABLE IF NOT EXISTS `quantite` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `disponibilite` int(11) NOT NULL,
-  `reserve` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `reserve` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -245,12 +276,14 @@ CREATE TABLE `quantite` (
 -- Structure de la table `remise`
 --
 
-CREATE TABLE `remise` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `remise`;
+CREATE TABLE IF NOT EXISTS `remise` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `pourcentageRemise` float NOT NULL COMMENT 'Pourcentage de la remise à appliquer',
   `dateDebut` datetime NOT NULL,
-  `dateFin` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `dateFin` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -258,13 +291,14 @@ CREATE TABLE `remise` (
 -- Structure de la table `repriseavoir`
 --
 
-CREATE TABLE `repriseavoir` (
-  `id` int(11) NOT NULL COMMENT 'Correspond à numéroAvoir dans le diagramme de classe',
+DROP TABLE IF EXISTS `repriseavoir`;
+CREATE TABLE IF NOT EXISTS `repriseavoir` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Correspond à numéroAvoir dans le diagramme de classe',
   `numAutRetour` int(11) NOT NULL,
   `nbProd` int(11) NOT NULL COMMENT 'Nombre de produit retournés',
   `numCmd` int(11) NOT NULL,
-  `dateV` date NOT NULL COMMENT 'validite de l''avoir'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -272,10 +306,12 @@ CREATE TABLE `repriseavoir` (
 -- Structure de la table `role`
 --
 
-CREATE TABLE `role` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE IF NOT EXISTS `role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `designation` varchar(200) NOT NULL,
-  `description` varchar(400) NOT NULL
+  `description` varchar(400) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -284,9 +320,13 @@ CREATE TABLE `role` (
 -- Structure de la table `roledroit`
 --
 
-CREATE TABLE `roledroit` (
+DROP TABLE IF EXISTS `roledroit`;
+CREATE TABLE IF NOT EXISTS `roledroit` (
   `roleId` int(11) NOT NULL,
-  `droitId` int(11) NOT NULL
+  `droitId` int(11) NOT NULL,
+  PRIMARY KEY (`roleId`,`droitId`),
+  KEY `roleId` (`roleId`),
+  KEY `droitId` (`droitId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -295,9 +335,11 @@ CREATE TABLE `roledroit` (
 -- Structure de la table `statut`
 --
 
-CREATE TABLE `statut` (
-  `id` int(11) NOT NULL,
-  `designation` varchar(200) NOT NULL
+DROP TABLE IF EXISTS `statut`;
+CREATE TABLE IF NOT EXISTS `statut` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `designation` varchar(200) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -306,10 +348,12 @@ CREATE TABLE `statut` (
 -- Structure de la table `stock`
 --
 
-CREATE TABLE `stock` (
-  `id` int(11) NOT NULL,
-  `typeStock` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `stock`;
+CREATE TABLE IF NOT EXISTS `stock` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `typeStock` varchar(30) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -317,10 +361,12 @@ CREATE TABLE `stock` (
 -- Structure de la table `transporteur`
 --
 
-CREATE TABLE `transporteur` (
+DROP TABLE IF EXISTS `transporteur`;
+CREATE TABLE IF NOT EXISTS `transporteur` (
   `nom` int(11) NOT NULL,
-  `entrepriseId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `entrepriseId` int(11) NOT NULL,
+  PRIMARY KEY (`nom`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -328,10 +374,12 @@ CREATE TABLE `transporteur` (
 -- Structure de la table `transportlivraison`
 --
 
-CREATE TABLE `transportlivraison` (
+DROP TABLE IF EXISTS `transportlivraison`;
+CREATE TABLE IF NOT EXISTS `transportlivraison` (
   `nom` int(11) NOT NULL,
-  `entrepriseId` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `entrepriseId` int(11) NOT NULL,
+  PRIMARY KEY (`nom`,`entrepriseId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -339,7 +387,8 @@ CREATE TABLE `transportlivraison` (
 -- Structure de la table `utilisateur`
 --
 
-CREATE TABLE `utilisateur` (
+DROP TABLE IF EXISTS `utilisateur`;
+CREATE TABLE IF NOT EXISTS `utilisateur` (
   `id` int(11) NOT NULL,
   `nom` char(15) DEFAULT NULL,
   `prenom` char(15) DEFAULT NULL,
@@ -358,151 +407,13 @@ CREATE TABLE `utilisateur` (
   `avatar` varchar(250) DEFAULT NULL,
   `entrepriseId` int(11) NOT NULL,
   `roleId` int(11) NOT NULL,
-  `statutId` int(11) NOT NULL
+  `statutId` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `entrepriseId` (`entrepriseId`),
+  KEY `roleId` (`roleId`),
+  KEY `statutId` (`statutId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Index pour les tables exportées
---
-
---
--- Index pour la table `adresse`
---
-ALTER TABLE `adresse`
-  ADD PRIMARY KEY (`adresseId`);
-
---
--- Index pour la table `avisclient`
---
-ALTER TABLE `avisclient`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `pId` (`pId`),
-  ADD KEY `uId` (`uId`);
-
---
--- Index pour la table `destination`
---
-ALTER TABLE `destination`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `droit`
---
-ALTER TABLE `droit`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `entreprise`
---
-ALTER TABLE `entreprise`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `famille`
---
-ALTER TABLE `famille`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `gamme`
---
-ALTER TABLE `gamme`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `marque`
---
-ALTER TABLE `marque`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `role`
---
-ALTER TABLE `role`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `roledroit`
---
-ALTER TABLE `roledroit`
-  ADD PRIMARY KEY (`roleId`,`droitId`),
-  ADD KEY `roleId` (`roleId`),
-  ADD KEY `droitId` (`droitId`);
-
---
--- Index pour la table `statut`
---
-ALTER TABLE `statut`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `utilisateur`
---
-ALTER TABLE `utilisateur`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `entrepriseId` (`entrepriseId`),
-  ADD KEY `roleId` (`roleId`),
-  ADD KEY `statutId` (`statutId`);
-
---
--- AUTO_INCREMENT pour les tables exportées
---
-
---
--- AUTO_INCREMENT pour la table `avisclient`
---
-ALTER TABLE `avisclient`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `destination`
---
-ALTER TABLE `destination`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `droit`
---
-ALTER TABLE `droit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `entreprise`
---
-ALTER TABLE `entreprise`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `famille`
---
-ALTER TABLE `famille`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `gamme`
---
-ALTER TABLE `gamme`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `role`
---
-ALTER TABLE `role`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `statut`
---
-ALTER TABLE `statut`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT pour la table `utilisateur`
---
-ALTER TABLE `utilisateur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- Contraintes pour les tables exportées
---
-
---
--- Contraintes pour la table `roledroit`
---
-ALTER TABLE `roledroit`
-  ADD CONSTRAINT `fk1` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk2` FOREIGN KEY (`droitId`) REFERENCES `droit` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
