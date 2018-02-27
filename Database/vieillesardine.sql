@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS `boutique` (
   PRIMARY KEY (`id`),
   KEY `fk_adresseid` (`idAdresse`),
   KEY `fk_stockid` (`idStock`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -280,7 +280,7 @@ CREATE TABLE IF NOT EXISTS `produit` (
   KEY `fk_marqueId` (`marqueId`),
   KEY `fk_destinationId` (`destinationId`),
   KEY `fk_remiseId` (`remiseId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -296,7 +296,7 @@ CREATE TABLE IF NOT EXISTS `quantite` (
   `stockId` int(11) NOT NULL,
   PRIMARY KEY (`produitId`,`stockId`),
   KEY `fk_StockIds` (`stockId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -312,7 +312,7 @@ CREATE TABLE IF NOT EXISTS `remise` (
   `dateFin` datetime NOT NULL,
   `plafondAchat` int(11) NOT NULL DEFAULT '2000',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -329,7 +329,7 @@ CREATE TABLE IF NOT EXISTS `repriseavoir` (
   `dateValidite` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_idCommandeRepriseAvoir` (`idCommande`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -383,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `stock` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `typeStock` varchar(30) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -398,7 +398,7 @@ CREATE TABLE IF NOT EXISTS `transporteur` (
   `entrepriseId` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_entrepriseID` (`entrepriseId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
