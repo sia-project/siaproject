@@ -1,17 +1,19 @@
 CREATE SCHEMA `lvs` DEFAULT CHARACTER SET utf8 ;
-
 USE lvs;
 
+DROP TABLE IF EXISTS produitRepriseAvoir;
 DROP TABLE IF EXISTS repriseAvoir;
 DROP TABLE IF EXISTS remise;
 DROP TABLE IF EXISTS prodStock;
 DROP TABLE IF EXISTS avisClient;
 DROP TABLE IF EXISTS ligneCommande;
+DROP TABLE IF EXISTS compositionProduit;
 DROP TABLE IF EXISTS produit;
-DROP TABLE IF EXISTS tauxTVA;
+DROP TABLE IF EXISTS gammeProduit;
 DROP TABLE IF EXISTS familleProduit;
 DROP TABLE IF EXISTS facture;
 DROP TABLE IF EXISTS livraison;
+DROP TABLE IF EXISTS commandeMultipleUtilisateur;
 DROP TABLE IF EXISTS commande;
 DROP TABLE IF EXISTS fraisDePort;
 DROP TABLE IF EXISTS clientAdresse;
@@ -35,7 +37,7 @@ CREATE TABLE adresse
 CREATE TABLE stock
 (
 	stockId INT(11) PRIMARY KEY,
-	typeStock VARCHAR(30)
+	typeStock ENUM('stock retour','stock local','')
 )ENGINE=InnoDB;
 
 CREATE TABLE boutique
@@ -144,6 +146,15 @@ CREATE TABLE commande
 	FOREIGN KEY (fraisPortId) REFERENCES fraisDePort(fraisPortId)
 )ENGINE=InnoDB;
 
+CREATE TABLE commandeMultipleUtilisateur
+(
+	cmdId INT(11),
+	uId INT(11),
+	PRIMARY KEY (cmdId,uId),
+	FOREIGN KEY (cmdId) REFERENCES commande(cmdId) ON DELETE CASCADE,
+    FOREIGN KEY (uId) REFERENCES utilisateur(uId) ON DELETE CASCADE
+)ENGINE=InnoDB;
+
 CREATE TABLE livraison
 (
 	livraisonId INT(11)PRIMARY KEY,
@@ -174,10 +185,11 @@ CREATE TABLE familleProduit
 	description VARCHAR(150)
 )ENGINE=InnoDB;
 
-CREATE TABLE tauxTVA
+CREATE TABLE gammeProduit
 (
-	idTaux INT(2) PRIMARY KEY,
-	taux FLOAT(5,2)
+	gammeProduitId INT(11) PRIMARY KEY,
+	libelle VARCHAR(50),
+	description VARCHAR(150)
 )ENGINE=InnoDB;
 
 CREATE TABLE produit
@@ -190,10 +202,21 @@ CREATE TABLE produit
 	prixHT FLOAT(6,2),
 	lot INT(1),
 	placeRayon VARCHAR(30),
-	typeTVA INT(2),
+	typeTVA ENUM('5,5%','10%','20%'),
 	familleProduitId INT(11),
-	FOREIGN KEY (typeTVA) REFERENCES tauxTVA(idTaux),
-	FOREIGN KEY (familleProduitId) REFERENCES familleProduit(familleProduitId)
+	gammeProduitId INT(11),
+	destination VARCHAR(30),
+	FOREIGN KEY (familleProduitId) REFERENCES familleProduit(familleProduitId),
+	FOREIGN KEY (gammeProduitId) REFERENCES gammeProduit(gammeProduitId)
+)ENGINE=InnoDB;
+
+CREATE TABLE compositionProduit
+(
+	produitComposeId INT(11),
+	produitComposantId INT(11),
+	PRIMARY KEY (produitComposeId,produitComposantId),
+	FOREIGN KEY (produitComposeId) REFERENCES produit(prodId) ON DELETE CASCADE,
+	FOREIGN KEY (produitComposantId) REFERENCES produit(prodId) ON DELETE CASCADE
 )ENGINE=InnoDB;
 
 CREATE TABLE ligneCommande
@@ -245,9 +268,16 @@ CREATE TABLE repriseAvoir
 (
 	repriseId INT(11) PRIMARY KEY,
 	numAuthRetour INT(11),
+	cmdId INT(11),
+	FOREIGN KEY (cmdId) REFERENCES commande(cmdId)
+)ENGINE=InnoDB;
+
+CREATE TABLE produitRepriseAvoir
+(
+	repriseId INT(11),
 	prodId INT(11),
 	qteRetourne INT(2),
-	cmdId INT(11),
-	FOREIGN KEY (prodId) REFERENCES produit(prodId),
-	FOREIGN KEY (cmdId) REFERENCES commande(cmdId)
+	PRIMARY KEY(repriseId,prodId),
+	FOREIGN KEY (repriseId) REFERENCES repriseAvoir(repriseId) ON DELETE CASCADE,
+	FOREIGN KEY (prodId) REFERENCES produit(prodId) ON DELETE CASCADE
 )ENGINE=InnoDB;
