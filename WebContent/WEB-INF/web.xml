@@ -15,6 +15,14 @@
 		<servlet-name>Authentication</servlet-name>
 		<url-pattern>/authentication</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ManageAccount</servlet-name>
+		<servlet-class>control.ManageAccount</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManageAccount</servlet-name>
+		<url-pattern>/manageAccount</url-pattern>
+	</servlet-mapping>
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
