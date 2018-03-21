@@ -96,6 +96,7 @@ public class ManageAccount extends HttpServlet {
 				}
 				else {
 					DAO.createAccount(civilite,nom,prenom,email,mdp);
+					sendAccountValidationEmail(email);
 					pageToSend="createAccountSuccess.jsp";
 				}
 				break;
@@ -195,33 +196,6 @@ public class ManageAccount extends HttpServlet {
 		return sb.toString();
 	}
 	
-	
-	
-	    
-	        
-	        
-	        
-	        
-	         
-	        
-	    
-	    
-	        
-	            
-	                
-	                    
-	                        
-	                            
-	                                
-	                            
-	                       
-	                    
-	               
-	            
-	        
-	    
-	
-
 	@Override
 	protected void doGet(HttpServletRequest request,HttpServletResponse response)
 			throws ServletException, IOException {

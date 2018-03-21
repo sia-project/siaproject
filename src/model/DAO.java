@@ -25,9 +25,6 @@ public class DAO {
 	private static String mail;
 	private static int role;
 	
-	
-
-	
 	private static int prodId;
 	private static String libelle;
 	private static String marque;
@@ -51,7 +48,7 @@ public class DAO {
 			String encryptedPasswordToTest = Encryption.encrypt(BCrypt.hashpw(password,sel), cle);
 			if(encryptedPasswordToTest.equals(mdp)) 
 			{
-				user = new Utilisateur(uId, civilite, nom, prenom, mail, cle);
+				user = new Utilisateur(uId, nom, prenom, mail, cle);
 			}
 		}
 		return user;
@@ -92,10 +89,9 @@ public class DAO {
 		return b;	
 	}
 	
-	/**			prepStmt.executeUpdate();
-
-	 * Update last connection dateTime of the user 
-	 * @param userIdparameterIndex, x
+	/**
+	 * Update last connection time of a user
+	 * @param userId the id of the user
 	 */
 	public static void updateLastConnectionDateTime(int userId) {
 		java.util.Date date = new java.util.Date();
@@ -111,12 +107,125 @@ public class DAO {
 		}
 	}
 	
+	/**
+	 * Checks if the email in parameter already exists 
+	 * @param email
+	 * @return true if mail already exists
+	 */
+	public static boolean mailExists(String email) 
+	{		
+		boolean b = false;
+		try {
+			Connection con = Connect.get();
+			PreparedStatement req = con.prepareStatement("SELECT COUNT(*) FROM UTILISATEUR WHERE adrMail = ?");
+			req.setString(1, email);
+			ResultSet rs = req.executeQuery();
+			rs.next();
+			b = rs.getInt(1)>0;
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return b;
+	}
+	
+	/**
+	 * Creates user account 
+	 * @param civilite
+	 * @param nom
+	 * @param prenom
+	 * @param email
+	 * @param mdp
+	 */
+	public static void createAccount(String civilite, String nom, String prenom, String email, String mdp) {
+		int lastIdUser=0;
+		String salt = BCrypt.gensalt(14);
+		String encryptedPassword = Encryption.encrypt(BCrypt.hashpw(mdp, salt));
+		String generatedKey = Encryption.getGeneratedKey();
+		java.util.Date date = new java.util.Date(); 
+		Timestamp ts = new Timestamp(date.getTime());
+		try {
+			Connection con = Connect.get();
+			lastIdUser = getLastIdUser();
+			lastIdUser++;
+			PreparedStatement req = con.prepareStatement("INSERT INTO UTILISATEUR (uId, civilite, nom, prenom, adrMail, mdp, cle, sel, dateCreationCompte, etatCompte) VALUES (?,?,?,?,?,?,?,?,?,?)");
+			req.setInt(1, lastIdUser);
+			req.setString(2, civilite);
+			req.setString(3, nom);
+			req.setString(4, prenom);
+			req.setString(5, email);
+			req.setString(6, encryptedPassword);
+			req.setString(7, generatedKey);
+			req.setString(8, salt);
+			req.setTimestamp(9, ts);
+			req.setInt(10, 0);
+			req.executeUpdate();
+		}catch(SQLException e) 
+		{
+			System.out.println("ERREUR SQL : "+e); 
+		}
+
+	}
+	
+	/**
+	 * Get id of  last user which was created in DB
+	 * @return id of last user inserted
+	 */
+	private static int getLastIdUser() {
+		int lastIdUserInserted = 0;
+		try {
+			Connection con = Connect.get();
+			PreparedStatement req = con.prepareStatement("select MAX(uId) AS lastId FROM UTILISATEUR");
+			ResultSet rs = req.executeQuery();
+			while (rs.next()) {
+				lastIdUserInserted = rs.getInt("lastId");
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur SQL :" + e);
+		}
+
+		return lastIdUserInserted;
+	}
+
+	
+	/**
+	 * Get user by his email
+	 * @param email user email
+	 * @return Utilisateur
+	 */
+	public static Utilisateur getUserByMail(String email) {
+		Utilisateur user = null;
+		try {
+			Connection con = Connect.get();
+			PreparedStatement req = con.prepareStatement("SELECT civilite,"
+					+ 										   " nom,"
+					+ 										   " prenom,"
+					+ 										   " cle,"
+					+                						   " FROM UTILISATEUR WHERE adrMail = ?");
+			req.setString(1, email);
+			ResultSet rs = req.executeQuery();
+			while(rs.next()) {
+				user = new Utilisateur(rs.getString(1),
+						rs.getString(2),
+						rs.getString(3),
+						email,
+						rs.getString(4));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+
 	
 	
+	/**
+	 * Create product in database
+	 * @param p the product
+	 * @return the id of the product
+	 */
 	public static String createProduit (Produit p) {
 		Connection con = Connect.get();
-		String pid=null; // 
-		
+		String pid=null; 
 		PreparedStatement prepStmt=null;
 		try {
 			prepStmt=con.prepareStatement(INSERT_SQL);
@@ -130,9 +239,6 @@ public class DAO {
 			prepStmt.setString(i++, p.getTypeTVA());
 			prepStmt.setInt(i++, p.getFamilleProduitId());			
 			prepStmt.setInt(i++, p.getGammeProduitId());
-			
-			
-
 			prepStmt.executeUpdate();
 			
 		}catch (Exception e) {
