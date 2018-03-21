@@ -1,0 +1,270 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>La Vieille Sardine</title>
+<!--/tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Elite Shoppy Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--//tags -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="css/easy-responsive-tabs.css" rel='stylesheet' type='text/css'/>
+<link rel="stylesheet" href="css/bootstrap-datepicker.css"/>
+
+<!-- //for bootstrap working -->
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+<link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,900italic,700italic' rel='stylesheet' type='text/css'>
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="imgur-master/build/imgur.min.css" rel="stylesheet" media="screen">
+
+</head>
+<body>
+
+
+    <style>
+        .jumbotron h1, .jumbotron p {
+            padding-left: 60px;
+            padding-right: 60px;
+        }
+
+        .col-md {
+            margin: 0 auto;
+            max-width: 500px
+        }
+    </style>
+<!--L'accès à cette page doit etre protégé, un client ne peut pas ajouter de produit, vérification de variable session (ou autre) une fois lié au back -->
+
+
+<div id="header"> </div>
+
+<!--Add Product -->
+  
+
+<form class="form-horizontal">
+<fieldset>
+
+<!-- Form Name -->
+<center><legend>Ajouter un produit</legend></center>
+
+
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="product_name">Nom du produit</label>  
+  <div class="col-md-4">
+  <input id="product_name" name="product_name" class="form-control input-md" required="" type="text" required>
+    
+  </div>
+</div>
+
+<!-- Textarea -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="product_description">Description</label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="product_description" name="product_description" required></textarea>
+  </div>
+</div>
+
+<!-- Textarea -->
+
+<!-- Select Basic : A rajouter dynamiquement les options du select : les récupérer de la bdd et les insérer ici, à faire une fois nos travaux mis en commun-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="product_categorie">Catégorie</label>
+  <div class="col-md-4">
+    <select id="product_categorie" name="product_categorie" class="form-control" required> 
+    </select>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="available_quantity">Quantité</label>  
+  <div class="col-md-4">
+  <input id="available_quantity" name="available_quantity" class="form-control input-md" required="" type="text">
+    
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="product_weight">Poids</label>  
+  <div class="col-md-4">
+  <input id="product_weight" name="product_weight" class="form-control input-md" required="" type="text">
+    
+  </div>
+</div>
+
+
+    <div class="jumbotron">
+      <div class="col-md">
+        <div class="dropzone"></div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="imgur-master/build/imgur.min.js"></script>
+    <script type="text/javascript">
+        var feedback = function (res) {
+            if (res.success === true) {
+                var status = document.querySelector('.status');
+                var p = document.createElement('p');
+                var t = document.createTextNode('Image url: ' + res.data.link);
+
+                p.appendChild(t);
+
+                status.classList.add('bg-success');
+                status.appendChild(p);
+                // document.querySelector('.status').innerHTML = 'Image url: ' + res.data.link;
+            }
+        };
+
+        new Imgur({
+            clientid: 'cc86a8de0e7c459',
+            callback: feedback
+        });
+    </script>
+
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="singlebutton"></label>
+  <div class="col-md-4">
+    <center><button id="singlebutton" name="singlebutton" class="btn btn-primary">Valider</button></center>
+  </div>
+  </div>
+
+</fieldset>
+</form>
+
+
+
+<!--Add Product : End -->
+
+<div id="footer"></div>
+
+
+<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+
+<!-- js -->
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<!-- //js -->
+<script src="js/modernizr.custom.js"></script>
+	<!-- Custom-JavaScript-File-Links --> 
+	<!-- cart-js -->
+	<script src="js/minicart.min.js"></script>
+<script>
+	// Mini Cart
+	paypal.minicart.render({
+		action: '#'
+	});
+
+	if (~window.location.search.indexOf('reset=true')) {
+		paypal.minicart.reset();
+	}
+</script>
+
+
+
+	<!-- //cart-js --> 
+<!-- script for responsive tabs -->						
+<script src="js/easy-responsive-tabs.js"></script>
+<script>
+	$(document).ready(function () {
+	$('#horizontalTab').easyResponsiveTabs({
+	type: 'default', //Types: default, vertical, accordion           
+	width: 'auto', //auto or any width like 600px
+	fit: true,   // 100% fit in a container
+	closed: 'accordion', // Start closed if in accordion view
+	activate: function(event) { // Callback function if tab is switched
+	var $tab = $(this);
+	var $info = $('#tabInfo');
+	var $name = $('span', $info);
+	$name.text($tab.text());
+	$info.show();
+	}
+	});
+	$('#verticalTab').easyResponsiveTabs({
+	type: 'vertical',
+	width: 'auto',
+	fit: true
+	});
+	});
+</script>
+
+<!-- //Used to include the footer and the header sections -->		
+
+<script> 
+$(function(){
+  $("#header").load("header.html"); 
+  $("#footer").load("footer.html"); 
+});
+</script> 
+<!-- //End -->		
+
+
+<!-- //script for responsive tabs -->		
+<!-- stats -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/jquery.countup.js"></script>
+	<script>
+		$('.counter').countUp();
+	</script>
+<!-- //stats -->
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+<!-- //here ends scrolling icon -->
+
+
+<!-- for bootstrap working -->
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+<script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'mm/dd/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
+</body>
+</html>

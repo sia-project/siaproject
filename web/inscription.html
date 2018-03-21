@@ -1,0 +1,130 @@
+<h3 class="agileinfo_sign">Inscription <span>Maintenant</span></h3>
+							
+							<form action="#" method="post">
+							
+							
+							<div class="form-check">
+	  							<input class="form-check-input" type="checkbox" onchange="dynInput();" id="Check1">
+		 						<label class="form-check-label" for="Check1">
+		   						 Client proffesionnel
+								  </label>
+							</div>
+							<div >
+							<span>Civilité</span>
+							<span></span>
+							</div>
+							<div  type="radio">
+								<label><input type="radio" name="civilite" required="">
+								M</label>
+								<label><input type="radio" name="civilite" required="">
+								Mme</label>
+								<span></span>
+							</div>
+							
+							<div  class="styled-input agile-styled-input-top">
+								<input type="text" name="Name" required="">
+								<label>Nom</label>
+								<span></span>
+							</div>
+							<div>
+							<div id="prenom" class="styled-input agile-styled-input-top">
+								<input type="text" name="Name" required="">
+								<label>Prénom</label>
+								<span></span>
+							</div>
+							</div>
+							
+							<div id="daten">
+
+       							<input  id="date" name="date" type="text" placeholder="Date de naissance"/>
+   								<span></span>
+      							
+							</div>
+
+							<div id="c1" class="styled-input" >
+								<input type="text" name="Name" required=""> 
+								<label>Nom de l'entreprise</label>
+								<span></span>
+							</div> 
+
+							<div id="c2" class="styled-input" >
+								<input type="text" name="Name" required=""> 
+								<label>Siret</label>
+								<span></span>
+							</div> 
+							<div class="styled-input">
+								<input type="text" name="Name" required=""> 
+								<label>Adresse</label>
+								<span></span>
+							</div> 
+							
+							<div class="styled-input">
+								<input type="text" name="Name" required=""> 
+								<label>Code Postal</label>
+								<span></span>
+							</div> 
+
+
+							<div class="styled-input">
+								<input type="text" name="Name" required=""> 
+								<label>Ville</label>
+								<span></span>
+							</div> 
+							<div class="styled-input">
+								<input type="text" name="Name" required=""> 
+								<label>Téléphone</label>
+								<span></span>
+							</div> 
+							<div  class="styled-input">
+								<input type="email" name="Email" required=""> 
+								<label>Email</label>
+								<span></span>
+							</div> 
+							<div class="styled-input">
+								<input type="password" name="password" required=""> 
+								<label>Mot de passe</label>
+								<span></span>
+							</div> 
+							<div class="styled-input">
+								<input type="password" name="Confirm Password" required=""> 
+								<label>Confirmation du mot de passe</label>
+								<span></span>
+							</div> 
+							<input type="submit" value="Valider">
+						</form>
+						
+						<div id="form2">
+						</div>
+<script>
+    $(document).ready(function(){
+
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'mm/dd/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+      console.log("halo");
+      dynInput();
+    })
+
+function dynInput(){
+	 
+	 var c1=document.getElementById('c1');
+	 var c2=document.getElementById('c2');
+	
+	
+	if(document.getElementById('Check1').checked == true){
+		c1.style.display ='block';
+		c2.style.display='block';
+	}
+	if(document.getElementById('Check1').checked == false){
+		c1.style.display ='none';
+		c2.style.display='none';
+       
+	}
+}
+</script>
