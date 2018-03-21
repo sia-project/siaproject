@@ -47,17 +47,17 @@ h2.resp-accordion {
   display: none;
 }
 .resp-tab-active {
-  border-bottom: 4px solid #fc636b;
+  border-bottom: 4px solid #63defc;
   margin-bottom: -1px !important;
   position:relative;
-  background:#fc636b;
+  background:#63defc;
 }
 .resp-tab-active:before {
     content: '';
     position: absolute;
     width: 0;
     height: 0;
-    border-top: 10px solid #fc636b;
+    border-top: 10px solid #63defc;
     border-left: 10px solid rgba(69, 42, 21, 0);
     border-right: 10px solid rgba(199, 57, 57, 0);
     left: 45%;
@@ -70,7 +70,7 @@ h2.resp-accordion {
 }
 
 .resp-tab-active {
-     background-color:#fc636b;
+     background-color:#63defc;
 }
 
 .resp-content-active,
@@ -199,7 +199,7 @@ h2.resp-accordion { display: block; }
 .resp-vtabs .resp-tab-content:last-child { border-bottom: 1px solid #c1c1c1 !important; }
 
 h2.resp-tab-active {
-    background: #fc636b !important;
+    background: #63defc !important;
 }
 }
 @media only screen and (max-width: 568px) {
