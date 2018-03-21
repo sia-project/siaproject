@@ -10,15 +10,34 @@ import security.BCrypt;
 import security.Encryption;
 
 public class DAO {
-
+	
+	private static final String INSERT_SQL = null;
+	private static final String SELECT_SQL = null;
+	private static final String UPDATE_SQL = null;
+	private static final String DELETE_SQL = null;
 	private static int uId;
+	private static String civilite;
 	private static String nom;
 	private static String prenom;
 	private static String cle;
 	private static String mdp;
 	private static String sel;
 	private static String mail;
+	private static int role;
+	
+	
 
+	
+	private static int prodId;
+	private static String libelle;
+	private static String marque;
+	private static String description;
+	private static double poids;
+	private static double prixHT;
+	private static String typeTVA;
+	private static int familleProduitId;
+	private static int gammeProduitId;
+	
 
 	/**
 	 * Authentication of user
@@ -32,12 +51,12 @@ public class DAO {
 			String encryptedPasswordToTest = Encryption.encrypt(BCrypt.hashpw(password,sel), cle);
 			if(encryptedPasswordToTest.equals(mdp)) 
 			{
-				user = new Utilisateur(uId, nom, prenom, mail, cle);
+				user = new Utilisateur(uId, civilite, nom, prenom, mail, cle);
 			}
 		}
 		return user;
 	}
-
+	
 	/**
 	 * Get user Credentials
 	 * @param adrMail the userLogin
@@ -48,20 +67,22 @@ public class DAO {
 		boolean b = false;
 		try {
 			Connection con = Connect.get();
-			PreparedStatement req = con.prepareStatement("SELECT uId, nom, prenom, mdp, cle, sel LIMIT 1"
-					+"FROM UTILISATEUR"
-					+"WHERE adrMail  = ? ");								
+			PreparedStatement req = con.prepareStatement("SELECT uId, civilite, nom, prenom, mdp, cle, sel, roleId LIMIT 1"
+														+"FROM UTILISATEUR"
+														+"WHERE adrMail  = ? ");								
 			req.setString(1, adrMail);
-
+			
 			ResultSet rs = req.executeQuery();
-			while(rs.next()) 
+			while(rs.next()) 			
 			{
 				uId = rs.getInt(1);
-				nom = rs.getString(2);
-				prenom = rs.getString(3);
-				mdp = rs.getString(4);
-				cle = rs.getString(5);
-				sel = rs.getString(6);
+				civilite = rs.getString(2);
+				nom = rs.getString(3);
+				prenom = rs.getString(4);
+				mdp = rs.getString(5);
+				cle = rs.getString(6);
+				sel = rs.getString(7);
+				role = rs.getInt(8);
 				mail = adrMail;
 				b = true;
 			}
@@ -70,10 +91,11 @@ public class DAO {
 		}
 		return b;	
 	}
+	
+	/**			prepStmt.executeUpdate();
 
-	/**
 	 * Update last connection dateTime of the user 
-	 * @param userId
+	 * @param userIdparameterIndex, x
 	 */
 	public static void updateLastConnectionDateTime(int userId) {
 		java.util.Date date = new java.util.Date();
@@ -88,112 +110,127 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
-
-	/**
-	 * Checks if the email in parameter already exists 
-	 * @param email
-	 * @return true if mail already exists
-	 */
-	public static boolean mailExists(String email) 
-	{		
-		boolean b = false;
+	
+	
+	
+	public static String createProduit (Produit p) {
+		Connection con = Connect.get();
+		String pid=null; // 
+		
+		PreparedStatement prepStmt=null;
 		try {
-			Connection con = Connect.get();
-			PreparedStatement req = con.prepareStatement("SELECT COUNT(*) FROM TBL1 WHERE TBL105 = ?");
-			req.setString(1, email);
-			ResultSet rs = req.executeQuery();
-			rs.next();
-			b = rs.getInt(1)>0;
-		}catch(SQLException e){
-			e.printStackTrace();
+			prepStmt=con.prepareStatement(INSERT_SQL);
+			int i=1;
+			prepStmt.setInt(i++, p.getProdId());
+			prepStmt.setString(i++, p.getLibelle());
+			prepStmt.setString(i++, p.getMarque());
+			prepStmt.setString(i++, p.getDescription());
+			prepStmt.setDouble(i++, p.getPoids());
+			prepStmt.setDouble(i++, p.getPrixHT());
+			prepStmt.setString(i++, p.getTypeTVA());
+			prepStmt.setInt(i++, p.getFamilleProduitId());			
+			prepStmt.setInt(i++, p.getGammeProduitId());
+			
+			
+
+			prepStmt.executeUpdate();
+			
+		}catch (Exception e) {
+			
+		}finally {
+			
 		}
-		return b;
+		return pid;
 	}
-
-	/**
-	 * Creates user account 
-	 * @param civilite
-	 * @param nom
-	 * @param prenom
-	 * @param email
-	 * @param mdp
-	 */
-	public static void createAccount(String civilite, String nom, String prenom, String email, String mdp) {
-		int lastIdUser=0;
-		String salt = BCrypt.gensalt(14);
-		String encryptedPassword = Encryption.encrypt(BCrypt.hashpw(mdp, salt));
-		String generatedKey = Encryption.getGeneratedKey();
-		java.util.Date date = new java.util.Date(); 
-		Timestamp ts = new Timestamp(date.getTime());
+	
+	public static Produit findById(int id) {
+		Produit p=null; // 		
+		Connection con = Connect.get();
+		ResultSet rs=null; // 
+		
+		PreparedStatement prepStmt=null;
 		try {
-			Connection con = Connect.get();
-			lastIdUser = getLastIdUser();
-			lastIdUser++;
-			PreparedStatement req = con.prepareStatement("INSERT INTO UTILISATEUR (uId, civilite, nom, prenom, adrMail, mdp, cle, sel, dateCreationCompte, etatCompte) VALUES (?,?,?,?,?,?,?,?,?,?)");
-			req.setInt(1, lastIdUser);
-			req.setString(2, civilite);
-			req.setString(3, nom);
-			req.setString(4, prenom);
-			req.setString(5, email);
-			req.setString(6, encryptedPassword);
-			req.setString(7, generatedKey);
-			req.setString(8, salt);
-			req.setTimestamp(9, ts);
-			req.setInt(10, 0);
-			req.executeUpdate();
-		}catch(SQLException e) 
-		{
-			System.out.println("ERREUR SQL : "+e); 
-		}
-
-	}
-
-	/**
-	 * Get id of  last user which was created in DB
-	 * @return id of last user inserted
-	 */
-	private static int getLastIdUser() {
-		int lastIdUserInserted = 0;
-		try {
-			Connection con = Connect.get();
-			PreparedStatement req = con.prepareStatement("select MAX(uId) AS lastId FROM UTILISATEUR");
-			ResultSet rs = req.executeQuery();
-			while (rs.next()) {
-				lastIdUserInserted = rs.getInt("lastId");
+			prepStmt=con.prepareStatement(SELECT_SQL);
+			prepStmt.setLong(1, id);
+			rs=prepStmt.executeQuery();
+			if(rs.next()) {
+				p=new Produit();
+				p.setProdId(rs.getInt(1));
+				p.setLibelle(rs.getString(2));
+				p.setMarque(rs.getString(3));
+				p.setDescription(rs.getString(4));
+				p.setPoids(rs.getDouble(5));
+				p.setPrixHT(rs.getDouble(6));
+				p.setLot(rs.getInt(7));
+				p.setPlaceRayon(rs.getString(8));
+				p.setPlaceRayon(rs.getString(9));
+				p.setTypeTVA(rs.getString(10));
+				p.setDestination(rs.getString(11));
+				p.setFamilleProduitId(rs.getInt(12));
+				p.setGammeProduitId(rs.getInt(13));
 			}
-		} catch (SQLException e) {
-			System.out.println("Erreur SQL :" + e);
+					
+		}catch (Exception e) {
+			
+		}finally {
+			
 		}
-
-		return lastIdUserInserted;
+		return p;
+		
 	}
-
-	/**
-	 * Get user by his email
-	 * @param email user email
-	 * @return Utilisateur
-	 */
-	public static Utilisateur getUserByMail(String email) {
-		Utilisateur user = null;
+	
+	public void updateProduit(Produit p) {
+		Connection con=null;
+		PreparedStatement prepStmt =null ;
 		try {
-			Connection con = Connect.get();
-			PreparedStatement req = con.prepareStatement("SELECT civilite,"
-					+ 										   " nom,"
-					+ 										   " prenom,"
-					+ 										   " cle,"
-					+                						   " FROM UTILISATEUR WHERE adrMail = ?");
-			req.setString(1, email);
-			ResultSet rs = req.executeQuery();
-			while(rs.next()) {
-				user = new Utilisateur(rs.getString(1),
-						rs.getString(2),
-						rs.getString(3),
-						email,
-						rs.getString(4));
+			con=Connect.get();
+			prepStmt=con.prepareStatement(UPDATE_SQL);
+			int i=1;
+			prepStmt.setInt(i++, p.getProdId());
+			prepStmt.setString(i++, p.getLibelle());
+			prepStmt.setString(i++, p.getMarque());
+			prepStmt.setString(i++, p.getDescription());
+			prepStmt.setDouble(i++, p.getPoids());
+			prepStmt.setDouble(i++, p.getPrixHT());
+			prepStmt.setString(i++, p.getTypeTVA());
+			prepStmt.setInt(i++, p.getFamilleProduitId());			
+			prepStmt.setInt(i++, p.getGammeProduitId());
+						
+			prepStmt.setInt(i++, p.getProdId());
+			int rowCount=prepStmt.executeUpdate();
+			if (rowCount==0) {
+				throw new Exception (
+						"Update error : Produit ID :"+p.getProdId());
 			}
-		}catch(SQLException e) {
-			e.printStackTrace();
+			
+
+		} catch (Exception e) {
+			
+		}finally {
+			
 		}
-		return user;
 	}
+	
+	
+	
+	public void deleteProduit(int id) throws Exception {
+		Connection con=Connect.get();
+		PreparedStatement prepStmt=null;
+		try {
+			prepStmt=con.prepareStatement(DELETE_SQL);
+			prepStmt.setInt(1, id);
+			prepStmt.executeUpdate();
+			
+			
+
+		} catch (Exception e) {
+			
+		}finally {
+			
+		}
+	}
+	
+	
+
 }
+
