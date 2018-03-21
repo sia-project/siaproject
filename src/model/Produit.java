@@ -1,6 +1,9 @@
 package model;
 
-public class Produit {
+import java.io.Serializable;
+
+public class Produit implements Serializable {
+
 	private int prodId;
 	private String libelle;
 	private String marque;
@@ -14,6 +17,27 @@ public class Produit {
 	private int familleProduitId;
 	private int gammeProduitId;
 	
+	public Produit() {
+		super();
+	}
+
+	public Produit(int prodId, String libelle, String marque, String description, double poids, double prixHT, int lot,
+			String placeRayon, String typeTVA, String destination, int familleProduitId, int gammeProduitId) {
+		super();
+		this.prodId = prodId;
+		this.libelle = libelle;
+		this.marque = marque;
+		this.description = description;
+		this.poids = poids;
+		this.prixHT = prixHT;
+		this.lot = lot;
+		this.placeRayon = placeRayon;
+		this.typeTVA = typeTVA;
+		this.destination = destination;
+		this.familleProduitId = familleProduitId;
+		this.gammeProduitId = gammeProduitId;
+	}
+
 	public int getFamilleProduitId() {
 		return familleProduitId;
 	}
@@ -41,7 +65,6 @@ public class Produit {
 		this.lot = lot;
 		this.placeRayon = placeRayon;
 		this.typeTVA = typeTVA;
-		
 		this.destination = destination;
 	}
 	
