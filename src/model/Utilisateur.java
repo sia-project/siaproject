@@ -26,9 +26,17 @@ public class Utilisateur {
 	private int roleId;
 	
 	
-	public Utilisateur(int uId, String civilite, String nom, String prenom, String adrMail, String cle) 
+	public Utilisateur(int uId, String nom, String prenom, String adrMail, String cle) 
 	{
 		this.uId = uId;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adrMail = adrMail;
+		this.cle = cle;
+	}
+	
+	public Utilisateur(String civilite, String nom, String prenom, String adrMail, String cle) 
+	{
 		this.civilite = civilite;
 		this.nom = nom;
 		this.prenom = prenom;

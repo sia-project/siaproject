@@ -1,11 +1,11 @@
 package model;
 
-public class familleProduit {
+public class FamilleProduit {
 	private int familleProduitId;
 	private String libelle;
 	private String description;
 	
-	public familleProduit(int familleProduitId, String libelle, String description) {
+	public FamilleProduit(int familleProduitId, String libelle, String description) {
 		this.familleProduitId = familleProduitId;
 		this.libelle = libelle;
 		this.description = description;
