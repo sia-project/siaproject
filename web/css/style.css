@@ -1161,7 +1161,8 @@ button.close.top_wthree_agile {
     font-weight: 700;
 }
 .w3ls_schedule_bottom_right_grid h3 span{
-	color:#fc636b;
+	color:#083bf0
+;
 }
 .w3ls_schedule_bottom_right_grid p{
 	margin:1em 0 2em;
@@ -1453,7 +1454,7 @@ position:relative;
 button.w3view-cart {
     outline: none;
     border: none;
-    background: #17c3a2;
+    background: #fff;
     width: 48px;
     height: 43px;
     font-size: 24px;
@@ -1518,7 +1519,8 @@ button.w3view-cart {
     z-index: 10;
 }
 .product-new-top {
-    background:#fc636b none repeat scroll 0 0;
+    background:#083bf0
+ none repeat scroll 0 0;
     color: #fff;
     display: inline-block;
     right: 0;
@@ -1618,7 +1620,8 @@ button.w3view-cart {
 /*-- //effect --*/
 .item-info-product h4 a {
     font-size: 0.9em;
-    color: #fc636b;
+    color: #083bf0
+;
     text-decoration: none;
     font-weight: 600;
 }
@@ -3224,7 +3227,8 @@ color: #000;
     text-transform: uppercase;
 }
 .description input[type="submit"]:hover{
-	background:#fc636b;
+	background:#083bf0
+;
 }
 .occasion-cart a{
     padding: 8px 20px;
