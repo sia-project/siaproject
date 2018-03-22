@@ -5,6 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import security.BCrypt;
 import security.Encryption;
@@ -242,7 +246,7 @@ public class DAO {
 			prepStmt.executeUpdate();
 			
 		}catch (Exception e) {
-			
+			e.printStackTrace();
 		}finally {
 			
 		}
@@ -277,7 +281,7 @@ public class DAO {
 			}
 					
 		}catch (Exception e) {
-			
+			e.printStackTrace();
 		}finally {
 			
 		}
@@ -311,7 +315,7 @@ public class DAO {
 			
 
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}finally {
 			
 		}
@@ -330,13 +334,165 @@ public class DAO {
 			
 
 		} catch (Exception e) {
-			
+			e.printStackTrace();
 		}finally {
 			
 		}
 	}
 	
 	
+	
+	private static int getLastIdFamille() {
+		int lastIdFamille = 0;
+		try {
+			Connection con = Connect.get();
+			PreparedStatement req = con.prepareStatement("select MAX(familleProduitId) AS lastId FROM familleproduit");
+			ResultSet rs = req.executeQuery();
+			while (rs.next()) {
+				lastIdFamille = rs.getInt("lastId");
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur SQL :" + e);
+		}
 
+		return lastIdFamille;
+	}
+	
+	public static String createFamille (FamilleProduit f) {
+		Connection con = Connect.get();
+		String pid=null; 
+		PreparedStatement prepStmt=null;
+		try {
+			int id = getLastIdFamille();
+			prepStmt=con.prepareStatement("insert into familleproduit (familleProduitId,libelle,description) VALUES (?,?,?)");
+			int i=1;
+			prepStmt.setInt(i++, id+1);
+			prepStmt.setString(i++, f.getLibelle());
+			prepStmt.setString(i++, f.getDescription());
+
+			prepStmt.executeUpdate();
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return pid;
+	}
+	
+	public static FamilleProduit findByIdProduit(int id) {
+		FamilleProduit f =null; // 		
+		Connection con = Connect.get();
+		ResultSet rs=null; // 
+		
+		PreparedStatement prepStmt=null;
+		try {
+			prepStmt=con.prepareStatement("select * from familleproduit f where f.familleProduitId");
+			prepStmt.setInt(1, id);
+			rs=prepStmt.executeQuery();
+			if(rs.next()) {
+				f=new FamilleProduit(rs.getInt(1), rs.getString(2), rs.getString(3));
+			}
+					
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return f;
+	}
+
+	public void deleteFamille(int familleProduitId) throws Exception {
+		Connection con=Connect.get();
+		PreparedStatement prepStmt=null;
+		try {
+			prepStmt=con.prepareStatement("delete from familleproduit f where f.familleProduitId = ?");
+			prepStmt.setInt(1, familleProduitId);
+			prepStmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+		}
+	}
+	
+	public void updateFamille(int id, String libelle, String description) {
+		Connection con=null;
+		PreparedStatement prepStmt =null ;
+		try {
+			con=Connect.get();
+			prepStmt=con.prepareStatement("update familleproduit set libelle = ?, description = ? where familleProduitId = ?");
+			int i=1;
+			prepStmt.setString(i++, libelle);
+			prepStmt.setString(i++, description);
+			prepStmt.setInt(i++, id);
+
+			int rowCount=prepStmt.executeUpdate();
+			if (rowCount==0) {
+				throw new Exception (
+						"Update error : FamilleProduit ID :"+ id);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public Collection<Produit> getSetProduit(){
+		Collection<Produit> collect = new HashSet<Produit>();
+		Connection con=null;
+		PreparedStatement prepStmt =null ;
+		try {
+			con=Connect.get();
+			prepStmt=con.prepareStatement("select * from produit p");
+			
+			ResultSet res = prepStmt.executeQuery();
+			
+			while(res.next()) {
+				collect.add(new Produit(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getDouble(5), res.getDouble(6),
+						res.getInt(7), res.getString(8), res.getString(9), res.getString(10), res.getInt(11), res.getInt(12)));
+			}
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return collect;
+	}
+	
+	public Collection<FamilleProduit> getSetFamille(){
+		Collection<FamilleProduit> collect = new HashSet<FamilleProduit>();
+		Connection con=null;
+		PreparedStatement prepStmt =null ;
+		try {
+			con=Connect.get();
+			prepStmt=con.prepareStatement("select * from familleproduit f");
+			
+			ResultSet res = prepStmt.executeQuery();
+			
+			while(res.next()) {
+				collect.add(new FamilleProduit(res.getInt(1), res.getString(2), res.getString(3)));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return collect;
+	}
+	
+	public Collection<GammeProduit> getSetGamme(){
+		Collection<GammeProduit> collect = new HashSet<GammeProduit>();
+		Connection con=null;
+		PreparedStatement prepStmt =null ;
+		try {
+			con=Connect.get();
+			prepStmt=con.prepareStatement("select * from gammeproduit g");
+			
+			ResultSet res = prepStmt.executeQuery();
+			
+			while(res.next()) {
+				collect.add(new GammeProduit(res.getInt(1), res.getString(2), res.getString(3)));
+			}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return collect;
+	}
 }
 
