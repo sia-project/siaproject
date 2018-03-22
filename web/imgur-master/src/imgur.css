@@ -1,6 +1,6 @@
 .dropzone {
     border: 4px dashed #ccc;
-    height: 200px;
+    height: 100px;
     margin: 0 10px;
     position: relative;
     width: auto;
@@ -8,7 +8,7 @@
 
 .dropzone p {
     height: 100%;
-    line-height: 200px;
+    line-height: 50px;
     margin: 0;
     text-align: center;
     width: 100%;
