@@ -15,10 +15,7 @@ import security.Encryption;
 
 public class DAO {
 	
-	private static final String INSERT_SQL = null;
-	private static final String SELECT_SQL = null;
-	private static final String UPDATE_SQL = null;
-	private static final String DELETE_SQL = null;
+
 	private static int uId;
 	private static String civilite;
 	private static String nom;
@@ -221,28 +218,46 @@ public class DAO {
 	}
 
 	
+	private static int getLastIdProduct() {
+		int lastIdProductInserted = 0;
+		try {
+			Connection con = Connect.get();
+			PreparedStatement req = con.prepareStatement("select MAX(prodId) AS lastId FROM PRODUIT");
+			ResultSet rs = req.executeQuery();
+			while (rs.next()) {
+				lastIdProductInserted = rs.getInt("lastId");
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur SQL :" + e);
+		}
+
+		return lastIdProductInserted;
+	}
+	
 	
 	/**
 	 * Create product in database
 	 * @param p the product
 	 * @return the id of the product
 	 */
-	public static String createProduit (Produit p) {
+	public static int createProduct (Produit p) {
 		Connection con = Connect.get();
-		String pid=null; 
+		int lastIdProduct=0;
+
 		PreparedStatement prepStmt=null;
 		try {
-			prepStmt=con.prepareStatement(INSERT_SQL);
-			int i=1;
-			prepStmt.setInt(i++, p.getProdId());
-			prepStmt.setString(i++, p.getLibelle());
-			prepStmt.setString(i++, p.getMarque());
-			prepStmt.setString(i++, p.getDescription());
-			prepStmt.setDouble(i++, p.getPoids());
-			prepStmt.setDouble(i++, p.getPrixHT());
-			prepStmt.setString(i++, p.getTypeTVA());
-			prepStmt.setInt(i++, p.getFamilleProduitId());			
-			prepStmt.setInt(i++, p.getGammeProduitId());
+			lastIdProduct = getLastIdProduct();
+			lastIdProduct++;
+			prepStmt = con.prepareStatement("INSERT INTO PRODUIT (ProdId, Libelle, Marque, Description, Poids, PrixHT, TypeTVA, FamilleProduitId, GammeProduitId) VALUES (?,?,?,?,?,?,?,?,?)");
+			prepStmt.setInt(1, p.getProdId());
+			prepStmt.setString(2, p.getLibelle());
+			prepStmt.setString(3, p.getMarque());
+			prepStmt.setString(4, p.getDescription());
+			prepStmt.setDouble(5, p.getPoids());
+			prepStmt.setDouble(6, p.getPrixHT());
+			prepStmt.setString(7, p.getTypeTVA());
+			prepStmt.setInt(8, p.getFamilleProduitId());			
+			prepStmt.setInt(9, p.getGammeProduitId());
 			prepStmt.executeUpdate();
 			
 		}catch (Exception e) {
@@ -250,7 +265,7 @@ public class DAO {
 		}finally {
 			
 		}
-		return pid;
+		return 	lastIdProduct++;
 	}
 	
 	public static Produit findById(int id) {
@@ -260,7 +275,21 @@ public class DAO {
 		
 		PreparedStatement prepStmt=null;
 		try {
-			prepStmt=con.prepareStatement(SELECT_SQL);
+			prepStmt = con.prepareStatement("SELECT ,"
+					+ 										   " prodId,"
+					+ 										   " libelle,"
+					+ 										   " marque,"
+					+ 										   " description,"
+					+ 										   " poid,"
+					+ 										   " prixHT,"
+					+ 										   " lot,"
+					+ 										   " placeRayon,"
+					+ 										   " typeTVA,"
+					+ 										   " destination,"
+					+ 										   " familleProduit,"
+					+ 										   " gammeProduitId,"
+
+					+                						   " FROM UTILISATEUR WHERE prodId = id");		
 			prepStmt.setLong(1, id);
 			rs=prepStmt.executeQuery();
 			if(rs.next()) {
@@ -273,11 +302,10 @@ public class DAO {
 				p.setPrixHT(rs.getDouble(6));
 				p.setLot(rs.getInt(7));
 				p.setPlaceRayon(rs.getString(8));
-				p.setPlaceRayon(rs.getString(9));
-				p.setTypeTVA(rs.getString(10));
-				p.setDestination(rs.getString(11));
-				p.setFamilleProduitId(rs.getInt(12));
-				p.setGammeProduitId(rs.getInt(13));
+				p.setTypeTVA(rs.getString(9));
+				p.setDestination(rs.getString(10));
+				p.setFamilleProduitId(rs.getInt(11));
+				p.setGammeProduitId(rs.getInt(12));
 			}
 					
 		}catch (Exception e) {
@@ -294,19 +322,31 @@ public class DAO {
 		PreparedStatement prepStmt =null ;
 		try {
 			con=Connect.get();
-			prepStmt=con.prepareStatement(UPDATE_SQL);
-			int i=1;
-			prepStmt.setInt(i++, p.getProdId());
-			prepStmt.setString(i++, p.getLibelle());
-			prepStmt.setString(i++, p.getMarque());
-			prepStmt.setString(i++, p.getDescription());
-			prepStmt.setDouble(i++, p.getPoids());
-			prepStmt.setDouble(i++, p.getPrixHT());
-			prepStmt.setString(i++, p.getTypeTVA());
-			prepStmt.setInt(i++, p.getFamilleProduitId());			
-			prepStmt.setInt(i++, p.getGammeProduitId());
+			prepStmt  = con.prepareStatement("UPDATE UTILISATEUR SET "
+					+										   " prodId = ?,"
+					+ 										   " libelle = ?,"
+					+ 										   " marque = ?,"
+					+ 										   " description = ?,"
+					+ 										   " poid = ?,"
+					+ 										   " prixHT = ?,"
+					+ 										   " lot = ?,"
+					+ 										   " placeRayon = ?,"
+					+ 										   " typeTVA = ?,"
+					+ 										   " destination = ?,"
+					+ 										   " familleProduit = ?,"
+					+ 										   " gammeProduitId = ?,"
+					+ "WHERE prodId = ? ");
+			prepStmt.setInt(1, p.getProdId());
+			prepStmt.setString(2, p.getLibelle());
+			prepStmt.setString(3, p.getMarque());
+			prepStmt.setString(4, p.getDescription());
+			prepStmt.setDouble(5, p.getPoids());
+			prepStmt.setDouble(6, p.getPrixHT());
+			prepStmt.setString(7, p.getTypeTVA());
+			prepStmt.setInt(8, p.getFamilleProduitId());			
+			prepStmt.setInt(9, p.getGammeProduitId());
 						
-			prepStmt.setInt(i++, p.getProdId());
+			prepStmt.setInt(10, p.getProdId());
 			int rowCount=prepStmt.executeUpdate();
 			if (rowCount==0) {
 				throw new Exception (
@@ -327,7 +367,101 @@ public class DAO {
 		Connection con=Connect.get();
 		PreparedStatement prepStmt=null;
 		try {
-			prepStmt=con.prepareStatement(DELETE_SQL);
+
+			prepStmt = con.prepareStatement("DELETE FROM UTILISATEUR WHERE ProdId = ?");
+			prepStmt.setInt(1, id);
+			prepStmt.executeUpdate();
+			
+			
+
+		} catch (Exception e) {
+			
+		}finally {
+			
+		}
+	}
+	
+	private static int getLastIdProductGamme() {
+		int lastIdProductGammeInserted = 0;
+		try {
+			Connection con = Connect.get();
+			PreparedStatement req = con.prepareStatement("select MAX(familleProduitId) AS lastId FROM GammeProduit");
+			ResultSet rs = req.executeQuery();
+			while (rs.next()) {
+				lastIdProductGammeInserted = rs.getInt("lastId");
+			}
+		} catch (SQLException e) {
+			System.out.println("Erreur SQL :" + e);
+		}
+
+		return lastIdProductGammeInserted;
+	}
+	
+	
+	
+	public static int createGammeProduit (int familleProduitId ,String  libelle, String description) {
+		Connection con = Connect.get();
+		int lastIdProductGamme=0;
+
+		PreparedStatement prepStmt=null;
+		try {
+			lastIdProductGamme = getLastIdProductGamme();
+			lastIdProductGamme++;
+			prepStmt = con.prepareStatement("INSERT INTO gammeProduit (gammeProduitId, libelle, description) VALUES (?,?,?)");
+			prepStmt.setInt(1, familleProduitId);
+			prepStmt.setString(2, libelle);
+			prepStmt.setString(3, description);
+			
+			prepStmt.executeUpdate();
+			
+		}catch (Exception e) {
+			
+		}finally {
+			
+		}
+		return 	lastIdProductGamme++;
+		
+		
+		
+	}
+	public static GammeProduit findGPById(int id) {
+		Connection con = Connect.get();
+		ResultSet rs=null; // 
+		GammeProduit gp=null;
+		
+		PreparedStatement prepStmt=null;
+		try {
+			prepStmt = con.prepareStatement("SELECT ,"
+					+ 										   " gammeProduitId,"
+					+ 										   " libelle,"
+					+ 										   " description,"
+					
+					+                						   " FROM gammeProduit WHERE gammeProduitId = ?");		
+			prepStmt.setLong(1, id);
+			rs=prepStmt.executeQuery();
+			if(rs.next()) {
+				gp = new GammeProduit();
+				gp.setFamilleProduitId(rs.getInt(1));
+				gp.setLibelle(rs.getString(2));
+				gp.setDescription(rs.getString(3));
+				
+			}
+					
+		}catch (Exception e) {
+			
+		}finally {
+			
+		}
+		return gp;
+		
+	}	
+	
+	public void deleteGammeProduit(int id) throws Exception {
+		Connection con=Connect.get();
+		PreparedStatement prepStmt=null;
+		try {
+
+			prepStmt = con.prepareStatement("DELETE FROM gammeProduit WHERE gammeProduitId= ?");
 			prepStmt.setInt(1, id);
 			prepStmt.executeUpdate();
 			
