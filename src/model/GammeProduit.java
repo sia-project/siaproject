@@ -9,6 +9,10 @@ public class GammeProduit {
 		this.libelle = libelle;
 		this.description = description;
 	}
+	public GammeProduit() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public int getFamilleProduitId() {
 		return familleProduitId;
 	}
