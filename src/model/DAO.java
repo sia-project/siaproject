@@ -91,6 +91,27 @@ public class DAO {
 	}
 	
 	/**
+	 * Get user  secure key by his email
+	 * @param email user email
+	 * @return String 
+	 */
+	public static String getUserKeyByMail(String email) {
+		String key=null;
+		try {
+			Connection con = Connect.get();
+			PreparedStatement req = con.prepareStatement("SELECT cle FROM UTILISATEUR WHERE adrMail = ?");
+			req.setString(1, email);
+			ResultSet rs = req.executeQuery();
+			while(rs.next()) {
+				key = rs.getString(1);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return key;
+	}
+	
+	/**
 	 * Update last connection time of a user
 	 * @param userId the id of the user
 	 */
