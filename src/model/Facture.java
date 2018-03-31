@@ -5,16 +5,16 @@ import java.util.Date;
 public class Facture {
 	
 	private int factId;
-	private Date fateFacturation;
+	private Date dateFacturation;
 	private Date dateEcheance;
 	private double prixHt;
 	private double remise;
 	private int cmdId;
 	
-	public Facture(int factId, Date fateFacturation, Date dateEcheance, double prixHt, double remise, int cmdId) {
+	public Facture(int factId, Date dateFacturation, Date dateEcheance, double prixHt, double remise, int cmdId) {
 		super();
 		this.factId = factId;
-		this.fateFacturation = fateFacturation;
+		this.dateFacturation = dateFacturation;
 		this.dateEcheance = dateEcheance;
 		this.prixHt = prixHt;
 		this.remise = remise;
@@ -27,11 +27,11 @@ public class Facture {
 	public void setFactId(int factId) {
 		this.factId = factId;
 	}
-	public Date getFateFacturation() {
-		return fateFacturation;
+	public Date getDateFacturation() {
+		return dateFacturation;
 	}
-	public void setFateFacturation(Date fateFacturation) {
-		this.fateFacturation = fateFacturation;
+	public void setDateFacturation(Date dateFacturation) {
+		this.dateFacturation = dateFacturation;
 	}
 	public Date getDateEcheance() {
 		return dateEcheance;

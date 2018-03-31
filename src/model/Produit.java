@@ -17,10 +17,6 @@ public class Produit implements Serializable {
 	private int familleProduitId;
 	private int gammeProduitId;
 	
-	public Produit() {
-		super();
-	}
-
 	public Produit(int prodId, String libelle, String marque, String description, double poids, double prixHT, int lot,
 			String placeRayon, String typeTVA, String destination, int familleProduitId, int gammeProduitId) {
 		super();
