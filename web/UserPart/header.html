@@ -139,14 +139,21 @@
 		</div>
 		<div class="top_nav_right">
 			<div class="wthreecartaits wthreecartaits2 cart cart box_1"> 
-						<form action="#" method="post" class="last"> 
-						<input type="hidden" name="cmd" value="_cart">
-						<input type="hidden" name="display" value="1">
+			<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 						<button class="w3view-cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
+						<input type="hidden" name="cmd" value="_cart" />
+						<input type="hidden" name="add" value="1" />
+						<input type="hidden" name="business" value="example@minicartjs.com" />
+						<input type="hidden" name="item_name" value="Livraison" />
+						<input type="hidden" name="quantity" value="1" />
+						<input type="hidden" name="amount" value="8.00" />
+						<input type="hidden" name="discount_amount" value="8.00" />
+						<input type="hidden" name="currency_code" value="USD" />
+						<input type="hidden" name="return" value=" " />
+						<input type="hidden" name="shipping" value="1.00">
+						<input type="submit" name="submit" value="Payer"  class="btn btn-info" />
 					</form>  
-  
-						</div>
-		</div>
+  			</div>
 		<div class="clearfix"></div>
 	</div>
 </div>
@@ -214,3 +221,4 @@ $(function(){
  
 });
 </script> 
+</script>
