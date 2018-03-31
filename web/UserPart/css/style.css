@@ -64,6 +64,8 @@ label{
     border-right: 1px solid #464444;
 }
 .header ul li a {
+    font-family: Georgia ;
+    font-style: italic;
      color: #fff;
     text-decoration: none;
 }
@@ -228,20 +230,25 @@ li.share {
     text-align: center;
 }
 .logo_agile span {
-    background: #000;
-    padding: 0 17px;
-    font-weight: bold;
-    color: #fff;
+    background: #0c0b0b00;
+    color: #0c0b0b;
 }
+
+
+
 .logo_agile h1 a {
+
     font-weight: 300;
     color: #000;
+    font-family: Georgia ;
+    font-style: italic;
     letter-spacing: 1px;
     font-size: 1.5em;
 	position:relative;
 }
 .logo_agile h1 a:hover {
   text-decoration:none;
+  
 }
 i.fa.fa-shopping-bag.top_logo_agile_bag {
     position: absolute;
@@ -453,6 +460,7 @@ i.fa.fa-shopping-bag.top_logo_agile_bag {
 .menu--shylock .menu__link:hover,
 .menu--shylock .menu__link:focus {
 	color: #b5b5b5;
+    
 }
 
 .menu--shylock .menu__link:hover::before,
@@ -493,6 +501,8 @@ a.menu__link {
     font-size: 15px;
     font-weight: normal;
 letter-spacing: 2px;
+font-family: Georgia ;
+ font-style: italic;
 }
 .agile_short_dropdown {
     border-radius: 0;
@@ -935,6 +945,8 @@ color: #3897e0f0;
 .footer-left h2 a {
     font-size: 0.9em;
     color: #fff;
+    font-family: Georgia ;
+    font-style: italic;
     font-weight: 300;
     letter-spacing: 2px;
 }
@@ -1202,6 +1214,8 @@ h3.wthree_text_info {
     color: #000;
     margin-bottom: 1em;
     text-transform: uppercase;
+    font-family: Georgia ;
+    font-style: italic;
 }
 h3.wthree_text_info span{
   font-weight:300;
@@ -1880,6 +1894,8 @@ color: #545454;
 }
 .page-head_agile_info_w3l h3  span{
  font-weight:300;
+ font-family: Georgia ;
+ font-style: italic;
 }
 ul.w3_short li {
     display: inline-block;
@@ -1916,6 +1932,8 @@ ul.w3_short {
     letter-spacing: 2px;
     font-weight: 700;
 	margin-bottom:1.5em;
+    font-family: Georgia ;
+    font-style: italic;
 }
 .agile_ab_w3ls_info h5 span{
  font-weight:300;
