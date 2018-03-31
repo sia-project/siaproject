@@ -90,7 +90,7 @@ public class DAO {
 		return b;	
 	}
 	
-	/**
+		/**
 	 * Get user  secure key by his email
 	 * @param email user email
 	 * @return String 
@@ -310,7 +310,7 @@ public class DAO {
 					+ 										   " familleProduit,"
 					+ 										   " gammeProduitId,"
 
-					+                						   " FROM UTILISATEUR WHERE prodId = id");		
+					+                						   " FROM PRODUIT WHERE prodId = id");		
 			prepStmt.setLong(1, id);
 			rs=prepStmt.executeQuery();
 			if(rs.next()) {
@@ -350,8 +350,6 @@ public class DAO {
 					+ 										   " description = ?,"
 					+ 										   " poid = ?,"
 					+ 										   " prixHT = ?,"
-					+ 										   " lot = ?,"
-					+ 										   " placeRayon = ?,"
 					+ 										   " typeTVA = ?,"
 					+ 										   " destination = ?,"
 					+ 										   " familleProduit = ?,"
@@ -389,7 +387,7 @@ public class DAO {
 		PreparedStatement prepStmt=null;
 		try {
 
-			prepStmt = con.prepareStatement("DELETE FROM UTILISATEUR WHERE ProdId = ?");
+			prepStmt = con.prepareStatement("DELETE FROM PRODUIT WHERE ProdId = ?");
 			prepStmt.setInt(1, id);
 			prepStmt.executeUpdate();
 			
@@ -420,7 +418,7 @@ public class DAO {
 	
 	
 	
-	public static int createGammeProduit (int familleProduitId ,String  libelle, String description) {
+	public static int createGammeProduit (int gammeProduitId ,String  libelle, String description) {
 		Connection con = Connect.get();
 		int lastIdProductGamme=0;
 
@@ -429,7 +427,7 @@ public class DAO {
 			lastIdProductGamme = getLastIdProductGamme();
 			lastIdProductGamme++;
 			prepStmt = con.prepareStatement("INSERT INTO gammeProduit (gammeProduitId, libelle, description) VALUES (?,?,?)");
-			prepStmt.setInt(1, familleProduitId);
+			prepStmt.setInt(1, gammeProduitId);
 			prepStmt.setString(2, libelle);
 			prepStmt.setString(3, description);
 			
@@ -518,19 +516,20 @@ public class DAO {
 		String pid=null; 
 		PreparedStatement prepStmt=null;
 		try {
+			lastIdFamilleProduit = getLastIdFamille();
+			lastIdFamilleProduit++;
 			int id = getLastIdFamille();
 			prepStmt=con.prepareStatement("insert into familleproduit (familleProduitId,libelle,description) VALUES (?,?,?)");
-			int i=1;
-			prepStmt.setInt(i++, id+1);
-			prepStmt.setString(i++, f.getLibelle());
-			prepStmt.setString(i++, f.getDescription());
+			prepStmt.setInt(1, f.getFamilleProduitId);
+			prepStmt.setString(2, f.getLibelle());
+			prepStmt.setString(3, f.getDescription());
 
 			prepStmt.executeUpdate();
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return pid;
+		return lastIdFamilleProduit;
 	}
 	
 	public static FamilleProduit findByIdProduit(int id) {
@@ -568,21 +567,20 @@ public class DAO {
 		}
 	}
 	
-	public void updateFamille(int id, String libelle, String description) {
+	public void updateFamille(FamilleProduit f) {
 		Connection con=null;
 		PreparedStatement prepStmt =null ;
 		try {
 			con=Connect.get();
 			prepStmt=con.prepareStatement("update familleproduit set libelle = ?, description = ? where familleProduitId = ?");
-			int i=1;
-			prepStmt.setString(i++, libelle);
-			prepStmt.setString(i++, description);
-			prepStmt.setInt(i++, id);
+			prepStmt.setString(1, f.getLibelle);
+			prepStmt.setString(2, f.getDescription);
+			prepStmt.setInt(3, f.getFamilleProduitId);
 
 			int rowCount=prepStmt.executeUpdate();
 			if (rowCount==0) {
 				throw new Exception (
-						"Update error : FamilleProduit ID :"+ id);
+						"Update error : FamilleProduit ID :"+ f.getFamilleProduitId);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -651,3 +649,1488 @@ public class DAO {
 	}
 }
 
+
+// Commande 
+private static int getLastIdCommande() {
+	int lastIdCommandeInserted = 0;
+	try {
+		Connection con = Connect.get();
+		PreparedStatement req = con.prepareStatement("select MAX(cmdId) AS lastId FROM COMMANDE");
+		ResultSet rs = req.executeQuery();
+		while (rs.next()) {
+			lastIdProductInserted = rs.getInt("lastId");
+		}
+	} catch (SQLException e) {
+		System.out.println("Erreur SQL :" + e);
+	}
+
+	return lastIdCommandeInserted;
+}
+
+
+
+public static int createCommande (Commande c) {
+	Connection con = Connect.get();
+	int lastIdCommande=0;
+
+	PreparedStatement prepStmt=null;
+	try {
+		lastIdCommande = getLastIdCommande();
+		lastIdCommande++;
+		prepStmt = con.prepareStatement("INSERT INTO Commande (cmdId ,dateCmd ,etatCmd ,modeLivraison ,moyenPriseCmd ,adrLivId ,adrFactId ,userId ,fraisPortId ) VALUES (?,?,?,?,?,?,?,?,?)");
+		prepStmt.setInt(1, c.getCmdId));
+		prepStmt.setString(2, c.getDateCmd());
+		prepStmt.setString(3, c.getEtatCmd());
+		prepStmt.setString(4, c.getModeLivraison());
+		prepStmt.setDouble(5, c.getMoyenPriseCmd());
+		prepStmt.setDouble(6, c.getAdrLivId());
+		prepStmt.setString(7, c.getAdrFactId());
+		prepStmt.setInt(8, c.getUserId());			
+		prepStmt.setInt(9, c.getFraisPortId());
+		prepStmt.executeUpdate();
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return 	lastIdCommande++;
+}
+
+public static Commande findById(int id) {
+	Commande c=null; // 		
+	Connection con = Connect.get();
+	ResultSet rs=null; // 
+	
+	PreparedStatement prepStmt=null;
+	try {
+		prepStmt = con.prepareStatement("SELECT ,"
+				+ 										   " cmdId,"
+				+ 										   " dateCmd,"
+				+ 										   " etatCmd,"
+				+ 										   " modeLivraison,"
+				+ 										   " moyenPriseCmd,"
+				+ 										   " adrLivId,"
+				+ 										   " adrFactId,"
+				+ 										   " userId,"
+				+ 										   " fraisPortId,"
+
+				+                						   " FROM COMMANDE WHERE cmdId = id");		
+		prepStmt.setLong(1, id);
+		rs=prepStmt.executeQuery();
+		if(rs.next()) {
+			c=new Commande();
+			c.setCmdId(rs.getDate(1));
+			c.setDateCmd(rs.getDate(2));
+			c.setEtatCmd(rs.getString(3));
+			c.setModeLivraison(rs.getString(4));
+			c.setMoyenPriseCmd(rs.getString(5));
+			c.setAdrLivId(rs.getInt(6));
+			c.setAdrFactId(rs.getInt(7));
+			c.setUserId(rs.getInt(8));
+			c.setFraisPortId(rs.getInt(9));
+		}
+				
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return c;
+	
+}
+
+public void updateCommande(Commande c) {
+	Connection con=null;
+	PreparedStatement prepStmt =null ;
+	try {
+		con=Connect.get();
+		prepStmt  = con.prepareStatement("UPDATE COMMANDE SET "
+				+ 										   " cmdId = ? ,"
+				+ 										   " dateCmd = ? ,"
+				+ 										   " etatCmd = ? ,"
+				+ 										   " modeLivraison = ? ,"
+				+ 										   " moyenPriseCmd = ? ,"
+				+ 										   " adrLivId = ? ,"
+				+ 										   " adrFactId = ? ,"
+				+ 										   " userId = ? ,"
+				+ 										   " fraisPortId = ? ,"
+
+				+ "WHERE cmdId = ? ");
+		prepStmt.setInt(1, c.getCmdId));
+		prepStmt.setString(2, c.getDateCmd());
+		prepStmt.setString(3, c.getEtatCmd());
+		prepStmt.setString(4, c.getModeLivraison());
+		prepStmt.setDouble(5, c.getMoyenPriseCmd());
+		prepStmt.setDouble(6, c.getAdrLivId());
+		prepStmt.setString(7, c.getAdrFactId());
+		prepStmt.setInt(8, c.getUserId());			
+		prepStmt.setInt(9, c.getFraisPortId());
+					
+		prepStmt.setInt(10, c.getCmdId());
+		int rowCount=prepStmt.executeUpdate();
+		if (rowCount==0) {
+			throw new Exception (
+					"Update error : Commande ID :"+c.getCmdId());
+		}
+		
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+}
+
+
+
+public void deleteCommande(int id) throws Exception {
+	Connection con=Connect.get();
+	PreparedStatement prepStmt=null;
+	try {
+
+		prepStmt = con.prepareStatement("DELETE FROM COMMANDE WHERE cmdId = ?");
+		prepStmt.setInt(1, id);
+		prepStmt.executeUpdate();
+		
+		
+
+	} catch (Exception e) {
+		
+	}finally {
+		
+	}
+}
+
+//facture 
+private static int getLastFacture() {
+	int lastIdFactureInserted = 0;
+	try {
+		Connection con = Connect.get();
+		PreparedStatement req = con.prepareStatement("select MAX(factId ) AS lastId FROM FACTURE");
+		ResultSet rs = req.executeQuery();
+		while (rs.next()) {
+			lastIdFactureInserted = rs.getInt("lastId");
+		}
+	} catch (SQLException e) {
+		System.out.println("Erreur SQL :" + e);
+	}
+
+	return lastIdFactureInserted;
+}
+
+
+
+public static int createFacture (Facture f) {
+	Connection con = Connect.get();
+	int lastIdFacture=0;
+
+	PreparedStatement prepStmt=null;
+	try {
+		lastIdFacture = getLastIdFacture();
+		lastIdFacture++;
+		prepStmt = con.prepareStatement("INSERT INTO Facture (factId ,dateFacturation ,dateEcheance ,prixHT ,remise ,cmdId) VALUES (?,?,?,?,?,?)");
+		prepStmt.setInt(1, f.getFactId));
+		prepStmt.setDate(2, f.getFateFacturation());
+		prepStmt.setDate(3, f.getDateEcheance());
+		prepStmt.setDouble(4, f.getPrixHt());
+		prepStmt.setDouble(5, f.getRemise());
+		prepStmt.setInt(6, f.getCmdId());
+		prepStmt.executeUpdate();
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return 	lastIdFacture++;
+}
+
+public static Facture findById(int id) {
+	Facture f=null; // 		
+	Connection con = Connect.get();
+	ResultSet rs=null; // 
+	
+	PreparedStatement prepStmt=null;
+	try {
+		prepStmt = con.prepareStatement("SELECT ,"
+		
+				+ 										   " factId,"
+				+ 										   " dateFacturation,"
+				+ 										   " dateEcheance,"
+				+ 										   " remise,"
+				+ 										   " cmdId,"
+
+				+                						   " FROM FACTURE WHERE factId = id");		
+		prepStmt.setLong(1, id);
+		rs=prepStmt.executeQuery();
+		if(rs.next()) {
+			f=new Facture();
+			f.setFactId(rs.getInt(1));
+			f.setFateFacturation(rs.getDate(2));
+			f.setDateEcheance(rs.getDate(3));
+			f.setPrixHt(rs.getDouble(4));
+			f.setRemise(rs.getDouble(5));
+			f.setCmdId(rs.getInt(6));
+		}
+				
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return f;
+	
+}
+
+public void updateFacture(Facture f) {
+	Connection con=null;
+	PreparedStatement prepStmt =null ;
+	try {
+		con=Connect.get();
+		prepStmt  = con.prepareStatement("UPDATE FACTURE SET "
+
+				+ 										   " factId = ? ,"
+				+ 										   " dateFacturation = ? ,"
+				+ 										   " dateEcheance = ? ,"
+				+ 										   " remise = ? ,"
+				+ 										   " cmdId = ? ,"
+				+ "WHERE factId = ? ");
+
+		prepStmt.setInt(1, f.getFactId());
+		prepStmt.setDate(2, f.getFateFacturation());
+		prepStmt.setDate(3, f.getDateEcheance());
+		prepStmt.setDouble(4, f.getRemise());
+		prepStmt.setInt(5, p.getCmdId());
+		
+		prepStmt.setInt(6, p.getFactId());
+		int rowCount=prepStmt.executeUpdate();
+		if (rowCount==0) {
+			throw new Exception (
+					"Update error : Facture ID :"+p.getFactId());
+		}
+		
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+}
+
+
+
+public void deleteFacture (int id) throws Exception {
+	Connection con=Connect.get();
+	PreparedStatement prepStmt=null;
+	try {
+
+		prepStmt = con.prepareStatement("DELETE FROM FACTURE WHERE getFactId = ?");
+		prepStmt.setInt(1, id);
+		prepStmt.executeUpdate();
+		
+		
+
+	} catch (Exception e) {
+		
+	}finally {
+		
+	}
+}
+
+
+//Livraison 
+private static int getLastIdLivraison() {
+	int lastIdLivraisonInserted = 0;
+	try {
+		Connection con = Connect.get();
+		PreparedStatement req = con.prepareStatement("select MAX(livraisonId ) AS lastId FROM LIVRAISON");
+		ResultSet rs = req.executeQuery();
+		while (rs.next()) {
+			lastIdLivraisonInserted = rs.getInt("lastId");
+		}
+	} catch (SQLException e) {
+		System.out.println("Erreur SQL :" + e);
+	}
+
+	return lastIdLivraisonInserted;
+}
+
+
+/**
+* Create LIVRAISON in database
+* @param l the livraison
+* @return the id of the livraison
+*/
+public static int createLivraison (Livraison l) {
+	Connection con = Connect.get();
+	int lastIdLivraison=0;
+
+	PreparedStatement prepStmt=null;
+	try {
+		lastIdLivraison = getLastIdLivraison();
+		lastIdLivraison++;
+		prepStmt = con.prepareStatement("INSERT INTO PRODUIT (livraisonId , dateColisage , dateExpedition , delaisLivraison , transporteurId , cmdId) VALUES (?,?,?,?,?,?)");
+		prepStmt.setInt(1, f.getLivraisonId));
+		prepStmt.setDate(2, f.getDateColisage());
+		prepStmt.setDate(3, f.getDateExpedition());
+		prepStmt.setInt(4, f.getDelaisLivraison());
+		prepStmt.setInt(5, f.getTransporteurId());
+		prepStmt.setInt(6, f.getCmdId());
+		prepStmt.executeUpdate();
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return 	lastIdLivraison++;
+}
+
+public static Livraison findById(int id) {
+	Livraison l=null; // 		
+	Connection con = Connect.get();
+	ResultSet rs=null; // 
+	
+	PreparedStatement prepStmt=null;
+	try {
+		prepStmt = con.prepareStatement("SELECT ,"
+				+ 										   " livraisonId,"
+				+ 										   " dateColisage,"
+				+ 										   " dateExpedition,"
+				+ 										   " delaisLivraison,"
+				+ 										   " transporteurId,"
+				+ 										   " cmdId,"
+
+				+                						   " FROM LIVRAISON WHERE livraisonId = id");		
+		prepStmt.setLong(1, id);
+		rs=prepStmt.executeQuery();
+		if(rs.next()) {
+			l=new Livraison();
+			l.getLivraisonId(rs.getInt(1));
+			l.getDateColisage(rs.getDate(2));
+			l.getDateExpedition(rs.getDate(3));
+			l.getDelaisLivraison(rs.getInt(4));
+			l.getTransporteurId(rs.getInt(5));
+			l.getCmdId(rs.getInt(6));
+
+		}
+				
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return l;
+	
+}
+
+public void updateLivraison(Livraison l) {
+	Connection con=null;
+	PreparedStatement prepStmt =null ;
+	try {
+		con=Connect.get();
+		prepStmt  = con.prepareStatement("UPDATE LIVRAISON SET "
+				+ 										   " livraisonId = ? ,"
+				+ 										   " dateColisage = ? ,"
+				+ 										   " dateExpedition = ? ,"
+				+ 										   " delaisLivraison = ? ,"
+				+ 										   " transporteurId = ? ,"
+				+ 										   " cmdId = ? ,"
+				+ "WHERE livraisonId = ? ");
+		
+		prepStmt.setInt(1, l.getLivraisonId));
+		prepStmt.setDate(2, l.getDateColisage());
+		prepStmt.setDate(3, l.getDateExpedition());
+		prepStmt.setInt(4, l.getDelaisLivraison());
+		prepStmt.setInt(5, l.getTransporteurId());
+		prepStmt.setInt(6, l.getCmdId());
+	
+					
+		prepStmt.setInt(7, l.getLivraisonId());
+		int rowCount=prepStmt.executeUpdate();
+		if (rowCount==0) {
+			throw new Exception (
+					"Update error : Livraison ID :"+l.getLivraisonId());
+		}
+		
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+}
+
+
+
+public void deleteLivraison(int id) throws Exception {
+	Connection con=Connect.get();
+	PreparedStatement prepStmt=null;
+	try {
+
+		prepStmt = con.prepareStatement("DELETE FROM LIVRAISON WHERE livraisonId = ?");
+		prepStmt.setInt(1, id);
+		prepStmt.executeUpdate();
+		
+		
+
+	} catch (Exception e) {
+		
+	}finally {
+		
+	}
+}
+
+//Boutique 
+private static int getLastIdBoutique() {
+	int lastIdBoutiqueInserted = 0;
+	try {
+		Connection con = Connect.get();
+		PreparedStatement req = con.prepareStatement("select MAX(btqId) AS lastId FROM boutique");
+		ResultSet rs = req.executeQuery();
+		while (rs.next()) {
+			lastIdBoutiqueInserted = rs.getInt("lastId");
+		}
+	} catch (SQLException e) {
+		System.out.println("Erreur SQL :" + e);
+	}
+
+	return lastIdBoutiqueInserted;
+}
+
+
+/**
+* Create boutique in database
+* @param b the boutique
+* @return the id of the product
+*/
+public static int createBoutique (Boutique b) {
+	Connection con = Connect.get();
+	int lastIdBoutique=0;
+
+	PreparedStatement prepStmt=null;
+	try {
+		lastIdBoutique = getLastIdBoutique();
+		lastIdBoutique++;
+		prepStmt = con.prepareStatement("INSERT INTO BOUTIQUE (btqId , description , adrId , stockId) VALUES (?,?,?,?)");
+		prepStmt.setInt(1, b.getBtqId());
+		prepStmt.setString(2, b.getDescription());
+		prepStmt.setString(3, b.getAdrId());
+		prepStmt.setString(4, b.getStockId());
+		prepStmt.executeUpdate();
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return 	lastIdBoutique++;
+}
+
+public static Boutique findById(int id) {
+	Boutique b=null; // 		
+	Connection con = Connect.get();
+	ResultSet rs=null; // 
+	
+	PreparedStatement prepStmt=null;
+	try {
+		prepStmt = con.prepareStatement("SELECT ,"
+				+ 										   " btqId,"
+				+ 										   " description,"
+				+ 										   " adrId,"
+				+ 										   " stockId,"
+				+                						   " FROM BOUTIQUE WHERE btqId = id");		
+		prepStmt.setLong(1, id);
+		rs=prepStmt.executeQuery();
+		if(rs.next()) {
+			b=new Produit();
+			b.setBtqId(rs.getInt(1));
+			b.setLibelle(rs.getString(2));
+			b.setDescription(rs.getInt(3));
+			b.setAdrId(rs.getInt(4));
+			
+		}
+				
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return b;
+	
+}
+
+public void updateBoutique (Boutique b) {
+	Connection con=null;
+	PreparedStatement prepStmt =null ;
+	try {
+		con=Connect.get();
+		prepStmt  = con.prepareStatement("UPDATE BOUTIQUE SET "
+				+ 										   " btqId = ? ,"
+				+ 										   " description = ? ,"
+				+ 										   " adrId = ? ,"
+				+ 										   " stockId = ? ,"
+				+ "WHERE btqId = ? ");
+		prepStmt.setInt(1, b.getBtqId());
+		prepStmt.setString(2, b.getDescription());
+		prepStmt.setInt(3, b.getAdrId());
+		prepStmt.setInt(4, b.getStockId());
+					
+		prepStmt.setInt(5, b.getBtqId());
+		int rowCount=prepStmt.executeUpdate();
+		if (rowCount==0) {
+			throw new Exception (
+					"Update error : Boutique ID :"+b.getBtqId());
+		}
+		
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+}
+
+
+
+public void deleteBoutique(int id) throws Exception {
+	Connection con=Connect.get();
+	PreparedStatement prepStmt=null;
+	try {
+
+		prepStmt = con.prepareStatement("DELETE FROM BOUTIQUE WHERE btqId = ?");
+		prepStmt.setInt(1, id);
+		prepStmt.executeUpdate();
+		
+		
+
+	} catch (Exception e) {
+		
+	}finally {
+		
+	}
+}
+
+//Frais de port 
+private static int getLastIdFraisDePort() {
+	int lastIdFraisdePortInserted = 0;
+	try {
+		Connection con = Connect.get();
+		PreparedStatement req = con.prepareStatement("select MAX(fraisPortId) AS lastId FROM fraisDePort");
+		ResultSet rs = req.executeQuery();
+		while (rs.next()) {
+			lastIdFraisdePortInserted = rs.getInt("lastId");
+		}
+	} catch (SQLException e) {
+		System.out.println("Erreur SQL :" + e);
+	}
+
+	return lastIdFraisdePortInserted;
+}
+
+
+/**
+* Create fraisDePort in database
+* @param fdp the fraisDePort
+* @return the id of the product
+*/
+public static int createFraisDePort (FraisDePort fdp) {
+	Connection con = Connect.get();
+	int lastIdFraisdePort=0;
+
+	PreparedStatement prepStmt=null;
+	try {
+		lastIdFraisdePort = getLastIdFraisDePort();
+		lastIdFraisdePort++;
+		prepStmt = con.prepareStatement("INSERT INTO fraisDePort (fraisPortId, dateDebut , dateFin , montant ) VALUES (?,?,?,?)");
+		prepStmt.setInt(1, fdp.getFraisPortId());
+		prepStmt.setDate(2, fdp.getDateDebut());
+		prepStmt.setDate(3, fdp.getDateFin());
+		prepStmt.setDouble(4, fdp.getMontant());
+		prepStmt.executeUpdate();
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return 	lastIdFraisdePort++;
+}
+
+public static FraisDePort findById(int id) {
+	FraisDePort fdp=null; // 		
+	Connection con = Connect.get();
+	ResultSet rs=null; // 
+	
+	PreparedStatement prepStmt=null;
+	try {
+		prepStmt = con.prepareStatement("SELECT ,"
+			
+				+ 										   " fraisPortId,"
+				+ 										   " dateDebut,"
+				+ 										   " dateFin,"
+				+ 										   " montant,"
+
+				+                						   " FROM fraisDePort WHERE fraisPortId = id");		
+		prepStmt.setLong(1, id);
+		rs=prepStmt.executeQuery();
+		if(rs.next()) {
+			fdp=new FraisDePort();
+			fdp.setProdId(rs.getInt(1));
+			fdp.setLibelle(rs.getString(2));
+			fdp.setMarque(rs.getString(3));
+			fdp.setDescription(rs.getString(4));
+			fdp.setPoids(rs.getDouble(5));
+					}
+				
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return fdp;
+	
+}
+
+public void updateFraisDePort(FraisDePort fdp) {
+	Connection con=null;
+	PreparedStatement prepStmt =null ;
+	try {
+		con=Connect.get();
+		prepStmt  = con.prepareStatement("UPDATE fraisDePort SET "
+				+ 										   " fraisPortId = ? ,"
+				+ 										   " dateDebut = ? ,"
+				+ 										   " dateFin = ? ,"
+				+ 										   " montant = ? ,"
+
+				+ "WHERE fraisPortId = ? ");
+		prepStmt.setInt(1, fdp.getFraisPortId());
+		prepStmt.setDate(2, fdp.getDateDebut());
+		prepStmt.setDate(3, fdp.getDateFin());
+		prepStmt.setDouble(4, fdp.getMontant());
+		*
+		prepStmt.setInt(5, fdp.getFraisPortId());
+		int rowCount=prepStmt.executeUpdate();
+		if (rowCount==0) {
+			throw new Exception (
+					"Update error : FraisDePort ID :"+fdp.getFraisPortId());
+		}
+		
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+}
+
+
+
+public void deleteFraisDePort (int id) throws Exception {
+	Connection con=Connect.get();
+	PreparedStatement prepStmt=null;
+	try {
+
+		prepStmt = con.prepareStatement("DELETE FROM fraisDePort WHERE fraisPortId = ?");
+		prepStmt.setInt(1, id);
+		prepStmt.executeUpdate();
+		
+		
+
+	} catch (Exception e) {
+		
+	}finally {
+		
+	}
+}
+
+//Stock 
+private static int getLastIdStock() {
+	int lastIdStockInserted = 0;
+	try {
+		Connection con = Connect.get();
+		PreparedStatement req = con.prepareStatement("select MAX(stockId ) AS lastId FROM stock");
+		ResultSet rs = req.executeQuery();
+		while (rs.next()) {
+			lastIdStockInserted = rs.getInt("lastId");
+		}
+	} catch (SQLException e) {
+		System.out.println("Erreur SQL :" + e);
+	}
+
+	return lastIdStockInserted;
+}
+
+
+/**
+* Create stock in database
+* @param s the stock
+* @return the id of the stock
+*/
+public static int createStock (Stock s) {
+	Connection con = Connect.get();
+	int lastIdStock =0;
+
+	PreparedStatement prepStmt=null;
+	try {
+		lastIdStock = getLastIdStock();
+		lastIdStock++;
+		prepStmt = con.prepareStatement("INSERT INTO stock (stockId  , typeStock ) VALUES (?,?)");
+		prepStmt.setInt(1, s.getStockId());
+		prepStmt.setString(2, s.getTypeStock());
+		prepStmt.executeUpdate();
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return 	lastIdStock++;
+}
+
+public static Stock findById(int id) {
+	Stock s=null; // 		
+	Connection con = Connect.get();
+	ResultSet rs=null; // 
+	
+	PreparedStatement prepStmt=null;
+	try {
+		prepStmt = con.prepareStatement("SELECT ,"
+				+ 										   " stockId ,"
+				+ 										   " typeStock ,"
+				+ 										  
+				+                						   " FROM stock WHERE stockId  = id");		
+		prepStmt.setLong(1, id);
+		rs=prepStmt.executeQuery();
+		if(rs.next()) {
+			s=new Stock();
+			s.setStockId(rs.getInt(1));
+			s.setTypeStock(rs.getString(2));
+	
+			
+		}
+				
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return s;
+	
+}
+
+public void updateStock (Stock s) {
+	Connection con=null;
+	PreparedStatement prepStmt =null ;
+	try {
+		con=Connect.get();
+		prepStmt  = con.prepareStatement("UPDATE stock  SET "
+				+ 										   " stockId  = ? ,"
+				+ 										   "typeStock = ? ,"
+	
+				+ "WHERE stockId  = ? ");
+		prepStmt.setInt(1, s.getStockId());
+		prepStmt.setString(2, s.getTypeStock());
+					
+		prepStmt.setInt(3, s.getStockId());
+		int rowCount=prepStmt.executeUpdate();
+		if (rowCount==0) {
+			throw new Exception (
+					"Update error : Stock ID :"+s.getStockId());
+		}
+		
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+}
+
+
+
+public void deleteStock(int id) throws Exception {
+	Connection con=Connect.get();
+	PreparedStatement prepStmt=null;
+	try {
+
+		prepStmt = con.prepareStatement("DELETE FROM STOCK WHERE stockId = ?");
+		prepStmt.setInt(1, id);
+		prepStmt.executeUpdate();
+		
+		
+
+	} catch (Exception e) {
+		
+	}finally {
+		
+	}
+}
+
+//Role 
+private static int getLastIdRole() {
+	int lastIdRoleInserted = 0;
+	try {
+		Connection con = Connect.get();
+		PreparedStatement req = con.prepareStatement("select MAX(roleId ) AS lastId FROM role");
+		ResultSet rs = req.executeQuery();
+		while (rs.next()) {
+			lastIdRoleInserted = rs.getInt("lastId");
+		}
+	} catch (SQLException e) {
+		System.out.println("Erreur SQL :" + e);
+	}
+
+	return lastIdRoleInserted;
+}
+
+
+/**
+* Create role in database
+* @param r the role
+* @return the id of the role
+*/
+public static int createRole (Role r) {
+	Connection con = Connect.get();
+	int lastIdRole=0;
+
+	PreparedStatement prepStmt=null;
+	try {
+		lastIdRole = getLastIdRole();
+		lastIdRole++;
+		prepStmt = con.prepareStatement("INSERT INTO role (roleId ,libelle ,description) VALUES (?,?,?)");
+		prepStmt.setInt(1, r.getRoleId());
+		prepStmt.setString(2, r.getLibelle());
+		prepStmt.setString(3, r.getDescription());
+		prepStmt.executeUpdate();
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return 	lastIdRole++;
+}
+
+public static Role findById(int id) {
+	Role r=null; // 		
+	Connection con = Connect.get();
+	ResultSet rs=null; // 
+	
+	PreparedStatement prepStmt=null;
+	try {
+		prepStmt = con.prepareStatement("SELECT ,"
+				+ 										   " roleId,"
+				+ 										   " libelle,"
+				+ 										   " description,"
+				+                						   " FROM ROLE WHERE roleId = id");		
+		prepStmt.setLong(1, id);
+		rs=prepStmt.executeQuery();
+		if(rs.next()) {
+			r=new Role();
+			r.setRoleId(rs.getInt(1));
+			r.setLibelle(rs.getString(2));
+			r.setDescription(rs.getString(3));
+			
+		}
+				
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return r;
+	
+}
+
+public void updateRole (Role r) {
+	Connection con=null;
+	PreparedStatement prepStmt =null ;
+	try {
+		con=Connect.get();
+		prepStmt  = con.prepareStatement("UPDATE R0LE SET "
+				+ 										   " roleId = ? ,"
+				+ 										   " libelle= ? ,"
+				+ 										   " description = ? ,"
+				+ "WHERE roleId = ? ");
+		
+				
+		prepStmt.setInt(1, r.getRoleId());
+		prepStmt.setString(2, r.getLibelle());
+		prepStmt.setString(3, r.getDescription());
+					
+		prepStmt.setInt(4, r.getRoleId());
+		int rowCount=prepStmt.executeUpdate();
+		if (rowCount==0) {
+			throw new Exception (
+					"Update error : ROLE ID :"+r.getRoleId());
+		}
+		
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+}
+
+
+
+public void deleteRole(int id) throws Exception {
+	Connection con=Connect.get();
+	PreparedStatement prepStmt=null;
+	try {
+
+		prepStmt = con.prepareStatement("DELETE FROM ROLE WHERE roleId = ?");
+		prepStmt.setInt(1, id);
+		prepStmt.executeUpdate();
+		
+		
+
+	} catch (Exception e) {
+		
+	}finally {
+		
+	}
+}
+
+//DROIT  
+private static int getLastIdDroit() {
+	int lastIdDroitInserted = 0;
+	try {
+		Connection con = Connect.get();
+		PreparedStatement req = con.prepareStatement("select MAX(droitId ) AS lastId FROM Droit");
+		ResultSet rs = req.executeQuery();
+		while (rs.next()) {
+			lastIdDroitInserted = rs.getInt("lastId");
+		}
+	} catch (SQLException e) {
+		System.out.println("Erreur SQL :" + e);
+	}
+
+	return lastIdDroitInserted;
+}
+
+
+/**
+* Create droit in database
+* @param d the droit
+* @return the id of the droit
+*/
+public static int createDroit (Droit d) {
+	Connection con = Connect.get();
+	int lastIdDroit=0;
+
+	PreparedStatement prepStmt=null;
+	try {
+		lastIdDroit = getLastIdDroit();
+		lastIdDroit++;
+		prepStmt = con.prepareStatement("INSERT INTO Droit (droitId ,libelle , description) VALUES (?,?,?)");
+		prepStmt.setInt(1, d.getBtqId());
+		prepStmt.setString(2, d.getDescription());
+		prepStmt.setString(3, d.getAdrId());
+		prepStmt.setString(4, d.getStockId());
+		prepStmt.executeUpdate();
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return 	lastIdDroit++;
+}
+
+public static Droit findById(int id) {
+	Droit d=null; // 		
+	Connection con = Connect.get();
+	ResultSet rs=null; // 
+	
+	PreparedStatement prepStmt=null;
+	try {
+		prepStmt = con.prepareStatement("SELECT ,"
+				+ 										   " droitId ,"
+				+ 										   " libelle,"
+				+ 										   " description,"
+				+                						   " FROM Droit WHERE droitId = id");		
+		prepStmt.setLong(1, id);
+		rs=prepStmt.executeQuery();
+		if(rs.next()) {
+			d=new Droit();
+			d.setRoleId(rs.getInt(1));
+			d.setLibelle(rs.getString(2));
+			d.setDescription(rs.getString(3));
+			
+		}
+				
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return d;
+	
+}
+
+public void updateDroit (Droit d) {
+	Connection con=null;
+	PreparedStatement prepStmt =null ;
+	try {
+		con=Connect.get();
+		prepStmt  = con.prepareStatement("UPDATE Droit SET "
+				+ 										   " droitId = ? ,"
+				+ 										   " libelle = ? ,"
+				+ 										   " description = ? ,"
+				+ "WHERE droitId = ? ");
+		prepStmt.setInt(1, d.getDroitId());
+		prepStmt.setString(2, d.getLibelle());
+		prepStmt.setString(3, d.getDescription());
+					
+		prepStmt.setInt(4, b.getDroitId());
+		int rowCount=prepStmt.executeUpdate();
+		if (rowCount==0) {
+			throw new Exception (
+					"Update error : Droit ID :"+d.getBtqId());
+		}
+		
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+}
+
+
+
+public void deleteBoutique(int id) throws Exception {
+	Connection con=Connect.get();
+	PreparedStatement prepStmt=null;
+	try {
+
+		prepStmt = con.prepareStatement("DELETE FROM Droit WHERE droitId = ?");
+		prepStmt.setInt(1, id);
+		prepStmt.executeUpdate();
+		
+		
+
+	} catch (Exception e) {
+		
+	}finally {
+		
+	}
+}
+
+// Adresse 
+
+private static int getLastIdAdresse() {
+	int lastIdAdresseInserted = 0;
+	try {
+		Connection con = Connect.get();
+		PreparedStatement req = con.prepareStatement("select MAX(adrId  ) AS lastId FROM adresse ");
+		ResultSet rs = req.executeQuery();
+		while (rs.next()) {
+			lastIdAdresseInserted = rs.getInt("lastId");
+		}
+	} catch (SQLException e) {
+		System.out.println("Erreur SQL :" + e);
+	}
+
+	return lastIdAdresseInserted;
+}
+
+
+/**
+* Create adersse in database
+* @param a the adresse
+* @return the id of the adresse
+*/
+public static int createAdresse (Adresse a) {
+	Connection con = Connect.get();
+	int lastIdAdresse=0;
+
+	PreparedStatement prepStmt=null;
+	try {
+		lastIdAdresse = getLastIdAdresse();
+		lastIdAdresse++;
+		prepStmt = con.prepareStatement("INSERT INTO Adresse (adrId  ,rue , cp ,ville ,pays) VALUES (?,?,?,?,?)");
+		prepStmt.setInt(1, a.getAdrId());
+		prepStmt.setString(2, a.getRue());
+		prepStmt.setString(3, a.getCp());
+		prepStmt.setString(4, a.getVille());
+		prepStmt.setString(5, a.getPays());
+
+		prepStmt.executeUpdate();
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return 	lastIdAdresse++;
+}
+
+public static Adresse findById(int id) {
+	Adresse a=null; // 		
+	Connection con = Connect.get();
+	ResultSet rs=null; // 
+	
+	PreparedStatement prepStmt=null;
+	try {
+		prepStmt = con.prepareStatement("SELECT ,"
+				+ 										   " adrId ,"
+				+ 										   " rue,"
+				+ 										   " cp,"
+				+ 										   " ville,"
+				+ 										   " pays,"
+				+                						   " FROM Adresse WHERE adrId = id");		
+		prepStmt.setLong(1, id);
+		rs=prepStmt.executeQuery();
+		if(rs.next()) {
+			a=new Adresse();
+			a.setAdrId(rs.getInt(1));
+			a.setRue(rs.getString(2));
+			a.setCp(rs.getString(3));
+			a.setVille(rs.getString(4));
+			a.setPays(rs.getString(5));
+			
+		}
+				
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return a;
+	
+}
+
+public void updateAdresse (Adresse a) {
+	Connection con=null;
+	PreparedStatement prepStmt =null ;
+	try {
+		con=Connect.get();
+		prepStmt  = con.prepareStatement("UPDATE Adresse SET "
+				+ 										   " adrId = ? ,"
+				+ 										   " rue = ? ,"
+				+ 										   " cp = ? ,"
+				+ 										   " ville = ? ,"
+				+ 										   " descaysription = ? ,"
+				+ "WHERE adrId = ? ");
+		prepStmt.setInt(1, a.getAdrId());
+		prepStmt.setString(2, a.getRue());
+		prepStmt.setString(3, a.getCp());
+		prepStmt.setString(4, a.getVille());
+		prepStmt.setString(5, a.getPays());
+					
+		prepStmt.setInt(6, a.getAdrId());
+		int rowCount=prepStmt.executeUpdate();
+		if (rowCount==0) {
+			throw new Exception (
+					"Update error : Adresse ID :"+a.getAdrId());
+		}
+		
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+}
+
+
+
+public void deleteAdresse(int id) throws Exception {
+	Connection con=Connect.get();
+	PreparedStatement prepStmt=null;
+	try {
+
+		prepStmt = con.prepareStatement("DELETE FROM Droit WHERE adrId = ?");
+		prepStmt.setInt(1, id);
+		prepStmt.executeUpdate();
+		
+		
+
+	} catch (Exception e) {
+		
+	}finally {
+		
+	}
+}
+
+
+//Ligne Commande  
+private static int getLastIdLigneCommande() {
+	int lastIdLigneCommandeInserted = 0;
+	try {
+		Connection con = Connect.get();
+		PreparedStatement req = con.prepareStatement("select MAX(cmdId  ) AS lastId FROM ligneCommande ");
+		ResultSet rs = req.executeQuery();
+		while (rs.next()) {
+			lastIdLigneCommandeInserted = rs.getInt("lastId");
+		}
+	} catch (SQLException e) {
+		System.out.println("Erreur SQL :" + e);
+	}
+
+	return lastIdLigneCommandeInserted;
+}
+
+
+/**
+* Create droit in database
+* @param d the droit
+* @return the id of the droit
+*/
+public static int createLigneCommande (LigneCommande lc) {
+	Connection con = Connect.get();
+	int lastIdLigneCommande=0;
+
+	PreparedStatement prepStmt=null;
+	try {
+		lastIdLigneCommande = getLastIdLigneCommande();
+		lastIdLigneCommande++;
+		prepStmt = con.prepareStatement("INSERT INTO Droit (cmdId  ,prodId  , quantite ) VALUES (?,?,?)");
+		prepStmt.setInt(1, lc.getCmdId());
+		prepStmt.setString(2, lc.getProdId());
+		prepStmt.setString(3, lc.getQuantite());
+		prepStmt.executeUpdate();
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return 	lastIdLigneCommande++;
+}
+
+public static LigneCommande findById(int id) {
+	LigneCommande lc=null; // 		
+	Connection con = Connect.get();
+	ResultSet rs=null; // 
+	
+	PreparedStatement prepStmt=null;
+	try {
+		prepStmt = con.prepareStatement("SELECT ,"
+				+ 										   " cmdId  ,"
+				+ 										   " prodId ,"
+				+ 										   " quantite ,"
+				+                						   " FROM ligneCommande WHERE cmdId = id");		
+		prepStmt.setLong(1, id);
+		rs=prepStmt.executeQuery();
+		if(rs.next()) {
+			lc=new LigneCommande();
+			lc.setCmdId(rs.getInt(1));
+			lc.setProdId(rs.getInt(2));
+			lc.setQuantite(rs.getInt(3));
+			
+		}
+				
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return lc;
+	
+}
+
+public void updateLigneCommande (LigneCommande lc) {
+	Connection con=null;
+	PreparedStatement prepStmt =null ;
+	try {
+		con=Connect.get();
+		prepStmt  = con.prepareStatement("UPDATE ligneCommande SET "
+				+ 										   " cmdId  = ? ,"
+				+ 										   " prodId  = ? ,"
+				+ 										   " quantite  = ? ,"
+				+ "WHERE cmdId = ? ");
+		prepStmt.setInt(1, lc.getCmdId());
+		prepStmt.setInt(2, lc.getProdId());
+		prepStmt.setInt(3, lc.getQuantite());
+					
+		prepStmt.setInt(4, lc.getCmdId());
+		int rowCount=prepStmt.executeUpdate();
+		if (rowCount==0) {
+			throw new Exception (
+					"Update error : LigneCommande ID :"+lc.getCmdId());
+		}
+		
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+}
+
+
+
+public void deleteLigneCommande (int id) throws Exception {
+	Connection con=Connect.get();
+	PreparedStatement prepStmt=null;
+	try {
+
+		prepStmt = con.prepareStatement("DELETE FROM ligneCommande WHERE cmdId = ?");
+		prepStmt.setInt(1, id);
+		prepStmt.executeUpdate();
+		
+		
+
+	} catch (Exception e) {
+		
+	}finally {
+		
+	}
+}
+
+// Entreprise 
+private static int getLastIdEntreprise() {
+	int lastIdEntrepriseInserted = 0;
+	try {
+		Connection con = Connect.get();
+		PreparedStatement req = con.prepareStatement("select MAX(entId ) AS lastId FROM entreprise");
+		ResultSet rs = req.executeQuery();
+		while (rs.next()) {
+			lastIdEntrepriseInserted = rs.getInt("lastId");
+		}
+	} catch (SQLException e) {
+		System.out.println("Erreur SQL :" + e);
+	}
+
+	return lastIdEntrepriseInserted;
+}
+
+
+/**
+ * Create entreprise in database
+ * @param e the entreprise
+ * @return the id of the entreprise
+ */
+public static int createEntreprise (Entreprise e) {
+	Connection con = Connect.get();
+	int lastIdProduct=0;
+
+	PreparedStatement prepStmt=null;
+	try {
+		lastIdEntreprise = getLastIdEntreprise();
+		lastIdEntreprise++;
+		prepStmt = con.prepareStatement("INSERT INTO PRODUIT (entId , raisonSociale , nom , siret, ape, acitivitePrincipale, nbEmployes, adrId) VALUES (?,?,?,?,?,?,?,?)");
+		prepStmt.setInt(1, e.getEntId());
+		prepStmt.setString(2, e.getRaisonSociale());
+		prepStmt.setString(3, e.getNom());
+		prepStmt.setString(4, e.getSiret());
+		prepStmt.setString(5, e.getApe());
+		prepStmt.setString(6, e.getActivitePrincipale());
+		prepStmt.setInt(7, e.getNbEmployes());
+		prepStmt.setInt(8, e.getAdrId());			
+		prepStmt.executeUpdate();
+		
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return 	lastIdProduct++;
+}
+
+public static Entreprise findById(int id) {
+	Entreprise e=null; // 		
+	Connection con = Connect.get();
+	ResultSet rs=null; // 
+	
+	PreparedStatement prepStmt=null;
+	try {
+		prepStmt = con.prepareStatement("SELECT ,"
+				+ 										   " entId,"
+				+ 										   " raisonSociale,"
+				+ 										   " nom,"
+				+ 										   " siret,"
+				+ 										   " ape,"
+				+ 										   " acitivitePrincipale,"
+				+ 										   " nbEmployes,"
+				+ 										   " adrId,""
+
+				+                						   " FROM UTILISATEUR WHERE prodId = id");		
+		prepStmt.setLong(1, id);
+		rs=prepStmt.executeQuery();
+		if(rs.next()) {
+			e=new Produit();
+			e.setEntId(rs.getInt(1));
+			e.setRaisonSociale(rs.getString(2));
+			e.setNom(rs.getString(3));
+			e.setSiret(rs.getString(4));
+			e.setApe(rs.getString(5));
+			e.setActivitePrincipale(rs.getString(6));
+			e.setNbEmployes(rs.getInt(7));
+			e.setAdrId(rs.getInt(8));
+		;
+		}
+				
+	}catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+	return e;
+	
+}
+
+public void updateEntreprise (Entreprise e) {
+	Connection con=null;
+	PreparedStatement prepStmt =null ;
+	try {
+		con=Connect.get();
+		prepStmt  = con.prepareStatement("UPDATE ENTREPRISE SET "		
+				+ 										   " entId = ? ,"
+				+ 										   " raisonSociale = ? ,"
+				+ 										   " nom = ? ,"
+				+ 										   " siret = ? ,"
+				+ 										   " ape = ? ,"
+				+ 										   " acitivitePrincipale = ? ,"
+				+ 										   " nbEmployes = ? ,"
+				+ 										   " adrId = ? ,"
+				+ "WHERE entId = ? ");
+		prepStmt.setInt(1, e.getEntId());
+		prepStmt.setString(2, e.getRaisonSociale());
+		prepStmt.setString(3, e.getNom());
+		prepStmt.setString(4, e.getSiret());
+		prepStmt.setDouble(5, e.getApe());
+		prepStmt.setDouble(6, e.getActivitePrincipale());
+		prepStmt.setInt(7, e.getNbEmployes());
+		prepStmt.setInt(8, e.getAdrId());			
+					
+		prepStmt.setInt(9, e.getEntId());
+		int rowCount=prepStmt.executeUpdate();
+		if (rowCount==0) {
+			throw new Exception (
+					"Update error : Entreptise ID :"+e.getEntId());
+		}
+		
+
+	} catch (Exception e) {
+		e.printStackTrace();
+	}finally {
+		
+	}
+}
+
+
+
+public void deleteEntreprise(int id) throws Exception {
+	Connection con=Connect.get();
+	PreparedStatement prepStmt=null;
+	try {
+
+		prepStmt = con.prepareStatement("DELETE FROM Entreprise WHERE entId = ?");
+		prepStmt.setInt(1, id);
+		prepStmt.executeUpdate();
+		
+		
+
+	} catch (Exception e) {
+		
+	}finally {
+		
+	}
+}
