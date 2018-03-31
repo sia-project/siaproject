@@ -35,16 +35,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 
-	<script src="minicart.js"></script>
-	<script>
-		paypal.minicart.render();
 
-		paypal.minicart.cart.on('add', function (idx, product, isExisting) {
-
-				product.set('quantity', 1);
-
-		});
-	</script>
 
 
 <div id="header"> </div>
@@ -1382,5 +1373,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       date_input.datepicker(options);
     })
 </script>
+	<script src="minicart.js"></script>
+	<script>
+		paypal.minicart.render();
+
+		paypal.minicart.cart.on('add', function (idx, product, isExisting) {
+
+				product.set('quantity', 1);
+
+		});
+	</script>
 </body>
 </html>
