@@ -18,6 +18,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--//tags -->
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+
 <link href="css/font-awesome.css" rel="stylesheet"> 
 <link href="css/easy-responsive-tabs.css" rel='stylesheet' type='text/css'/>
 <link rel="stylesheet" href="css/bootstrap-datepicker.css"/>
@@ -25,8 +26,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //for bootstrap working -->
 <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
 <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,900italic,700italic' rel='stylesheet' type='text/css'>
+
+
 </head>
+
 <body>
+
+
+
+
+	<script src="minicart.js"></script>
+	<script>
+		paypal.minicart.render();
+
+		paypal.minicart.cart.on('add', function (idx, product, isExisting) {
+
+				product.set('quantity', 1);
+
+		});
+	</script>
+
 
 <div id="header"> </div>
 
@@ -74,6 +93,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</ul>
 					<div class="resp-tabs-container">
 					<!--/tab_one-->
+
+
 						<div class="tab1">
 							<div class="col-md-3 product-men">
 								<div class="men-pro-item simpleCart_shelfItem">
@@ -94,18 +115,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<span class="item_price">€27.99</span>
 											
 										</div>
-										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Formal Blue Shirt" />
+																    <input type="hidden" name="quantity" value="1" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
 																	<input type="hidden" name="currency_code" value="USD" />
 																	<input type="hidden" name="return" value=" " />
-																	<input type="hidden" name="cancel_return" value=" " />
+																	<input type="hidden" name="shipping" value="1.00">
 																	<input type="submit" name="submit" value="Ajouter au panier" class="button" />
 																</fieldset>
 															</form>
@@ -134,11 +156,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Sweatshirt" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -173,11 +195,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Dark Blue Track Pants" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -212,11 +234,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Black T-Shirt" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -250,11 +272,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Men's Black Jeans" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -289,11 +311,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Analog Watch" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -328,11 +350,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Reversible Belt" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -367,11 +389,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Party Men's Blazer" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -411,11 +433,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="A-line Black Skirt" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -450,11 +472,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Sleeveless Solid Blue Top" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -489,11 +511,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Skinny Jeans " />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -528,11 +550,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Black Basic Shorts" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -567,11 +589,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Pink Track Pants" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -606,11 +628,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Analog Watch" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -645,11 +667,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<del>€159.71</del>
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Ankle Length Socks" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -684,11 +706,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<del>€169.71</del>
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Reebok Women's Tights" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -727,11 +749,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value=" Laptop Messenger Bag" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -766,11 +788,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Puma Backpack" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -805,11 +827,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value=" Laptop Backpack" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -851,11 +873,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<del>€89.71</del>
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Running Shoes" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -890,11 +912,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<del>€59.71</del>
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Shoetopia Lace Up" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -929,11 +951,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<del>€59.71</del>
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Steemo Casuals (Black)" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -968,11 +990,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<del>€99.71</del>
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Benetton Flip Flops" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -1007,11 +1029,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<del>€99.71</del>
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Moonwalk Bellies" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -1046,11 +1068,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<del>€199.71</del>
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Aero Canvas Loafers" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -1085,11 +1107,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<del>€199.71</del>
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Sparx Sporty Canvas Shoes" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -1124,11 +1146,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<del>€199.71</del>
 										</div>
 										<div class="snipcart-details top_brand_home_details item_add single-item hvr-outline-out button2">
-															<form action="#" method="post">
+															<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 																<fieldset>
 																	<input type="hidden" name="cmd" value="_cart" />
 																	<input type="hidden" name="add" value="1" />
-																	<input type="hidden" name="business" value=" " />
+																	<input type="hidden" name="business" value="example@minicartjs.com" />
 																	<input type="hidden" name="item_name" value="Women BLACK Heels" />
 																	<input type="hidden" name="amount" value="30.99" />
 																	<input type="hidden" name="discount_amount" value="1.00" />
@@ -1270,20 +1292,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //js -->
 <script src="js/modernizr.custom.js"></script>
 	<!-- Custom-JavaScript-File-Links --> 
-	<!-- cart-js -->
-	<script src="js/minicart.min.js"></script>
-	<script>
-	// Mini Cart
-	paypal.minicart.render({
-		action: '#'
-	});
 
-	if (~window.location.search.indexOf('reset=true')) {
-		paypal.minicart.reset();
-	}w
-</script>
 
-	<!-- //cart-js --> 
 <!-- script for responsive tabs -->						
 <script src="js/easy-responsive-tabs.js"></script>
 <script>
@@ -1355,6 +1365,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- //here ends scrolling icon -->
 
 
+    
 <!-- for bootstrap working -->
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
