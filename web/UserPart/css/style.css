@@ -3091,6 +3091,8 @@ font-weight: 300;
 }
 .products-right {
     padding-right: 0;
+    width: 900px;
+    height: 1100px;
 }
 .no-pad-men {
     padding: 0 25px 0 0 !important;
