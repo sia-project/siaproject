@@ -1,0 +1,702 @@
+/*
+// JavaScript Document
+*/
+//----------------------------------------------------------------------------------------------------
+// Fonction de sousmission des formulaires
+//----------------------------------------------------------------------------------------------------
+function send (itemEl){
+    var form = document[itemEl];
+    if (form)
+        form.submit();
+    return false;
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions moteur de recherche
+//----------------------------------------------------------------------------------------------------
+function chercher (){
+    var recherche	= document.f_search.cle.value;
+	var base_url	= document.f_search.action;
+    getUrl(base_url+'mot_cle/'+recherche+'/recherche.htm');
+    return false;
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions onClick sur DIV
+//----------------------------------------------------------------------------------------------------
+function getUrl (url){
+    document.location.href = url;
+    return false;
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions pour aller à une ancre
+//----------------------------------------------------------------------------------------------------
+function getAnchor (Id, speed, topReduce){
+	if( speed == undefined )
+		speed	= "slow";
+	var top		= $("#"+Id).offset().top;
+	if( topReduce != undefined && isNaN(topReduce) == false )
+		top		-= topReduce;
+	$('html,body').animate({ scrollTop: top }, speed);
+	return false;
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions pour formulaires
+//----------------------------------------------------------------------------------------------------
+function getCheckedElementValue (selObj){
+	if (selObj.value!=undefined){
+		// if ( selObj.checked )
+			return selObj.value;
+	}else{
+		for (var i=0;i < selObj.length; i++){
+			if ( selObj[i].checked )
+				return selObj[i].value;
+		}
+	}
+	return "";
+}
+function getSelectedElementValue (selObj){
+	return selObj.options[selObj.selectedIndex].value;
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions Pop Up
+//----------------------------------------------------------------------------------------------------
+function Open (url, width, height){
+    window.open(url, "LBI", "menubar=no,location=no,resizable=yes,scrollbars=yes,status=no,width="+width+",height="+height+",top=100,left=100");
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions onClick de gestion des textes  de formulaires
+//----------------------------------------------------------------------------------------------------
+function assocTextToFormInput (itemEl, value){
+    if (itemEl.value == value)
+        itemEl.value = '';
+    else if (itemEl.value == '')
+        itemEl.value = value;
+    return false;
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonction d'impression de document
+//----------------------------------------------------------------------------------------------------
+function imprimer (){
+    window.print();
+    return false;
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonction pour fermer le document
+//----------------------------------------------------------------------------------------------------
+function fermer (){
+    window.close();
+    return false;
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonction pour confirmer un choix
+//----------------------------------------------------------------------------------------------------
+function confirmer (value, form){
+    if (confirm(value)){
+        send(form);
+        return true;
+    }else{
+        return false;
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonction pour contrôler s'il s'agit d'IE6
+//----------------------------------------------------------------------------------------------------
+function isIE6(){
+    var navigateur = navigator.appVersion;
+    if (navigateur.indexOf('MSIE 6',0) == -1)
+        return false;
+    else
+        return true;
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonction de réceupération de la hauteur exacte de la page.
+// Nota : ne pas utiliser le DOM body, car non compatible IE pour le calcul de la hauteur de page.
+//----------------------------------------------------------------------------------------------------
+function pageHeight(){
+    return $(window).height();
+}
+function pageWidth(){
+    return $(window).width();
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonction pour affiché le Background foncé
+//----------------------------------------------------------------------------------------------------
+function Bkg(){
+    var el, isNew = false;
+    if( ! document.getElementById("bg_fonce") ){
+        el = document.createElement("iframe");
+        el.id   = "bg_fonce";
+        isNew   = true;
+    }else{
+        el = document.getElementById("bg_fonce");
+    }
+    var height = pageHeight();
+    var width = pageWidth();
+    el.style.visibility     = 'hidden';
+    el.src                  = '/bkg-iframe.html';
+    el.style.visibility     = 'visible';
+    el.style.borderStyle    = 'none';
+    el.style.borderWith     = '0';
+    el.style.margin         = '0';
+    el.style.padding        = '0';
+    el.style.position       = 'fixed';
+    el.style.top            = '0';
+    el.style.zIndex         = '900';
+    el.style.height         = "100%";
+    el.style.width          = "100%";
+    el.style.filter         = "progid:DXImageTransform.Microsoft.Alpha(opacity=55)";
+    el.style.opacity        = 0.5;
+
+    if( isNew )
+        document.body.appendChild(el);
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions relatives aux popins Ajax
+//----------------------------------------------------------------------------------------------------
+function AfficherPopin ( Url ){
+    $.get(  Url, {},
+            function(data){
+                PopInRender (data);
+            }
+    );
+}
+function AfficherPopinClient ( Url,class_name ){
+    if( class_name == null )
+        class_name = "";
+
+    $.get(  Url, {},
+            function(data){
+                PopInRenderClient (data,class_name);
+            }
+    );
+}
+function MasquerPopin ( ){
+    PopInDesctruct(null);
+}
+function ActionDAffichage ( Url, classAction ){
+    if (document.getElementById('popinAjax')&&document.getElementById('popinRender')){
+        var AjaxFile			= Url;
+        var class_action_		= classAction;
+        $.post(AjaxFile, {
+            class_action:class_action_
+        }, function(data){
+			PopInRender (data);
+        });
+    }
+}
+function afficherActionDAffichage ( Url, classAction ){
+    PopInCreate ("", "popin");
+	ActionDAffichage ( Url, classAction );
+}
+function rechargerActionDAffichage ( Url, classAction ){
+	ActionDAffichage ( Url, classAction );
+}
+function executerActionDePost ( f_name ){
+    if (!document.getElementById('popinAjax')&&!document.getElementById('popinRender'))
+		PopInCreate ("", "popin");
+	var AjaxFile			= document[f_name].action;
+	$.post(AjaxFile,
+		$("#"+f_name).serialize()
+	, function(data){
+		PopInRender (data);
+	});
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions Loading Ajax
+//----------------------------------------------------------------------------------------------------
+function AjaxReset ( target ){
+    if (document.getElementById(target+"Ajax"))
+        document.getElementById(target+"Ajax").innerHTML = "<br /><br />";
+    if (document.getElementById(target+"Render"))
+        $("#"+target+"Render").addClass("loader");
+}
+function AjaxRender (data, target){
+    document.getElementById(target+"Ajax").innerHTML = data;
+    $("#"+target+"Render").removeClass("loader");
+}
+
+function executerActionDePostAjax ( f_name, url, gnx ){
+    var AjaxFile                = "";
+    if (url!=null)
+        AjaxFile                = url;
+    else
+        AjaxFile				= document[f_name].action;
+    $.post(AjaxFile,
+        $("#"+f_name).serialize()
+        , function(data){
+            executerReponseAjax (data, f_name);
+            if(typeof(gnx)!='undefined'){
+                if( gnx =="redirect"){
+                    $(location).attr('href',data)
+                }
+            }
+        });
+}
+
+function executerReponseAjax (data, f_name){
+    if ( document.getElementById("ajaxresponse")==null ){
+        this.node				= document.createElement("div");
+        $(this.node).attr		({ id: "ajaxresponse" });
+        $(this.node).addClass	( "hide" );
+        $(this.node).appendTo	( document.body );
+    }
+    $('#ajaxresponse').html(data);
+    if (f_name!=null)
+        window.setTimeout('supprimerCallToActionAjax("'+f_name+'")', 1500);
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonction pour afficher/masquer un DIV
+//----------------------------------------------------------------------------------------------------
+function autoShowHide (itemEl, value, fade, callback){
+/*
+ * itemEl       : id de l'élément cible
+ * value        : show pour afficher un élément masqué, hide masquer un élément affiché
+ * fade         : true pour animer
+ * callback     : fonction post exécution
+ */
+    if (document.getElementById(itemEl)){
+        if (fade==true && value=="show"){
+            $("#"+itemEl).fadeIn("slow");
+            $("#"+itemEl).queue(function(){
+                autoShowHide (itemEl, value, false, callback);
+                $(this).dequeue();
+            });
+        }
+        else if (fade==true && value=="hide"){
+            $("#"+itemEl).fadeOut("slow");
+            $("#"+itemEl).queue(function(){
+                autoShowHide (itemEl, value, false, callback);
+                $(this).dequeue();
+            });
+        }
+        else{
+            hideElement(itemEl);
+            $("#"+itemEl).addClass(value);
+            $("#"+itemEl).queue(function(){
+                var execallback = eval(callback);
+                $(this).dequeue();
+            });
+        }
+    }
+}
+function hideElement (itemEl){
+    $("#"+itemEl).removeClass("display");
+    $("#"+itemEl).removeClass("show");
+    $("#"+itemEl).removeClass("hide");
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions relatives au Panier
+//----------------------------------------------------------------------------------------------------
+var _miniShopperListingNeedUpdate = true;
+function AddToShopperCallBack( content_generated ){
+    window.setTimeout("miniShopperRender()", 1000);
+	PopInRender (content_generated);
+}
+function AddToShopper (ObjectID, f_name){
+    PopInCreate ("", "popin");
+	var position				= $("#"+ObjectID);
+    var offset					= position.offset();
+    $("#popin").css({
+        top: (offset.top-100)
+    });
+	
+    if (document.getElementById('popinAjax')&&document.getElementById('popinRender')){
+		var AjaxFile			= document[f_name].action;
+		$.post(AjaxFile, 
+            $("#"+f_name).serialize()
+        , function(data){
+            AddToShopperCallBack (data);
+        });
+    }
+}
+function miniShopperRender(){
+	var AjaxFile				= "/fr/";
+    /* mini-shopper */
+	if (document.getElementById('monpanier')){
+		$("#monpanier").removeClass("sprite");
+		$("#monpanier").addClass("loader");
+        $.post(AjaxFile, {
+            class_action:"Panier/mini_shopper"
+        }, function(data){
+			document.getElementById("monpanier").innerHTML = data;
+			$("#monpanier").removeClass("loader");
+			$("#monpanier").addClass("sprite");
+        });
+    }
+	/* right-bar shopper */
+    if (document.getElementById('rbleft-panier')){
+		$("#rbleft-panier").addClass("loader");
+        $.post(AjaxFile, {
+            class_action:"Panier/mini_shopper_right"
+        }, function(data){
+			document.getElementById("rbleft-panier").innerHTML = data;
+			$("#rbleft-panier").removeClass("loader");
+        });
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions relatives au HEADER / CATALOG AREA
+//----------------------------------------------------------------------------------------------------
+function ActivateCatalogArea(id, objectID, storedLocation, classBaseName) {
+    var trackerID;
+	eval(storedLocation+"=0;");
+    $(id).mouseover(function(){
+        if(eval(storedLocation) == 0)
+            trackerID = window.setTimeout('open_Area("'+objectID+'", "'+storedLocation+'", "'+classBaseName+'")',350);
+        else
+            window.clearTimeout(trackerID);
+    });
+    $(id).mouseout(function(){
+       window.clearTimeout(trackerID);
+       trackerID = window.setTimeout('close_Area("'+objectID+'", "'+storedLocation+'", "'+classBaseName+'")',250);
+    });
+}
+function menuCatalogArea (objectID, classBaseName){
+	var catalogTimer	= null;
+    $('.navigation-catalogue .navigation-catalogue-off').mouseover(function(){
+		var _self		= $(this);
+		catalogclose();
+		_self.removeClass('navigation-catalogue-off');
+		_self.addClass('navigation-catalogue-on');
+
+	});
+    $('.navigation-catalogue .navigation-catalogue-off').mouseout(function(){
+		catalogclose();
+	});
+}
+function catalogclose(){
+	 $('.navigation-catalogue .navigation-catalogue-on').addClass('navigation-catalogue-off');
+	$('.navigation-catalogue .navigation-catalogue-on').removeClass('navigation-catalogue-on');
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions AREA génériques
+//----------------------------------------------------------------------------------------------------
+/**
+ * Ouvre un panneau
+ */
+function open_Area(objectID, storedLocation, classBaseName){
+    clearAreas ();
+	eval(storedLocation+"=1;");
+    if (document.getElementById(objectID)){
+        $("#"+objectID).removeClass(classBaseName+"-off");
+        $("#"+objectID).removeClass(classBaseName+"-up");
+        $("#"+objectID).addClass(classBaseName+"-on");
+    }
+}
+/**
+ * Ferme un panneau
+ */
+function close_Area(objectID, storedLocation, classBaseName){
+    eval(storedLocation+"=0;");
+    if (document.getElementById(objectID)){
+        $("#"+objectID).removeClass(classBaseName+"-on");
+        $("#"+objectID).removeClass(classBaseName+"-up");
+        $("#"+objectID).addClass(classBaseName+"-off");
+    }
+}
+/**
+ * Ferme tous les panneaux
+ */
+function clearAreas (){
+	close_Area		('customer_area',	'customer_area_done',	'customer');
+	close_Area		('basket_area',		'basket_area_done',		'basket');
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions relatives au DESIGN SELECT
+//----------------------------------------------------------------------------------------------------
+function ActivateDesignSelect(id, objectID, storedLocation, classBaseName, mode) {
+    if (mode==null)
+        mode = "mouseover";
+    var trackerID;
+	eval(storedLocation+"=0;");
+	if (mode=="click"){
+		$(id).mouseover(function(){
+			window.clearTimeout(trackerID);
+			$(id).removeClass("designselectbox-off");
+			$(id).removeClass("designselectbox-up");
+			$(id).addClass("designselectbox-up");
+		});
+		$(id).mouseout(function(e){
+			window.clearTimeout(trackerID);
+			trackerID = window.setTimeout('close_Area("'+objectID+'", "'+storedLocation+'", "'+classBaseName+'")',250);
+		});
+		$(id).click(function(){
+			$(id).removeClass("designselectbox-up");
+			$(id).removeClass("designselectbox-off");
+			$(id).removeClass("designselectbox-on");
+			$(id).addClass("designselectbox-on");
+			//return false;
+		});
+	} else {
+		$(id).mouseover(function(){
+			if(eval(storedLocation) == 0)
+				trackerID = window.setTimeout('open_Area("'+objectID+'", "'+storedLocation+'", "'+classBaseName+'")',350);
+			else
+				window.clearTimeout(trackerID);
+		});
+		$(id).mouseout(function(){
+		   window.clearTimeout(trackerID);
+		   trackerID = window.setTimeout('close_Area("'+objectID+'", "'+storedLocation+'", "'+classBaseName+'")',250);
+		});
+	}
+}
+function ActivateDesignSelectContent(id, objectID, classBaseName) {
+    $(id).mouseover(function(){
+        open_Area(objectID, 'designselect_elements_done', classBaseName);
+    });
+    $(id).mouseout(function(){
+        close_Area(objectID, 'designselect_elements_done', classBaseName);
+    });
+}
+function menuDesignSelect (objectID, classBaseName, mode){
+    elementID = document.getElementById(objectID);
+    if (elementID){
+		ActivateDesignSelect("#"+objectID, objectID, objectID+"_done", classBaseName, mode);
+		menuDesignSelectContent (objectID, classBaseName);
+	}
+}
+function menuDesignSelectContent (objectID, classBaseName){
+	elementID = document.getElementById(objectID);
+    if (elementID){
+        var nbNodes = document.getElementById(objectID).childNodes.length;
+        for (var i=0; i<nbNodes; i++){
+            var node = document.getElementById(objectID).childNodes[i];
+			if ( node.nodeName.toLowerCase() == "div" && node.className.match("designselectbox_on") ){
+				var real_node		= node;
+				var nb_real_node	= real_node.childNodes.length;
+				for (var j=0; j<nb_real_node; j++){
+					var current_node = real_node.childNodes[j];
+					if ( current_node.nodeName.toLowerCase() == "a" && current_node.id.match(objectID+"_element_") ){
+						var index = current_node.id.substr((objectID+"_element_").length);
+						ActivateDesignSelectContent("#"+objectID+"_element_"+index, objectID+"_element_"+index, classBaseName+"-content");
+					}
+				}
+				break;
+			}
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions relatives à la BREADCRUMB
+//----------------------------------------------------------------------------------------------------
+function menuDesignBreadCrumb (objectID, classBaseName){
+	elementID = document.getElementById(objectID);
+    if (elementID){
+        var nbNodes = document.getElementById(objectID).childNodes.length;
+        for (var i=0; i<nbNodes; i++){
+            var node = document.getElementById(objectID).childNodes[i];
+			if ( node.nodeName.toLowerCase() == "div" && node.id.match("breadcrumb_design_") ){
+				menuDesignSelect ("designselect_"+node.id, classBaseName, "click");
+			}
+        }
+    }
+}
+
+//----------------------------------------------------------------------------------------------------
+// Variables générales
+//----------------------------------------------------------------------------------------------------
+var timer;
+var trackerID_Customer;
+
+//----------------------------------------------------------------------------------------------------
+// Exécution automatique des fonctions
+//----------------------------------------------------------------------------------------------------
+$(document).ready(function () {
+    if( clearAreas != null )
+        clearAreas();
+    if( menuCatalogArea != null )
+        menuCatalogArea			(	'navigation-catalogue',					'navigation-catalogue');
+	if( menuDesignSelect != null )
+        menuDesignSelect('designselect_countries', 'designselectbox');
+    if( menuDesignBreadCrumb != null )
+		menuDesignBreadCrumb('breadcrumb', 'designselectbox');
+	
+	/* tooltip on input field to display info */
+	$('input.tooltip_infos').each(function(){
+		var title = $(this).attr('title');
+		if (typeof title !== 'undefined' && title !== false) {
+			$(this).attr('title', '');
+			var el_id	= 'info_'+$(this).attr('id');
+			$(this).after('<div class="info_input hide" id="' + el_id + '">'+ title +'</div>');
+			// actions
+			$(this).focus(function(){
+				$("#" + el_id).show();
+			})
+			$(this).blur(function(){
+				$("#" + el_id).hide();
+			})
+		}
+	});
+});
+
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions de partage
+//----------------------------------------------------------------------------------------------------
+$(document).ready(function () {
+    if($('.facebook-share')[0]) {
+        var url = window.location.href;
+
+        var new_url = $('.facebook-share').prop('href').replace('url', url + '&title=' + $(document).find("title").text());
+        $('.facebook-share').prop('href', new_url);
+
+        $('.print-generator').click(function (event) {
+            event.preventDefault();
+            if (window.print) {
+                window.print();
+            }
+        });
+
+        function getBody() {
+            return '';
+        }
+
+        $('#mail-generator').click(function () {
+            this.href = "mailto:?subject=Idée Recette&body=";
+            this.href += getBody();
+        });
+    }
+});
+
+//----------------------------------------------------------------------------------------------------
+// Functions popin image
+//----------------------------------------------------------------------------------------------------
+function throw_popin_bigPicture( path ){
+    if( path == null || path == "" )
+        return false;
+    var html = "";
+
+    // * Preparation de la popin
+    html    += "<div class='popin_bigPicture hover' onclick='destruct_popin_bigPicture()'>";
+    html    +=      "<img src='"+path+"' alt='' id='img_bigPicture'/>";
+    html    += "</div>";
+
+    $("body").append( html );
+}
+
+function destruct_popin_bigPicture(){
+    $(".popin_bigPicture").fadeOut(function(){
+        $(".popin_bigPicture").remove();
+    });
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions actualités
+//----------------------------------------------------------------------------------------------------
+$(document).ready(function(){
+   $("#article #scrollDown").click(function(){
+        var text_content_offset = $(".text_content").scrollTop();
+        $(".text_content").scrollTop( text_content_offset+10 );
+   }) ;
+});
+
+
+// ----------------------------------------------------------------------------------------------------------------
+// PAGE CADEAUX AFFAIRES
+// ----------------------------------------------------------------------------------------------------------------
+
+$(document).ready(function(){
+    hammon_init();
+   $("#cadeaux-affaires button, #cadeaux-affaires .contactez-nous").click(function(){
+       $("#cadeaux-affaires .pop-in").css("display", "block");
+       $("#cadeaux-affaires .contenu").css("opacity", "0.2");
+   });
+    $("#cadeaux-affaires .close").click(function () {
+        $("#cadeaux-affaires .pop-in").css("display", "none");
+        $("#cadeaux-affaires .contenu").css("opacity", "1");
+    })
+});
+
+// ----------------------------------------------------------------------------------------------------------------
+// BANDEAU LOI HAMMON
+// ----------------------------------------------------------------------------------------------------------------
+function hammon_init(){
+    if( $("#stripe_hammon").length == 0 )
+        return false;
+    
+    var hammon_cookie_name  = "loi_hammon_cookies";
+    if( cookies_exists_one( hammon_cookie_name ) == false ){
+        hammon_show_strip();
+    }
+}
+function hammon_close_stripe(){
+    $("#stripe_hammon").fadeOut(function(){
+        $("#stripe_hammon").addClass("hide");
+    });
+    cookies_create_one("loi_hammon_cookies","validated");
+}
+function hammon_show_strip(){
+    setTimeout(function(){
+        var stripe_hammon   = $("#stripe_hammon");
+        stripe_hammon.css("display","none");
+        stripe_hammon.removeClass("hide");
+        stripe_hammon.fadeIn();
+    },500);
+}
+
+// ----------------------------------------------------------------------------------------------------------------
+// COOKIES FUNCTIONS
+// ----------------------------------------------------------------------------------------------------------------
+function cookies_get_all(){
+    var decoded_cookie                  = decodeURIComponent(document.cookie);
+    var array_list_cookies_values       = [];
+    var cookie_parts                    = [];
+    var cookies_read                    = decoded_cookie.split(";");
+
+    for( var i=0;i<cookies_read.length;i++ ){
+        cookie_parts    = cookies_read[i].split("=");
+        cookie_value   = ( cookie_parts.length > 1 )?cookie_parts[1]:"";
+        array_list_cookies_values[cookie_parts[0].trim()] = cookie_value.trim();
+    }
+    return array_list_cookies_values;
+}
+
+function cookies_read_one( cookie_name ){
+    array_cookies   = cookies_get_all();
+    var i = 0;
+    for( var key in array_cookies ){
+        if( key == cookie_name ){
+            return array_cookies[key];
+            i++;
+        }
+    }
+    return false;
+}
+
+function cookies_exists_one( cookie_name ){
+    return ( cookies_read_one( cookie_name ) !== false );
+}
+
+function cookies_create_one( cookie_name,cookie_value ){
+    if( cookies_exists_one( cookie_name ) )
+        return false;
+    document.cookie = cookie_name+"="+cookie_value;
+}
+
+// ----------------------------------------------------------------------------------------------------------------
+// RECUPERATION MOT DE PASSE
+// ----------------------------------------------------------------------------------------------------------------
+function AfficherPopinRecuperationMdp(){
+    PopInDesctruct('popin-customer');
+    var url = "./?class_action=Client/get_popin_ajax_recuperation_mdp";
+    AfficherPopinClient( url,"popin-customer" );
+}

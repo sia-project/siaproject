@@ -1,0 +1,183 @@
+/* 
+    Document   : storelocator
+    Created on : 30 mai 2011, 17:21:49
+    Author     : Kevin
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+
+/* -----------------------------------------------------------------------------
+        Pages Store Locator
+/* -------------------------------------------------------------------------- */
+
+#page-storelocator{
+	width:100%;
+	float:left;
+}
+
+#page-storelocator .storelocator-header{
+	width:100%;
+	float:left;
+}
+#page-storelocator .storelocator-header .title,
+#page-storelocator .storelocator-header h1{
+	width:480px;
+	float:left;
+	margin:0;
+	color: #0070B8;
+	font-size: 32px;
+	font-weight: bold;
+}
+#page-storelocator .storelocator-header .navigation{
+	width:235px;
+	float:left;
+	margin-top: 10px;
+}
+#page-storelocator .storelocator-content{
+	width:100%;
+	float:left;
+	position: relative;
+	margin-bottom: 40px;
+	margin-top: 5px;
+}
+#page-storelocator .informations{
+	width:309px;
+	height:400px;
+	float:left;
+	background: #0070b8;
+	color:#FFFFFF;
+	font-size: 12px;
+}
+#page-storelocator .informations h1{
+	text-transform: uppercase;
+	font-size: 40px;
+	margin:0;
+}
+#page-storelocator .informations span{text-transform: inherit;}
+#page-storelocator .informations p{line-height: 20px;margin: 0;}
+#page-storelocator .informations h4{
+	font-size:14px;
+	font-weight: bold;
+	color:#FFFFFF;
+	margin:0;
+}
+#page-storelocator .informations .plan-acces{
+	cursor: pointer;
+	padding-left:10px;
+	background:url(../images/modules/fleche-droite-blanche.jpg) no-repeat 0 2px;
+}
+#page-storelocator .informations .information-large .horaires-ouvertures{
+	position: absolute;
+	bottom:145px;
+	width: 290px;
+}
+#page-storelocator .informations .information-small .horaires-ouvertures{
+	position: absolute;
+	bottom:105px;
+	width: 180px;
+}
+#page-storelocator .informations .communication-large,
+#page-storelocator .informations .communication-small{
+	float:left;
+	background: #003659;
+	width:289px;
+}
+#page-storelocator .informations .information-large{padding:10px;height: 246px;}
+#page-storelocator .informations .information-small{padding:10px;height: 284px;}
+#page-storelocator .informations .communication-small{padding:10px;height: 76px;}
+#page-storelocator .informations .communication-large{padding:10px;height: 114px;}
+#page-storelocator .informations .communication-large .picto{
+	background: url(../images/modules/information.png) no-repeat;
+	width: 70px;
+	height: 70px;
+	position: absolute;
+	bottom:100px;
+	left:230px;
+}
+#page-storelocator .informations .communication-small .picto{
+	background: url(../images/modules/pancarte.png) no-repeat;
+	width: 120px;
+	height: 209px;
+	position: absolute;
+	bottom:20px;
+	left:180px;
+}
+#page-storelocator #slider{
+	width:411px;
+	height:400px;
+	float:left;
+}
+#page-storelocator #googlemap{
+	width:411px;
+	height:400px;
+	float:left;
+}
+
+#page-storelocator #slider{
+	margin:0;
+}
+#page-storelocator #sliderCount{
+	left:320px;
+	top:10px;
+}
+
+#page-storelocator .template-accueil #sliderCount{
+	left:10px;
+}
+
+
+/* -----------------------------------------------------------------------------
+        Right Bar Store Locator
+/* -------------------------------------------------------------------------- */
+.rightbar-storelocator{
+	position:absolute;
+	right:0;
+	top:-15px;
+	width:247px;
+	min-height: 510px;
+}
+.rightbar-storelocator .rbtop{
+	background:url('../images/right-bar/storelocator-rb-top.png') no-repeat;
+	width:247px;
+	height:17px;
+	float:right;
+}
+
+.rightbar-storelocator .rbleft-storelocator{
+	background:url('../images/right-bar/storelocator-rb-left.png') repeat-y;
+	padding:0 14px 10px 20px;
+	width:213px;
+	height: 270px;
+	float:right;
+}
+.rightbar-storelocator .rbleft-storelocator h2{
+	color:#0070B8;
+	margin:0;
+	line-height: 22px;
+}
+.rightbar-storelocator .rbleft-storelocator select{margin:10px 0;width: 210px}
+.rightbar-storelocator .rbleft-storelocator p{
+	font-weight: bold;
+	margin: 0;
+}
+
+
+.rightbar-storelocator .rbleft-storelocator .bloc{
+	width: 100%;
+	float:left;
+	position:relative;
+}
+.rightbar-storelocator .rbleft-storelocator .separateur{
+	float: left;
+	margin: 10px 0;
+	width: 100%;
+	border-bottom: 1px solid #0070B8;
+}
+.rightbar-storelocator .rbbottom{
+	background:url('../images/right-bar/storelocator-rb-bottom.png') no-repeat;
+	width:247px;
+	height:191px;
+	float:right;
+}

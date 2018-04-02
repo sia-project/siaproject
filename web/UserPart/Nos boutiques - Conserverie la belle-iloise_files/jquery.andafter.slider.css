@@ -1,0 +1,40 @@
+/* 
+    Document   : jquery.andafter.slider
+    Created on : 20 mai 2011, 12:21:47
+    Author     : Kevin
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#slider .item{
+		display:none;
+	}
+#slider .selected{
+	display:block;
+}
+#sliderCount{
+	position:absolute;
+	top:24px;
+	left:18px;
+	z-index: 100;
+}
+
+#sliderCount .item{
+	background: #E8EDF0;
+	background: #9adaff;
+	width:20px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	margin-right: 2px;
+	font-weight: bold;
+	font-size: 14px;
+	display: inline;
+	float:left;
+	color:#003659;
+	cursor: pointer;
+}
+#sliderCount .selected{
+	background:#003659;
+	color:#E8EDF0;
+}

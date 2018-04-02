@@ -1,0 +1,96 @@
+/**
+ * 
+ * @author	Husson Kévin
+ * @date	2011-05-20
+ * 
+ * 
+ */
+
+(function($) {
+	$.fn.MySlider = function(options){
+
+		// définition des options par défaut parametrable
+		var defaults = {
+			sliderID		: 'slider',
+			sliderCountID	: 'sliderCount',
+			itemID			: 'item',
+			itemCountID		: 'itemCount',
+			itemClass		: 'item',
+			itemCountClass	: 'item',
+			auto			: true,
+			temps_auto		: 5000,
+			numeric			: true,
+			clickable		: true,
+			mode_fade		: true
+		};
+
+		var opts = $.extend(defaults, options);
+
+		// Gestion automatique ( auto )
+		if( opts.auto == true ){
+			setInterval(function(){
+				var div_id 			= opts.itemID+'-0';
+				var nbElements		= 0;
+				$('#'+opts.sliderID + ' .'+opts.itemClass).each(function(i){
+					nbElements++;
+					if( $(this).hasClass('selected') ){
+						div_id	= $(this).attr('id');
+					}
+				});
+				div_id		= parseInt(div_id.replace(opts.itemID+'-', ''));
+				div_id		= parseInt( div_id + 1 );
+				if( div_id > nbElements ) div_id = 1;
+				showTab( div_id );
+			}, opts.temps_auto );
+		}
+
+		// Gestion du click
+		if( opts.clickable == true ){
+			$('#'+opts.sliderCountID + ' .'+opts.itemClass).click(function(){
+				var valeur_div	= $(this).html();
+				showTab( valeur_div );
+			});
+		}
+
+		// Changement d'image
+		function showTab( num ){
+			if( document.getElementById( opts.itemID+'-'+num ) ){
+				if( opts.mode_fade == true ){
+					// On met les éléments en absolu pour éviter le superpositionnement
+					$('#'+opts.sliderID + ' .'+opts.itemClass).css('position', 'absolute');
+					// Définitions des z-index pour l'effet fade out
+					$('#'+opts.sliderID + ' .'+opts.itemClass).css('z-index', 100);
+					$('#'+opts.sliderID + ' .'+opts.itemClass).each(function(){
+						if( $(this).hasClass('selected') ) $(this).css('z-index', 200);
+					});
+					// Ajout de la class sur le futur élément
+					$('#'+opts.sliderID + ' #'+opts.itemID+'-'+num).addClass('selected');
+					// Fade out de l'élément en cours
+					$('#'+opts.sliderID + ' .'+opts.itemClass).not('#'+opts.itemID+'-'+num).fadeOut(500);
+					// Fade in de l'élément futur
+					$('#'+opts.sliderID + ' #'+opts.itemID+'-'+num).fadeIn();
+					// On supprime les class 'selected' via settimeout pour la bonne excution des fades
+					var timerout = setTimeout(function(){
+						$('#'+opts.sliderID + ' .'+opts.itemClass).not('#'+opts.itemID+'-'+num).removeClass('selected');
+						clearTimeout(timerout);
+					}, 500);
+					
+				} else {
+					$('#'+opts.sliderID + ' .'+opts.itemClass).removeClass('selected');
+					$('#'+opts.sliderID + ' #'+opts.itemID+'-'+num).addClass('selected');
+				}
+				// Si la fonction ( numeric ) est activé ( true )
+				if( opts.numeric == true )
+					changeNum( num );
+			}
+		}
+
+		// Changement de numero en cours
+		function changeNum( num ){
+			if( document.getElementById( opts.itemCountID+'-'+num ) ){
+				$('#'+opts.sliderCountID + ' .'+opts.itemCountClass).removeClass('selected');
+				$('#'+opts.sliderCountID + ' #'+opts.itemCountID+'-'+num).addClass('selected');
+			}
+		}
+	};
+})(jQuery);

@@ -1,0 +1,772 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+<title>La Vieille Sardine</title>
+<!--/tags -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Elite Shoppy Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+		function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--//tags -->
+<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
+
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<link href="css/easy-responsive-tabs.css" rel='stylesheet' type='text/css'/>
+<link rel="stylesheet" href="css/bootstrap-datepicker.css"/>
+
+<!-- //for bootstrap working -->
+<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet">
+<link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,900italic,700italic' rel='stylesheet' type='text/css'>
+
+
+</head>
+
+<body>
+
+
+
+
+
+
+
+<div id="header"> </div>
+<link href="./Nos boutiques - Conserverie la belle-iloise_files/jquery.andafter.slider.css" rel="stylesheet" type="text/css">
+<link href="./Nos boutiques - Conserverie la belle-iloise_files/store-locator.css" rel="stylesheet" type="text/css">
+<link href="./Nos boutiques - Conserverie la belle-iloise_files/default.css" rel="stylesheet" type="text/css">
+<link href="./Nos boutiques - Conserverie la belle-iloise_files/client.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="./Nos boutiques - Conserverie la belle-iloise_files/jquery.andafter.slider.js.téléchargement"></script>
+<script type="text/javascript" src="./Nos boutiques - Conserverie la belle-iloise_files/jquery.pngFix.js.téléchargement"></script>
+<script type="text/javascript" src="./Nos boutiques - Conserverie la belle-iloise_files/jquery.tools.min.js.téléchargement"></script>
+<script type="text/javascript" src="./Nos boutiques - Conserverie la belle-iloise_files/common.js.téléchargement"></script>
+
+<script type="text/javascript" src="./Nos boutiques - Conserverie la belle-iloise_files/htmlpromptevent.js.téléchargement"></script>
+<script type="text/javascript" src="./Nos boutiques - Conserverie la belle-iloise_files/dom-ready.js.téléchargement"></script>
+<style type="text/css" media="all">
+@import '/themes/default/ressources/css/htmlpromptevent.css';
+</style>
+
+
+<style>
+	.hide{display:none;display:none !important;}
+	.rightbar-storelocator .rbleft-storelocator{height: 290px !important;}
+	.storelocator-header{padding-bottom: 10px;}
+	.prez{position:absolute;float:left;width:400px;height:400px;float:left;margin-left: 500px;margin-top: 300px;}
+	#myimap{position:absolute;float:left;width:400px;height:400px;margin-left: 800px; margin-top: 400px; overflow: hidden;}
+	#myimaphover{
+		z-index:10;
+		position:absolute;
+		top:0;
+		width:100%;
+		height:100%;
+	}
+	#myimapzoom {
+		position:absolute;
+		top:0;
+		width:100%;
+		height:100%;
+		z-index:100;
+	}
+	#myimapzoom .close{
+		background: url("/mediatheque/map/close.png") no-repeat;
+		position:absolute;
+		top:15px;
+		right:15px;
+		cursor:pointer;
+		text-indent: -5000px;
+		width: 55px;
+		height: 15px;
+	}
+	/*map *,
+	img:focus,
+	map:focus,
+	area,
+	area[shape="poly"]:hover,
+	area[shape="poly"]:focus,
+	area:focus { border-width:0 !important;border:none !important;outline: none !important; }*/
+
+	a, img {outline:none;}
+	map > area,
+	map > area:active,
+	map > area:focus,
+	area[shape="poly"]:hover,
+	area[shape="poly"]:focus{outline: none; border:0; }
+
+
+	.point{
+		background:url(/mediatheque/map/marker.png) no-repeat center top;
+		color: #FFFFFF;
+		height: auto;
+		padding: 65px 0 0 0;
+		line-height:12px;
+		font-size: 12px;
+		min-width: 80px;
+		font-weight: bold;
+		text-align: center;
+		position: absolute;
+	}
+	.point a{color:#FFFFFF;position: absolute;left:-10px;width: 100px;}
+	.point-mini .point{
+		background:url(/mediatheque/map/marker2.png) no-repeat center top;
+		padding: 30px 0 0 0;
+	}
+
+	.point-62a{top:140px;left:15px;}
+	.point-69a{top:200px;left:235px;}
+
+	.point-76a{top:5px;left:260px;}
+	.point-76b{top:45px;left:210px;}
+	.point-76c{top:183px;left:-3px;}
+	.point-76d{top:108px;left:24px;}
+	.point-76e{top:216px;left:213px;}
+
+	.point-14a{top:95px;left:230px;}
+	.point-14b{top:72px;left:270px;}
+	.point-14c{top:58px;left:315px;}
+	.point-14c a{top:-15px;left:3px;}
+	.point-14d{top:110px;left:186px;}
+	.point-14e{top:60px;left:295px;}
+	.point-14e a{top:-12px;left:-34px;}
+
+	.point-50a{top:-10px;left:130px;}
+	.point-50b{top:225px;left:135px;}
+
+	.point-33a{top:200px;left:40px;}
+	.point-33b{top: 100px;left: 140px;}
+    .point-33c{top:180px;left:40px;}
+    .point-33c a{top: 45px;left: 35px;}
+    .point-33d{top:160px;left:40px;}
+    .point-33d a{top: 45px;left: 15px;}
+
+	.point-31a{ top: 60px; left: 216px; min-width: 68px;}
+	.point-31a a{top:64px;left:-27px;}
+
+	.point-35a{top:2px;left:150px;min-width: 30px;}
+	.point-35a a{top:5px;left:5px;}
+	.point-35b{top:6px;left:135px;min-width: 30px;}
+	.point-35b a{left:-24px;}
+	.point-35c{top:10px;left:120px;min-width: 30px;}
+	.point-35c a{top:5px;left:-78px;}
+	.point-35d{top:220px;left:185px;min-width: 30px;}
+	.point-35d a{left:-24px;}
+
+	.point-22a{left: 30px;top: 20px;}
+	.point-22b{left: 333px;top: 120px;}
+	.point-22c{left: 120px;top: 30px;}
+	.point-22c a{left: -30px;}
+	.point-22d{left: 220px;top: 110px;}
+	.point-22e{left: 160px;top: 92px;}
+	.point-22e a{left: -27px;}
+
+	.point-29a{top:270px;left:210px;}
+	.point-29b{top:220px;left:145px;}
+	.point-29b a{z-index: 10; top: 50px;}
+	.point-29c{top:-10px;left:205px;}
+	.point-29d{top:60px;left:246px;}
+	.point-29e{top: 80px;left: 63px;}
+	.point-29f{top:270px;left:180px;}
+	.point-29f a{left: -50px;}
+
+	.point-85a{top:119px;left:0px;}
+	.point-85b{top:192px;left:85px;}
+	.point-85b a{left: 35px;top: 12px;}
+	.point-85c{top:20px;left:8px;}
+	.point-85c a{left: 57px;text-align: left;top: 22px;width: 160px;}
+
+	.point-64a{top:55px;left:40px;padding-top: 40px;height: 20px;}
+	.point-64a a{left:30px;top: 23px;}
+	.point-64b{top:88px;left:0;}
+	.point-64b a{top: 42px;width: 200px;left:0;}
+
+	.point-66a{top:170px;left:330px;}
+
+	.point-83a{top:170px;left:270px;z-index: 10;}
+	.point-83a a{left: 33px;}
+	.point-83b{top:230px;left:230px;}
+	.point-83b a{top: 73px;width: 150px;}
+	.point-83c{top:270px;left:131px;}
+	.point-83c a{top: 85px;}
+
+	.point-13a{top:227px;left:255px;}
+	.point-13a a{top: 64px; left:11px;}
+
+	.point-06a{top:175px;left:285px;}
+	.point-06b{top:212px;left:226px;}
+	.point-06c{top:308px;left:116px;}
+	.point-06d{top:275px;left:173px;}
+
+	#myimapzoom .point-17 .point{font-size: 12px;font-weight: bold;}
+	.point-17a{top:205px;left:110px;}
+	.point-17b{top:105px;left:60px;}
+	.point-17b a{left:-67px;}
+	.point-17c{top:35px;left:50px;}
+	.point-17c a{top:26px;left:-43px;line-height: 14px;}
+	.point-17d{top:50px;left:80px;}
+	.point-17d a{width: 220px;left:20px;top:-7px;}
+	.point-17e{top:57px;left:90px;}
+	.point-17e a{width: 220px;left:15px;top:14px;}
+
+	#myimapzoom .point-44 .point{font-size: 12px;font-weight: bold;}
+	#myimapzoom .point-44 .point a{font-size: 12px;}
+	.point-44a{top:206px;left:122px;}
+	.point-44b{top:164px;left:44px;}
+	.point-44b a{top:-3px;left:25px;}
+	.point-44c{top:180px;left:64px;}
+	.point-44c a{top:4px;left:25px;z-index: 20;}
+	.point-44d{top:177px;left:36px;}
+	.point-44d a{text-align: left;width: 70px;left:-35px;top:17px;font-size: 12px;}
+	.point-44e{top:150px;left:185px;}
+	.point-44e a{text-align: left;width: 69px;left:14px;}
+	.point-44f{top:183px;left:55px;z-index:10;}
+	.point-44f a{text-align: left;width: 119px;left:-22px;top:30px;font-size: 12px;}
+	.point-44g{top:173px;left:49px;}
+	.point-44g a{top:0;left:25px;}
+
+	#myimapzoom .point-56 .point{font-size: 12px;font-weight: bold;}
+	#myimapzoom .point-56 .point a{z-index: 10;}
+	.point-56a{top:230px;left:130px;min-width: 30px;z-index: 20;}
+	.point-56a a{top:2px;left:-50px;width: auto;}
+	.point-56b{top:212px;left:135px;}
+	.point-56b a{top:-15px;left:22px;width: auto;}
+	.point-56c{top:218px;left:170px;}
+	.point-56c a{top: -8px;left: 35px;width: 150px;}
+	.point-56d{top:237px;left:152px;}
+	.point-56d a{left:15px;width: auto;}
+	.point-56e{top:244px;left:175px;}
+	.point-56e a{top:5px;left:50px;width: auto;}
+	.point-56f{top:96px;left:47px;}
+	.point-56f a{top:5px;left:50px;width: auto;}
+	.point-56g{top:230px;left:114px;z-index: 10;}
+	.point-56g a{left: -13px;text-align: left;top: -15px;width: auto;}
+	.point-56h{top:257px;left:93px;}
+	.point-56h a{left: -50px;text-align: left;top: -4px;width: 80px;}
+	.point-56i{top:262px;left:99px;}
+	.point-56i a{left: -56px;text-align: left;width: 140px;}
+	.point-56j{top:315px;left:95px;}
+    .point-56k{top:220px;left:175px;}
+    .point-56k a{top:5px;left: 50px;width: 160px;}
+
+	#myimapzoom .point-75 .point{font-size: 12px;font-weight: bold;}
+	.point-75a{top:153px;left:145px;}
+
+    #myimapzoom .point-67 .point{font-size: 12px;font-weight: bold;}
+    .point-67a{top:162px;left:220px;}
+
+    #myimapzoom .point-74 .point{font-size: 12px;font-weight: bold;}
+    .point-74a{top:162px;left:70px;}
+
+</style>
+<div class="prez"> <img src="./Nos boutiques - Conserverie la belle-iloise_files/slider-1-new.jpg"> </div> 
+<div id="myimap" style="background:url(https://www.labelleiloise.fr/mediatheque/map/france.png?v=2018-04-02) no-repeat;">	
+	<div id="myimaphover" style="background: url(&quot;https://www.labelleiloise.fr/mediatheque/map/hover/50.png&quot;) no-repeat;">
+		<img src="./Nos boutiques - Conserverie la belle-iloise_files/transparent.png" usemap="#usemyimap">
+	</div>
+
+	<div id="myimapzoom" class="hide">
+		<div class="close">X</div>
+		<div class="myipoints">
+			<div class="pointgroup point-75 hide">
+				<div class="point point-75a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/paris.htm" title="Paris - Information sur la boutique">Paris</a></div>
+			</div>
+			<div class="pointgroup point-62 hide">
+				<div class="point point-62a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/le-touquet.htm" title="Le Touquet - Information sur la boutique">Le Touquet</a></div>
+			</div>
+			<div class="pointgroup point-69 hide">
+				<div class="point point-69a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/lyon.htm" title="Lyon - Information sur la boutique">Lyon</a></div>
+			</div>
+			<div class="pointgroup point-76 hide">
+				<div class="point point-76a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/le-treport.htm" title="Le Tréport - Information sur la boutique">Le Tréport</a></div>
+				<div class="point point-76b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/dieppe.htm" title="Dieppe - Information sur la boutique">Dieppe</a></div>
+				<div class="point point-76c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/le-havre.htm" title="Le Havre - Information sur la boutique">Le Havre</a></div>
+				<div class="point point-76d"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/etretat.htm" title="Etretat - Information sur la boutique">Etretat</a></div>
+				<div class="point point-76e"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/rouen.htm" title="Rouen - Information sur la boutique">Rouen</a></div>
+			</div>
+			<div class="pointgroup point-14 point-mini hide">
+				<div class="point point-14a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/cabourg.htm" title="Cabourg - Information sur la boutique">Cabourg</a></div>
+				<div class="point point-14b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/deauville.htm" title="Deauville - Information sur la boutique">Deauville</a></div>
+				<div class="point point-14c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/honfleur.htm" title="Honfleur - Information sur la boutique">Honfleur</a></div>
+				<div class="point point-14d"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/ouistreham.htm" title="Ouistreham - Information sur la boutique">Ouistreham</a></div>
+				<div class="point point-14e"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/trouville.htm" title="Trouville - Information sur la boutique">Trouville</a></div>
+			</div>
+			<div class="pointgroup point-50 hide">
+				<div class="point point-50a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/cherbourg.htm" title="Cherbourg - Information sur la boutique">Cherbourg</a></div>
+				<div class="point point-50b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/granville.htm" title="Granville - Information sur la boutique">Granville</a></div>
+			</div>
+			<div class="pointgroup point-33 hide">
+				<div class="point point-33a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/arcachon.htm" title="Arcachon - Information sur la boutique">Arcachon</a></div>
+				<div class="point point-33b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/bordeaux.htm" title="Bordeaux - Information sur la boutique">Bordeaux</a></div>
+				<div class="point point-33c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/lege-cap-ferret.htm" title="Lège-Cap-Ferret - Information sur la boutique">Lège-Cap-Ferret</a></div>
+				<div class="point point-33d"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/lacanau.htm" title="Lacanau - Information sur la boutique">Lacanau</a></div>
+			</div>
+			<div class="pointgroup point-31 hide">
+				<div class="point point-31a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/toulouse.htm" title="Toulouse - Information sur la boutique">Toulouse</a></div>
+			</div>
+			<div class="pointgroup point-66 hide">
+				<div class="point point-66a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/collioure.htm" title="Collioure - Information sur la boutique">Collioure</a></div>
+			</div>
+			<div class="pointgroup point-29 hide">
+				<div class="point point-29a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/pont-aven.htm" title="Pont-aven - Information sur la boutique">Pont-aven</a></div>
+				<div class="point point-29b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/quimper.htm" title="Quimper - Information sur la boutique">Quimper</a></div>
+				<div class="point point-29c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/roscoff.htm" title="Roscoff - Information sur la boutique">Roscoff</a></div>
+				<div class="point point-29d"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/morlaix.htm" title="Morlaix - Information sur la boutique">Morlaix</a></div>
+				<div class="point point-29e"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/brest.htm" title="Brest - Information sur la boutique">Brest</a></div>
+				<div class="point point-29f"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/fouesnant.htm" title="Fouesnant - Information sur la boutique">Fouesnant</a></div>
+			</div>
+			<div class="pointgroup point-35 point-mini hide">
+				<div class="point point-35a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/cancale.htm" title="Cancale - Information sur la boutique">Cancale</a></div>
+				<div class="point point-35b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/saint-malo.htm" title="Saint-Malo - Information sur la boutique">Saint-Malo</a></div>
+				<div class="point point-35c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/dinard.htm" title="Dinard - Information sur la boutique">Dinard</a></div>
+				<div class="point point-35d"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/rennes.htm" title="Rennes - Information sur la boutique">Rennes</a></div>
+			</div>
+			<div class="pointgroup point-22 hide">
+				<div class="point point-22c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/paimpol.htm" title="Paimpol - Information sur la boutique">Paimpol</a></div>
+				<div class="point point-22b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/dinan.htm" title="Dinan - Information sur la boutique">Dinan</a></div>
+				<div class="point point-22a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/perros-guirec.htm" title="Perros-Guirec - Information sur la boutique">Perros-Guirec</a></div>
+				<div class="point point-22d"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/pleneuf-val-andre.htm" title="Pléneuf-Val-André - Information sur la boutique">Pléneuf-Val-André</a></div>
+				<div class="point point-22e"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/binic.htm" title="Binic - Information sur la boutique">Binic</a></div>
+			</div>
+			<div class="pointgroup point-85 hide">
+				<div class="point point-85a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/ile-d-yeu.htm" title="Île d&#39;Yeu - Information sur la boutique">Île d'Yeu</a></div>
+				<div class="point point-85b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/les-sables-d-olonne.htm" title="Les Sables d&#39;Olonne - Information sur la boutique">Les Sables d'Olonne</a></div>
+				<div class="point point-85c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/noirmoutier-en-l-ile.htm" title="Noirmoutier-en-l&#39;île - Information sur la boutique">Noirmoutier-en-l'île</a></div>
+			</div>
+			<div class="pointgroup point-64 hide">
+				<div class="point point-64a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/bayonne.htm" title="Bayonne - Information sur la boutique">Bayonne</a></div>
+				<div class="point point-64b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/saint-jean-de-luz.htm" title="Saint-Jean-de-Luz - Information sur la boutique">Saint-Jean-de-Luz</a></div>
+			</div>
+          <div class="pointgroup point-13 hide">
+			<div class="point point-13a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/marseille.htm" title="Marseille - Information sur la boutique">Marseille</a></div>
+			</div>
+			<div class="pointgroup point-83 hide">
+				<div class="point point-83a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/sainte-maxime.htm" title="Sainte-Maxime - Information sur la boutique">Sainte-Maxime</a></div>
+				<div class="point point-83b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/cavalaire-sur-mer.htm" title="Cavalaire-sur-Mer - Information sur la boutique">Cavalaire-sur-Mer</a></div>
+				<div class="point point-83c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/hyeres.htm" title="Hyères - Information sur la boutique">Hyères</a></div>
+			</div>
+			</div>
+			<div class="pointgroup point-06 hide">
+				<div class="point point-06a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/menton.htm" title="Menton - Information sur la boutique">Menton</a></div>
+				<div class="point point-06b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/nice.htm" title="Nice - Information sur la boutique">Nice</a></div>
+				<div class="point point-06c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/cannes.htm" title="Cannes - Information sur la boutique">Cannes</a></div>
+				<div class="point point-06d"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/antibes.htm" title="Antibes - Information sur la boutique">Antibes</a></div>
+			</div>
+			<div class="pointgroup point-17 point-mini hide">
+				<div class="point point-17a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/royan.htm" title="Royan - Information sur la boutique">Royan</a></div>
+				<div class="point point-17b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/saint-pierre-d-oleron.htm" title="Saint-Pierre d&#39;Oléron - Information sur la boutique">Saint-Pierre d'Oléron</a></div>
+				<div class="point point-17c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/saint-martin-de-re.htm" title="Saint-Martin-de-Ré - Information sur la boutique">Saint-Martin-de-Ré</a></div>
+				<div class="point point-17d"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/la-rochelle-centre-ville.htm" title="La Rochelle, centre-ville - Information sur la boutique">La Rochelle, centre-ville</a></div>
+				<div class="point point-17e"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/la-rochelle-vieux-port.htm" title="La Rochelle, le vieux port - Information sur la boutique">La Rochelle, le vieux port</a></div>
+			</div>
+			<div class="pointgroup point-44 point-mini hide">
+				<div class="point point-44a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/pornic.htm" title="Pornic - Information sur la boutique">Pornic</a></div>
+				<div class="point point-44b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/la-turballe.htm" title="La Turballe - Information sur la boutique">La Turballe</a></div>
+				<div class="point point-44c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/la-baule.htm" title="La Baule - Information sur la boutique">La Baule</a></div>
+				<div class="point point-44d"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/le-croisic.htm" title="Le Croisic - Information sur la boutique">Le Croisic</a></div>
+				<div class="point point-44e"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/nantes.htm" title="Nantes - Information sur la boutique">Nantes</a></div>
+				<div class="point point-44f"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/le-pouliguen.htm" title="Le Pouliguen - Information sur la boutique">Le Pouliguen</a></div>
+				<div class="point point-44g"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/guerande.htm" title="Guérande - Information sur la boutique">Guérande</a></div>
+			</div>
+        <div class="pointgroup point-56 point-mini hide">
+            <div class="point point-56a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/carnac.htm" title="Carnac - Information sur la boutique">Carnac</a></div>
+            <div class="point point-56b"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/auray.htm" title="Auray - Information sur la boutique">Auray</a></div>
+            <div class="point point-56c"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/vannes.htm" title="Vannes - Information sur la boutique">Vannes, Place des Lices</a></div>
+            <div class="point point-56d"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/arzon-port-crouesty.htm" title="Arzon - Information sur la boutique">Arzon</a></div>
+            <div class="point point-56e"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/sarzeau.htm" title="Sarzeau - Information sur la boutique">Sarzeau</a></div>
+            <div class="point point-56f"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/lorient.htm" title="Lorient - Information sur la boutique">Lorient</a></div>
+            <div class="point point-56g"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/la-trinite-sur-mer.htm" title="La Trinité - Information sur la boutique">La Trinité</a></div>
+            <div class="point point-56h"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/quiberon-plein-ouest.htm" title="Quiberon, plein-ouest - Information sur la boutique">Quiberon, plein-ouest</a></div>
+            <div class="point point-56i"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/quiberon-port-maria.htm" title="Quiberon, Port-Maria - Information sur la boutique">Quiberon, Port-Maria</a></div>
+            <div class="point point-56j"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/belle-ile-en-mer.htm" title="Le Palais, Belle-île-en-Mer - Information sur la boutique">Le Palais, Belle-île-en-Mer</a></div>
+            <div class="point point-56k"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/vannes-place-poids-public.htm" title="Vannes - Information sur la boutique">Vannes, Place Poids Public</a></div>
+        </div>
+            <div class="pointgroup point-67 hide">
+                <div class="point point-67a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/strasbourg.htm" title="Strasbourg - Information sur la boutique">Strasbourg</a></div>
+            </div>
+            <div class="pointgroup point-74 hide">
+                <div class="point point-74a"><a href="https://www.labelleiloise.fr/fr/nos-boutiques/annecy.htm" title="Strasbourg - Information sur la boutique">Annecy</a></div>
+            </div>
+		</div>
+	</div>
+</div>
+</div>
+
+<map id="usemyimap" name="usemyimap">
+	<area tabindex="-1" shape="poly" coords="210,101,217,100,222,97,222,104,222,111,215,110,213,110,210,106" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;75&#39; );" onclick="return displayRegion( &#39;75&#39; );">
+	<area tabindex="-1" shape="poly" coords="193,42,192,24,205,18,212,29,225,35,237,51,231,57,215,50" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;62&#39; );" onclick="return displayRegion( &#39;62&#39; );">
+	<area tabindex="-1" shape="poly" coords="155,74,160,66,183,60,191,56,199,63,196,80,184,84,167,80,156,79" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;76&#39; );" onclick="return displayRegion( &#39;76&#39; );">
+	<area tabindex="-1" shape="poly" coords="122,82,128,79,141,83,148,88,159,80,163,92,163,100,147,104,137,104,127,107,120,104,128,95" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;14&#39; );" onclick="return displayRegion( &#39;14&#39; );">
+	<area tabindex="-1" shape="poly" coords="100,66,109,70,119,69,123,86,127,99,121,102,130,111,123,117,113,119,107,104,110,89" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;50&#39; );" onclick="return displayRegion( &#39;50&#39; );">
+	<area tabindex="-1" shape="poly" coords="92,149,92,138,89,138,94,125,98,125,98,106,112,116,124,118,123,138,112,144" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;35&#39; );" onclick="return displayRegion( &#39;35&#39; );">
+	<area tabindex="-1" shape="poly" coords="54,101,66,99,74,114,84,110,92,112,95,110,99,123,87,131,70,128,55,128,52,111" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;22&#39; );" onclick="return displayRegion( &#39;22&#39; );">
+	<area tabindex="-1" shape="poly" coords="53,105,56,126,49,129,57,136,55,143,41,138,31,140,31,132,19,128,29,123,23,115,25,106" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;29&#39; );" onclick="return displayRegion( &#39;29&#39; );">
+	<area tabindex="-1" shape="poly" coords="50,126,60,128,68,125,88,133,93,146,92,156,77,159,61,155,53,143,57,137" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;56&#39; );" onclick="return displayRegion( &#39;56&#39; );">
+	<area tabindex="-1" shape="poly" coords="92,151,105,149,113,143,121,158,118,164,118,172,106,184,86,175,91,166,81,163,82,156,91,159" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;44&#39; );" onclick="return displayRegion( &#39;44&#39; );">
+	<area tabindex="-1" shape="poly" coords="90,182,93,175,103,180,117,177,126,179,134,202,118,204,115,209,97,199" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;85&#39; );" onclick="return displayRegion( &#39;85&#39; );">
+	<area tabindex="-1" shape="poly" coords="115,209,123,203,134,213,145,218,142,227,135,227,139,241,149,253,141,255,134,250,125,246,125,238,111,232,109,218,105,208" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;17&#39; );" onclick="return displayRegion( &#39;17&#39; );">
+	<area tabindex="-1" shape="poly" coords="110,267,117,237,131,245,141,255,148,255,147,267,155,269,143,292,123,283,109,280" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;33&#39; );" onclick="return displayRegion( &#39;33&#39; );">
+	<area tabindex="-1" shape="poly" coords="101,319,140,318,147,327,133,349,123,343,108,338,99,330,91,325" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;64&#39; );" onclick="return displayRegion( &#39;64&#39; );">
+	<area tabindex="-1" shape="poly" coords="197,359,213,354,213,347,233,350,236,363,222,369,212,363,203,367" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;66&#39; );" onclick="return displayRegion( &#39;66&#39; );">
+	<area tabindex="-1" shape="poly" coords="314,310,321,312,343,307,347,317,333,334,318,339" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;83&#39; );" onclick="return displayRegion( &#39;83&#39; );">
+	<area tabindex="-1" shape="poly" coords="344,281,350,283,351,287,360,292,368,289,372,297,367,301,368,307,355,311,358,316,351,319,346,315,338,309,342,304,349,301,343,293,345,285" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;06&#39; );" onclick="return displayRegion( &#39;06&#39; );">
+	<area tabindex="-1" shape="poly" coords="281,209,283,215,282,220,286,226,291,228,293,232,283,239,281,240,280,236,275,237,272,234,271,227,269,222,270,216,273,207,279,207,280,207" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;69&#39; );" onclick="return displayRegion( &#39;69&#39; );">
+	<area tabindex="-1" shape="poly" coords="268,323,278,315,282,313,285,303,297,312,314,314,316,338,309,332,299,325,283,328" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;13&#39; );" onclick="return displayRegion( &#39;13&#39; );">
+	<area tabindex="-1" shape="poly" coords="158,354,158,346,160,346,162,342,159,334,165,329,175,376,180,319,173,310,181,308,182,310,183,310,185,307,187,307,188,306,192,306,196,318,202,323,205,323,204,327,200,326,196,332,185,333,185,335,183,336,175,338,176,345,170,345,169,351,168,348,162,355" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;31&#39; );" onclick="return displayRegion( &#39;31&#39; );">
+	<area tabindex="-1" shape="poly" coords="357,92,361,92,363,94,364,92,367,93,370,94,373,95,371,96,370,98,370,100,370,103,367,104,366,107,363,109,363,112,361,115,360,120,360,122,358,130,355,130,354,127,353,125,351,125,349,123,348,122,346,122,345,120,345,118,348,115,349,113,348,111,349,110,348,107,350,106,348,104,344,103,342,104,341,103,342,101,340,101,339,99,343,96,347,97,350,98,353,98,355,98,357,96" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;67&#39; );" onclick="return displayRegion( &#39;67&#39; );">
+    <area tabindex="-1" shape="poly" coords="315,222,314,215,318,210,324,209,324,203,333,203,340,201,344,208,343,213,346,218,345,223,339,227,336,225,333,222,330,225,327,229,324,230,318,228,314,225" href="boutiqueSpecifique.html" onmouseover="displayHover( &#39;74&#39; );" onclick="return displayRegion( &#39;74&#39; );">
+</map><script>
+function displayHover( zone ){
+	var picture 	= new Image();
+	picture.onload	= function(){
+		$('#myimaphover').css('background', "url('" + picture.src + "') no-repeat");
+	};
+	picture.src		= 'https://www.labelleiloise.fr/mediatheque/map/hover/'+zone+'.png';
+	return false;
+}
+function displayRegion( zone ){
+	var picture 	= new Image();
+	picture.onload	= function(){
+		$('#myimapzoom').css('background', "url('" + picture.src + "') no-repeat").fadeIn(500).removeClass('hide');
+		$('#myimapzoom').find('.pointgroup').each(function(){
+			// if( $(this).hasClass('hide') === false )
+				$(this).hide(250).addClass('hide');
+		});
+		$('#myimapzoom .point-'+zone).show().removeClass('hide');
+	};
+	picture.src		= '/mediatheque/map/zoom/'+zone+'.png';
+	
+	return false;
+}
+
+
+
+$(document).ready(function(){
+	if ($.browser.msie) {
+		$("img, area, map").focus(function(event) {
+			$(this).blur();
+		}); 
+	}
+
+	$('#myimapzoom .close').click(function(){
+		$('#myimapzoom').hide().addClass('hide');
+		$('#myimapzoom .myipoints .pointgroup').each(function(){
+			// if( $(this).hasClass('hide') === false )
+				$(this).hide(250).addClass('hide');
+		});
+	});
+});
+</script>
+	
+	<!-- Right Bar end -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#pays select").live('change',function() {
+			var pays = $("#pays :selected").attr("value");
+		});
+	});
+</script></div>
+
+<script type="text/javascript">
+	
+$(document).ready(function(){
+
+	// Ajax
+	$("#pays select").live('change',function(){
+		var pays = $(this).val();
+		if( pays != "-1" ){
+			show_countryInputs(pays); 	// * Input Select updates
+			show_countryMap(pays);		// * Map update
+		}
+	});
+	$("#departement select").live('change',function(){
+		if( $(this).val() != "-1" ){
+			$.ajax({
+				type: "POST",
+				url : '/fr/nos-boutiques/index.htm:ajax',
+				data: "pays=" + $("#pays select").val() + "&departement=" + $(this).val(),
+				success: function( retour ){
+					$("#ville").html( retour );
+				}
+			});
+		}
+	});
+
+    // On load
+    $.ajax({
+        type: "POST",
+        url : '/fr/nos-boutiques/index.htm:ajax',
+        data: "pays="+$('#pays select').val(),
+        success: function( retour ){
+            $("#choix").html( retour );
+        }
+    });
+        
+});
+
+function show_countryInputs(pays){
+	$.ajax({
+		type: "POST",
+		async : false,
+		url : '/fr/nos-boutiques/index.htm:ajax',
+		data: "pays=" + pays,
+		success: function( retour ){
+			$("#choix").html(retour);
+		}
+	});
+}
+function show_countryMap(pays){
+	$.ajax({
+		type: "POST",
+		url : '/fr/nos-boutiques/index.htm:ajax',
+		data: "pays=" + pays+"&choixPays=1",
+		success: function( retour ){
+			$(".template-accueil").html( retour );
+		}
+	});
+}
+
+</script>
+					
+        
+<script type="text/javascript">
+	$(document).ready(function(){
+		if( cookies_exists_one("popin_confirmation_nouveau_mdp") ){
+		    var email	= get_url_param( "email_envoye" );
+            show_session_popin( "Client/get_popin_ajax_confirmation_recuperation_mdp","popin_confirmation_nouveau_mdp","email_envoye",email );
+		}
+
+		if( cookies_exists_one("popin_erreur_nouveau_mdp") ){
+            show_session_popin( "Client/get_popin_ajax_erreur_recuperation_mdp","popin_erreur_nouveau_mdp" );
+		}
+
+	});
+
+	function show_session_popin( action,name,param_name,param_value ){
+	    var params	= "";
+	    if( param_name !== null && param_value !== null ){
+	    	params	= '&'+param_name+'='+param_value;
+		}
+
+		AfficherPopinClient('https://www.labelleiloise.fr/fr/?class_action='+action+params,'popin-customer');
+		document.cookie = name+'=; path=/; domain=www.labelleiloise.fr; expires=' + new Date(0).toUTCString();
+	}
+
+    function get_url_param(param) {
+        var vars = {};
+        window.location.href.replace( location.hash, '' ).replace(
+            /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+            function( m, key, value ) { // callback
+                vars[key] = value !== undefined ? value : '';
+            }
+        );
+
+        if ( param ) {
+            return vars[param] ? vars[param] : null;
+        }
+        return vars;
+    }
+
+</script>
+
+
+
+		<!-- helper -->
+		<div id="page-tags" class="hide"><script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-25763723-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script></div>
+		<!-- helper -->
+
+	 
+
+
+
+<!-- login -->
+			<div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content modal-info">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>						
+						</div>
+						<div class="modal-body modal-spa">
+							<div class="login-grids">
+								<div class="login">
+									<div class="login-bottom">
+										<h3>Inscription</h3>
+										<form>
+											<div class="sign-up">
+												<h4>Email :</h4>
+												<input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">	
+											</div>
+											<div class="sign-up">
+												<h4>Mot de passe :</h4>
+												<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+												
+											</div>
+											<div class="sign-up">
+												<h4>Re-type Password :</h4>
+												<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+												
+											</div>
+											<div class="sign-up">
+												<input type="submit" value="REGISTER NOW" >
+											</div>
+											
+										</form>
+									</div>
+									<div class="login-right">
+										<h3>Connexion</h3>
+										<form>
+											<div class="sign-in">
+												<h4>Email :</h4>
+												<input type="text" value="Type here" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Type here';}" required="">	
+											</div>
+											<div class="sign-in">
+												<h4>Mot de passe :</h4>
+												<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}" required="">
+												<a href="#">Mot de passe oublié?</a>
+											</div>
+											<div class="single-bottom">
+												<input type="checkbox"  id="brand" value="">
+												<label for="brand"><span></span>Se souvenir de moi.</label>
+											</div>
+											<div class="sign-in">
+												<input type="submit" value="SIGNIN" >
+											</div>
+										</form>
+									</div>
+									<div class="clearfix"></div>
+								</div>
+								<p>En vous connectant vous acceptez nos <a href="#">conditions d'utilisation</a> and <a href="#">Privacy Policy</a></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+<!-- //login -->
+<a href="#home" class="scroll" id="toTop" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+
+<!-- js -->
+<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+<!-- //js -->
+<script src="js/modernizr.custom.js"></script>
+	<!-- Custom-JavaScript-File-Links --> 
+
+
+<!-- script for responsive tabs -->						
+<script src="js/easy-responsive-tabs.js"></script>
+<script>
+	$(document).ready(function () {
+	$('#horizontalTab').easyResponsiveTabs({
+	type: 'default', //Types: default, vertical, accordion           
+	width: 'auto', //auto or any width like 600px
+	fit: true,   // 100% fit in a container
+	closed: 'accordion', // Start closed if in accordion view
+	activate: function(event) { // Callback function if tab is switched
+	var $tab = $(this);
+	var $info = $('#tabInfo');
+	var $name = $('span', $info);
+	$name.text($tab.text());
+	$info.show();
+	}
+	});
+	$('#verticalTab').easyResponsiveTabs({
+	type: 'vertical',
+	width: 'auto',
+	fit: true
+	});
+    //Used to include the footer and the header sections -->		
+	$("#header").load("header.html"); 
+ 	$("#footer").load("footer.html"); 
+ 	 //End -->		
+	});
+</script>
+
+
+
+
+
+<!-- //script for responsive tabs -->		
+<!-- stats -->
+	<script src="js/jquery.waypoints.min.js"></script>
+	<script src="js/jquery.countup.js"></script>
+	<script>
+		$('.counter').countUp();
+	</script>
+<!-- //stats -->
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/jquery.easing.min.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event){		
+			event.preventDefault();
+			$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+		});
+	});
+</script>
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+<!-- //here ends scrolling icon -->
+
+
+    
+<!-- for bootstrap working -->
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker.min.js"></script>
+<script>
+    $(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'mm/dd/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
+	<script src="minicart.js"></script>
+	<script>
+		paypal.minicart.render();
+
+		paypal.minicart.cart.on('add', function (idx, product, isExisting) {
+
+				product.set('quantity', 1);
+
+		});
+	</script>
+
+</body>
+</html>
