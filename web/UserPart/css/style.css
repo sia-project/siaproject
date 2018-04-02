@@ -794,6 +794,11 @@ figure.effect-roxy:hover p,.agileinfo_banner_bottom_grid_three_left:hover figcap
 }
 .banner_bottom_agile_info {
     padding: 5em 0;
+    
+}
+.banner_bottom_agile_infow {
+    padding: 5em 0;
+     background-color: #9ed6ff;
 }
 .banner_bottom_agile_info.team {
     background: #f5f5f5;
@@ -1893,6 +1898,29 @@ color: #545454;
 	letter-spacing:2px;
 }
 .page-head_agile_info_w3l h3  span{
+ font-weight:300;
+ font-family: Georgia ;
+ font-style: italic;
+}
+.page-head_agile_info_w3lw {
+    background: url(../images/recettespageprince.jpg) no-repeat center;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -ms-background-size: cover;
+    -moz-background-size: cover;
+    min-height: 200px;
+    padding-top:50px;
+}
+.page-head_agile_info_w3lw h3 {
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    font-size:3em;
+    font-weight:700;
+    letter-spacing:2px;
+}
+.page-head_agile_info_w3lw h3  span{
  font-weight:300;
  font-family: Georgia ;
  font-style: italic;
