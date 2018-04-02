@@ -1,0 +1,37 @@
+/**
+ *
+ */
+if( ! DomReady ){
+    var DomReady = {
+        is_ready:   false,
+        _callbacks: new Array(),
+
+        setReady: function(){
+            this.is_ready   = true;
+            for( var n in this._callbacks ){
+                this._do_call(this._callbacks[n]);
+            }
+            this._callbacks = new Array();
+        },
+
+        isReady: function(){
+            return this.is_ready;
+        },
+
+        _do_call: function( fn ){
+            try{
+                return fn.call( );
+            }catch(ex){
+            }
+        },
+
+        call: function( fn ){
+            if( this.is_ready ){
+                this._do_call(fn);
+            }else{
+                this._callbacks.push( fn );
+            }
+        }
+    }
+    $(document).ready(function(){DomReady.setReady();});
+}

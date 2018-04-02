@@ -1,0 +1,480 @@
+/*
+    Document   : client
+    Created on : 14 avril 2010, 12:00:01
+    Author     : Husson kévin
+    Description:
+        Décrit tous les styles relatifs au workflow espace privé
+*/
+
+/* -----------------------------------------------------------------------------
+        Eléments généraux
+/* -------------------------------------------------------------------------- */
+#espace-prive{
+	position:relative;
+	float:left;
+	width:100%;
+	z-index:20;
+	padding:0 0 10px 0;
+}
+
+#espace-prive h1{
+	color: #0070B8;
+    font-family: Arial;
+    font-size: 32px;
+    font-weight: bold;
+	margin: 10px 0 5px 0;
+	padding:0;
+}
+#espace-prive h2{
+	color: #003659;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: normal;
+	margin: 5px 0;
+}
+#espace-prive h4{
+	margin: 5px 0;
+}
+
+#espace-prive .text-input{
+	float:left;
+	width:200px;
+	height:12px;
+}
+#espace-prive .text-input.width-10digits{
+    width : 61px !important;
+}
+#espace-prive .text-input-long{
+	float:left;
+	width:460px;
+	height:12px;
+}
+.formLabel{
+	margin-bottom:4px;
+}
+.formField{}
+
+/* -----------------------------------------------------------------------------
+		Connexion au compte
+/* -------------------------------------------------------------------------- */
+
+#page-container #page-identification{width:600px;}
+
+#popin #page-identification{ }
+#popin #page-identification .popin-creer-mon-compte{
+	background: #F1F4F6;
+    float: left;
+    left: -2px;
+    padding: 25px 25px 10px 25px;
+    position: absolute;
+    width: 604px;
+}
+
+#page-identification h1{
+	margin-bottom: 10px;
+}
+#page-identification #f_login{
+	float:left;
+	width:100%;
+	margin-bottom: 10px;
+}
+#page-identification #f_login .text-label{}
+#page-identification #f_login .text-input{
+	float:left;
+	width:250px;
+	height:16px;
+	margin-top: 4px;
+}
+#page-identification #f_login .see{
+	text-transform: inherit;
+	float:left;
+	padding-top:5px;
+}
+#page-identification #f_login .see a{text-decoration: underline;}
+#page-identification #f_login .button{
+	margin-top: 10px;
+}
+
+
+/* -----------------------------------------------------------------------------
+		Creation de compte
+/* -------------------------------------------------------------------------- */
+#creation-de-compte						{ float:left;width:100%; }
+#creation-de-compte a					{ text-decoration:underline; }
+#creation-de-compte a:hover				{ text-decoration:none; }
+#creation-de-compte .button a			{ text-decoration:none; }
+#creation-de-compte .button a:hover		{ text-decoration:underline; }
+#creation-de-compte .accueil-client{
+	float:left;
+	width:710px;
+}
+#creation-de-compte .accueil-client .avantages{
+	margin-bottom:20px;
+}
+#creation-de-compte .accueil-client h2{
+	text-transform: uppercase;
+	color:#0070B8;
+}
+#creation-de-compte .rightbar-marketing{
+	float:right;
+	width:250px;
+}
+#creation-de-compte .rightbar-left{
+	min-height: 900px;
+	width:228px;
+}
+#creation-de-compte .market-informations{
+	float:left;
+	width: 100%;
+	padding:0 0 10px 0;
+}
+#creation-de-compte .separateur{
+	margin:5px 0;
+	float:left;
+	width: 100%;
+}
+#creation-de-compte .information-personnnelles{
+	width:520px;
+}
+#creation-de-compte span{
+	text-transform: inherit;
+	font-size:10px;
+}
+#creation-de-compte .accueil-client .button{
+	text-align: right;
+	margin-right: 30px;
+}
+
+/* -----------------------------------------------------------------------------
+		Mon compte - accueil
+/* -------------------------------------------------------------------------- */
+#mon-compte{float:left;width: 100%;}
+
+#mon-compte .accueil-client{
+	float:left;
+	width:710px;
+	font-size:12px;
+}
+#mon-compte .rightbar-client{
+	float:right;
+	width:247px;
+}
+#mon-compte .rightbar-left{
+	min-height: 900px;
+	width:210px;
+}
+#mon-compte .personal-informations{
+	float:left;
+	width: 100%;
+}
+#mon-compte .information-personnnelles{
+	width:520px;
+}
+#mon-compte .separateur{
+	border-bottom: 1px solid #0070B8;
+	margin:10px 0;
+	float:left;
+	width: 100%;
+}
+
+#mon-compte .rightbar-left ul.social-networks {
+    margin: 10px 0;
+}
+
+#mon-compte .rightbar-left ul.social-networks li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#mon-compte span{
+	text-transform: inherit;
+	font-size:10px;
+}
+
+#mon-compte span.total-commande{
+	font-size:11px;
+	white-space: nowrap;
+}
+
+#mon-compte .content-offer{
+	float:left;
+	padding-top:20px;
+}
+#mon-compte .content-offer h2,
+#mon-compte .recettes-favorites h2{
+	font-size: 24px;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+#mon-compte .content-offer p{
+	font-size:14px;
+	color:#003659;
+}
+
+#mon-compte .recettes-favorites{
+	float:left;
+	padding-top:20px;
+}
+#mon-compte .recettes-favorites p{}
+#mon-compte .recettes-favorites .une-recette{
+	width: 208px;
+	height: 93px;
+	float:left;
+	margin:10px 15px 5px 0;
+	border:1px solid #ebebeb;
+}
+
+#mon-compte .recettes-favorites .une-recette h3{
+	font-size:13px;
+	font-weight: normal;
+	margin-bottom: 0;
+}
+#mon-compte .recettes-favorites .une-recette p{
+	font-size: 9px;
+	margin: 8px 0;
+}
+#mon-compte .recettes-favorites .une-recette .view-recette{
+	background: url(../images/modules/mini-rechercher.jpg) no-repeat;
+	padding: 0 0 0 14px;
+}
+#mon-compte .recettes-favorites .une-recette .delete-recette{
+	background: url(../images/modules/mini-supprimer.jpg) no-repeat;
+	padding: 0 0 0 14px;
+}
+#mon-compte .recettes-favorites .une-recette .visuel{
+	width: 93px;
+	height: 93px;
+	float:left;
+}
+#mon-compte .recettes-favorites .une-recette .information{
+	width:99px;
+	height: 93px;
+	float:left;
+	padding:0 8px;
+}
+
+#mon-compte .recettes-favorites .template-sardine h3{color:#0070b8;}
+
+#mon-compte .recettes-favorites .template-thon h3{color:#c19100;}
+
+#mon-compte .recettes-favorites .template-maquereau h3{color:#008a89;}
+
+#mon-compte .recettes-favorites .template-aperitif h3{color:#d10019;}
+
+#mon-compte .recettes-favorites .template-soupe h3{color:#e95d0f;}
+
+#mon-compte .recettes-favorites .template-adegusterchaud h3{color:#984a72;}
+
+#mon-compte .recettes-favorites .template-dejeunersurlepouce h3{color:#97bf0d;}
+
+#mon-compte .recettes-favorites .template-ideescadeaux h3{color:#23a5dc;}
+
+#mon-compte .recettes-favorites .template-nouveautes h3{color:#ffa200;}
+
+#mon-compte .actions{
+	float:left;
+}
+#mon-compte .actions li{
+	background: url('../images/modules/fleche-droite-bleuclair.jpg') no-repeat 0 2px;
+	padding:0 0 0 10px;
+	list-style: none;
+	font-size: 11px;
+}
+#mon-compte .actions li a{
+	color:#0070B8;
+	text-decoration: underline;
+}
+
+/* -----------------------------------------------------------------------------
+		Mon compte - Edition
+/* -------------------------------------------------------------------------- */
+#mon-compte .adresses-de-livraison{margin: 0 0 20px 0;}
+#mon-compte .adresses-de-livraison h2{
+	color: #0070B8;
+	font-family: arial;
+	font-size: 22px;
+	margin: 30px 0 0;
+	text-transform: uppercase;
+}
+#mon-compte .adresses-de-livraison p.libelle{
+	text-transform: uppercase;
+	font-size: 12px;
+}
+#mon-compte .adresses-de-livraison .adresse-de-livraison{
+	float:left;
+	width:100%;
+}
+	#mon-compte .adresses-de-livraison .adresse-de-livraison p{
+		margin:10px 0 0 0;
+	}
+#mon-compte .adresses-de-livraison .actions{
+	width:100%;
+	float: left;
+	margin-bottom:10px;
+}
+#mon-compte .adresses-de-livraison .actions li{
+	width:165px;
+	float:left;
+	background: url('../images/modules/fleche-droite-bleuclair.jpg') no-repeat 0 2px;
+	padding:2px 0 0 10px;
+	list-style: none;
+	font-size: 10px;
+}
+#mon-compte .adresses-de-livraison .actions li a{
+	text-decoration: underline;
+	color: inherit;
+}
+#mon-compte .adresses-de-livraison .action-ajouter{
+	margin:10px 0;
+}
+#mon-compte .adresses-de-livraison .action-ajouter .actions li{
+	width: 400px;
+	clear:both;
+	background: url('../images/modules/fleche-droite-bleuclair.jpg') no-repeat 0 2px;
+	padding:0 0 0 10px;
+	list-style: none;
+	font-size: 12px;
+	text-transform: uppercase;
+}
+#mon-compte .adresses-de-livraison .action-ajouter .actions li a{
+	color:#0070B8;
+}
+
+
+#page-identification .actions{
+	width:100%;
+	float: left;
+	margin-bottom:10px;
+	margin-left:17px;
+}
+#page-identification .actions li{
+	width: 165px;
+	float:left;
+	background: url('../images/modules/fleche-droite-bleuclair.jpg') no-repeat 0 2px;
+	padding:2px 0 0 10px;
+	list-style: none;
+	font-size: 10px;
+}
+#page-identification .actions li a{
+	text-decoration: underline;
+	color: inherit;
+}
+#page-identification .action-ajouter{
+	margin:20px 0;
+}
+#page-identification .action-ajouter li{
+	width: 400px;
+	clear:both;
+	background: url('../images/modules/fleche-droite-bleuclair.jpg') no-repeat 0 2px;
+	padding:0 0 0 10px;
+	list-style: none;
+	font-size: 10px;
+	text-transform: uppercase;
+}
+#page-identification .action-ajouter li a{
+	color:#0070B8;
+}
+
+
+/* -----------------------------------------------------------------------------
+		Slider
+/* -------------------------------------------------------------------------- */
+
+#slidotheque{
+	position:relative;
+	float:left;
+	width:703px;
+	height:522px;
+	border:1px solid #CACECF;
+
+}
+/* Options de l'espace de preview */
+#slidotheque #preview {
+	height:522px;
+	width:522px;
+	overflow:hidden;
+	margin:0 0 0 180px;
+	position:relative;
+	border-left:1px solid #CACECF;
+}
+#slidotheque #preview #slides{
+	/* Dimensions de l'espace de preview' */
+	height:522px;
+	width:522px;
+	overflow:hidden;
+}
+#slidotheque .slide{
+	float:left;
+}
+/* Options de l'espace de thumbs */
+#slidotheque #thumbs{
+	position:absolute;
+	top:0;
+	left:0;
+	width:180px;
+	height:522px;
+}
+#slidotheque #thumbs ul{margin-top:22px;}
+#slidotheque #thumbs .prev{
+	background: url(../images/modules/slider/slide-top.jpg) no-repeat;
+	width:180px;
+	height:22px;
+	position:absolute;
+	top:0;
+	left:0;
+	cursor:pointer;
+}
+#slidotheque #thumbs .next{
+	background: url(../images/modules/slider/slide-bottom.jpg) no-repeat;
+	width:180px;
+	height:22px;
+	position:absolute;
+	bottom:0;
+	left:0;
+	cursor:pointer;
+}
+#slidotheque ul{
+	margin:0px;
+	padding:0px;
+}
+
+#slidotheque li{
+	/* Every thumbnail is a li element */
+	width:180px;
+	list-style:none;
+	border-bottom:1px solid #CACECF;
+	position: relative;
+}
+
+#slidotheque #thumbs li.act .bg-active{
+	position:absolute;
+	left: 176px;
+	top:0;
+	width:20px;
+	z-index: 99;
+}
+#slidotheque #thumbs li.act .bg-active table{height:100%;}
+#slidotheque #thumbs li.act .bg-active .bg-activ-font{
+	background:url(../images/modules/slider/bg-active.png) no-repeat;
+	width:16px;
+	height:28px;
+}
+#slidotheque #thumbs li.inact:hover{
+	/* The inactive state, highlighted on mouse over */
+	background:#C1C1C1;
+}
+
+#slidotheque #thumbs li.act,
+#slidotheque #thumbs li.act:hover{
+	/* The active state of the thumb */
+/*	background:url(../images/modules/slider/bg-active.png) no-repeat;*/
+}
+
+#slidotheque li.fbar{height:0;}
+#slidotheque li.act a{
+	cursor:default;
+}
+
+#slidotheque li a{
+	display:block;
+}

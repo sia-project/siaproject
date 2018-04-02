@@ -1,0 +1,185 @@
+
+// JavaScript Document
+
+//----------------------------------------------------------------------------------------------------
+// Prompt erreur
+//----------------------------------------------------------------------------------------------------
+function runPrompt (){
+    if( document.getElementById("bg_fonce")==null || document.getElementById("bg_Prompt")==null )
+        return false;
+    Bkg();
+    autoShowHide    ('bg_fonce',   'show', false);
+    autoShowHide    ('bg_Prompt',  'show', false);
+    $("#bg_Prompt").css({
+        'display':'block'
+    });
+    timer = window.setTimeout("stopPrompt()",10000);
+	return true;
+}
+
+function stopPrompt (){
+    autoShowHide    ('bg_fonce',   'hide', false);
+    autoShowHide    ('bg_Prompt',  'hide', false);
+    $("#bg_Prompt").css({
+        'display':'none'
+    });
+    $("#htmlprompevent").html('');
+    window.clearTimeout(timer);
+}
+
+var ___var_counter=0;
+var ___var_messages= new Array();
+function executerValidation ( html_data,no_auto_hide ){
+    /**
+     * Si html_data contient " et ' alors lors de l'appel
+     * de la fonction PopInRender les quotes interfere avec l'appel et créé un bug
+     * 
+     * Pour supprimer le bug, le message
+     *      est enregistré dans un tableau global ___var_messages
+     *      une variable incrémentale est utilisée comme marqueur, ___var_counter
+     *      Le setTimeout est réalisé sur la fonction unpopMessageAndRenderPopin
+     *          avec pour paramètre la valeur de ___var_counter
+     *      Cette fonction lit le message depuis le tableau global
+     *          en utilisant le parametre reçu
+     *          puis effectue l'appel vers PopInRender
+     */
+
+    var _no_auto_hide   = ( no_auto_hide != null )?no_auto_hide:false;
+    ___var_messages.push( html_data );
+    
+    window.setTimeout('PopInCreate		("", "popin")', 500);
+    //window.setTimeout('PopInRender		("'+html_data+'")',	1500);
+    window.setTimeout('unpopMessageAndRenderPopin ('+___var_counter+')',	1500);
+
+    if( _no_auto_hide == false ){
+        window.setTimeout('PopInDesctruct	("popin")',		10000);
+    }
+
+    ___var_counter++;
+}
+
+function unpopMessageAndRenderPopin( message_index ){
+    PopInRender( ___var_messages[message_index] );
+    ___var_messages[message_index] = "";
+}
+
+//----------------------------------------------------------------------------------------------------
+// Fonctions relatives aux popins messages
+//----------------------------------------------------------------------------------------------------
+
+/*
+ * title          : titre de la fenêtre
+ */
+function PopInCreate (title, id_name, class_name){
+    if( class_name==null)
+        class_name = "";
+	if (title==null)
+        title = "";
+    if (id_name==null)
+        id_name = "popin";
+    this.node       = document.createElement("div");
+    $(this.node).attr({
+        id: id_name,
+        class: class_name
+    });
+    $(this.node).addClass('hide');
+    $(this.node).appendTo(document.body);
+
+    this.node       = document.createElement("div");
+    $(this.node).attr({
+        id: "popin-node1"
+    });
+    $(this.node).addClass('box');
+    $(this.node).addClass('box-prompt');
+    $(this.node).appendTo("#"+id_name);
+
+    this.node       = document.createElement("div");
+    $(this.node).attr({
+        id: "popin-node2"
+    });
+    $(this.node).addClass('box-title');
+    $(this.node).appendTo("#popin-node1");
+	if (title!="")
+		document.getElementById("popin-node2").innerHTML =    "<p id=\"popintitle\"></p><div class=\"boxright\" onclick=\"PopInDesctruct('"+id_name+"');return false;\"></div>";
+	else
+		document.getElementById("popin-node2").innerHTML =    "<div class=\"boxright\" onclick=\"PopInDesctruct('"+id_name+"');return false;\"></div>";
+
+    this.node       = document.createElement("div");
+    $(this.node).attr({
+        id: "popin-node3"
+    });
+    $(this.node).addClass('box-content');
+    $(this.node).appendTo("#popin-node1");
+
+    this.node       = document.createElement("div");
+    $(this.node).attr({
+        id: "popin-content"
+    });
+    $(this.node).addClass('box-body');
+    $(this.node).appendTo("#popin-node3");
+
+    this.node       = document.createElement("div");
+    $(this.node).attr({
+        id: "popinRender"
+    });
+    $(this.node).addClass('loader');
+    $(this.node).appendTo("#popin-content");
+    this.node       = document.createElement("div");
+    $(this.node).attr({
+        id: "popinAjax"
+    });
+    $(this.node).addClass('show');
+    $(this.node).appendTo("#popinRender");
+    Bkg();
+
+    autoShowHide ('bg_fonce',           'show', false);
+    autoShowHide (id_name,              'show', false);
+    autoShowHide ('popin-content',      'show', false);
+    PopInReset ();
+    
+    PopInTitle (title);
+}
+/*
+* Attribut le nom titre de la popin
+*/
+function PopInReset (){
+    if (document.getElementById("popinAjax"))
+        document.getElementById("popinAjax").innerHTML = "<br /><br />";
+    if (document.getElementById("popinRender"))
+        $("#popinRender").addClass("loader");
+}
+/*
+* Attribut le nom titre de la popin
+*/
+function PopInTitle (title){
+    $("#popintitle").text(title);
+}
+/*
+* Détruit le rendu de la popin
+*/
+function PopInDesctruct (id_name){
+    if (id_name==null)
+        id_name = "popin";
+    $("#"+id_name).remove();
+    autoShowHide ('bg_fonce',      'hide', false);
+}
+/*
+ * Exécute le rendu de la confirmation d'ajout au panier
+ */
+function PopInRender (html_data){
+    if( $("#popinAjax").length == 0 ){
+        PopInCreate ();
+    }
+    $("#popinAjax").html( html_data );
+    $("#popinRender").removeClass("loader");
+}
+function PopInRenderClient (html_data,class_name){
+    if( class_name == null )
+        class_name = "";
+
+    if( $("#popinAjax").length == 0 ){
+        PopInCreate ( null, "popin-customer",class_name );
+    }
+    $("#popinAjax").html( html_data );
+    $("#popinRender").removeClass("loader");
+}
