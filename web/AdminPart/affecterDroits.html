@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Profil</title>
+  <title>Gestion des droits</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
 
   <link src="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <link rel="stylesheet" href="bower_components/select2/dist/css/select2.min.css">
 
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
@@ -39,7 +40,7 @@
  <div class="content-wrapper">
       <section class="content-header">
           <h1>
-            Profil
+            Gestion des droits 
           </h1>
        
       </section>
@@ -48,48 +49,37 @@
             
             <!-- /.box-header -->
             <div class="box-body">
-              <strong><i class="fa fa-user-circle-o margin-r-5"></i> Nom & Prénom :</strong>
-              <span class="text-muted">Malush Vitalina</span>
-              
-              <hr>
-
-              <strong><i class="fa fa-calendar margin-r-5"></i> Date de naissance :</strong>
-              <span class="text-muted">14/07/1994</span>
-            
-              <hr>
-              <strong><i class="fa fa-map-marker margin-r-5"></i> Adresse :</strong>
-              <span class="text-muted"> 13 rue Victor Hugo,75016,Paris </span>
-            
-              <hr>
-              <strong><i class="fa fa-at margin-r-5"></i> Email :</strong>
-              <span class="text-muted">Vitalina.Malush@gmail.com</span>
-            
-              <hr>
-              <hr>
-              <strong><i class="fa fa-circle-o margin-r-5"></i> Fonction :</strong>
-              <span class="text-muted">Développeuse Web</span>
-            
-              <hr>
-
-              <strong><i class="fa fa-pencil margin-r-5"></i> Compétences</strong>
-
-              <p>
-                <span class="label label-danger">UI Design</span>
-                <span class="label label-success">Coding</span>
-                <span class="label label-info">Javascript</span>
-                <span class="label label-warning">PHP</span>
-                <span class="label label-primary">Node.js</span>
-              </p>
-
-              <hr>
-
-              <strong><i class="fa fa-file-text-o margin-r-5"></i> Notes</strong>
-
-              <p>Motivée et pationnée par mon métier avec 10 ans d'éxpérience</p>
+              <div class="form-group">
+                <label>Role</label>
+                <select class="form-control select2 js-example-tags" style="width: 100%;">
+                  <option selected="selected">Administrateur</option>
+                  <option>Agent VPC</option>
+                  <option>Marketing</option>
+                  <option>Commercial</option>
+                  <option>Production</option>
+                  <option>Client simple</option>
+                  <option>Client proffessionnel</option>
+                </select>
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <label>Droits</label>
+                <select class="form-control select2 js-example-tags" multiple="multiple" data-placeholder="Selectionner un droit"
+                        style="width: 100%;">
+                  <option>Accés tableau de bord</option>
+                  <option>Ajouter produit</option>
+                  <option>Consulter les données clients</option>
+                  <option>MAJ Produits</option>
+                  <option>MAJ Utilisateur</option>
+                  <option>Accés au stock</option>
+                  <option>Accés aux ventes</option>
+                  <option>Accés aux statistiques</option>
+                </select>
+              </div>
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <button  class="btn btn-primary pull-right">Modifier</button>
+                <button  class="btn btn-primary pull-right">Ajouter</button>
             </div>
           </div>
       </section>
@@ -106,6 +96,7 @@
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
 <!-- Morris.js charts -->
 <script src="bower_components/raphael/raphael.min.js"></script>
 <script src="bower_components/morris.js/morris.min.js"></script>
@@ -134,7 +125,15 @@
 <!-- AdminLTE for demo purposes -->
 
 <script src="dist/js/demo.js"></script>
-
+<script >
+  $(document).ready(function() {
+    $('.select2').select2(
+      );
+    $(".js-example-tags").select2({
+      tags: true
+    });
+});
+</script>
 <script type="text/javascript">
   
   $("#sidebar").load("sidebar.html");
