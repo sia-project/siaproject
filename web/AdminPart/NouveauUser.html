@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+
+  <link src="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -30,20 +33,46 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
  <div id="header"></div>
  <div id="sidebar"></div>
  
 <!-- ./wrapper -->
 
 <div class="content-wrapper">
-           <div class="box box-info">
-            <div class="box-header with-border">
-              <h3 class="box-title">Créer un utilisateur</h3>
-            </div>
-            <!-- /.box-header -->
+          <section class="content-header">
+            <h1>
+             Créer un utilisateur
+            </h1>
+       
+          </section>
+           
+                       <!-- /.box-header -->
             <!-- form start -->
+            <section class="content">
+            <div class="box box-info" style="width: 80%">
             <form class="form-horizontal">
               <div class="box-body">
+
+
+            
+              
+
+                <div class="form-group">
+                
+                  <div class="col-sm-2">
+                  </div>
+
+                  <div class="col-sm-10">
+                      <div  type="radio">
+                      <label ><input  type="radio" name="civilite" required="">
+                      M</label>
+                      <label><input  type="radio" name="civilite" required="">
+                      Mme</label>
+                
+                  </div>
+                  </div>
+                </div>
 
                 <div class="form-group">
                 
@@ -60,6 +89,16 @@
 
                   <div class="col-sm-10">
                     <input type="text" class="form-control" id="prenom" placeholder="Prénom">
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                
+                  <label for="date" class="col-sm-2 control-label">Date de naissance</label>
+
+                  <div class="col-sm-10">
+                    <input  id="date" name="date" class="form-control" type="text" placeholder="Date de naissance"/>
                   </div>
                 </div>
 
@@ -120,12 +159,14 @@
               </div>
               <!-- /.box-footer -->
             </form>
-          </div>
-
+            </div>
+            </section>
+          
 
 </div>
 <div id="footer"></div>
 
+</div>
 <!-- jQuery 3 -->
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -164,6 +205,22 @@
 <!-- AdminLTE for demo purposes -->
 
 <script src="dist/js/demo.js"></script>
+<script>
+    $(document).ready(function(){
+
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'mm/dd/yyyy',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+      
+    })
+    </script>
+
 <script type="text/javascript">
   
   $("#sidebar").load("sidebar.html");
