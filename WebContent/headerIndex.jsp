@@ -281,7 +281,6 @@
 							<option value="Mme">Mme</option>
 						</select>
 
-
 						<div class="styled-input agile-styled-input-top">
 							<input type="text" name="nom" required=""> <label>Nom</label>
 							<span></span>
