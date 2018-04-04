@@ -1,7 +1,7 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="model.Utilisateur"%>
 <%@ page import="model.DAO"%>
-<jsp:include page="addproduct.jsp" />
+<jsp:include page="addFamilleProduit.jsp" />
 <%
 		session = request.getSession();
 		Utilisateur userSession = (Utilisateur) session.getAttribute("admin");
@@ -21,7 +21,7 @@
             max-width: 500px
         }
     </style>
-<!--L'accès à cette page doit etre protégé, un client ne peut pas ajouter de produit, vérification de variable session (ou autre) une fois lié au back -->
+<!--L'accès à cette page doit etre protégé, un client ne peut pas ajouter de famille produit, vérification de variable session (ou autre) une fois lié au back -->
 
 
 <div id="header"> </div>
@@ -33,55 +33,35 @@
 <fieldset>
 
 <!-- Form Name -->
-<center><legend>Ajouter un produit</legend></center>
+<center><legend>Ajouter une famille produit</legend></center>
 
 
 
 <!-- Text input-->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="product_name">Nom du produit</label>  
+  <label class="col-md-4 control-label" for="product_name">Libelé de la famille du produit</label>  
   <div class="col-md-4">
-  <input id="product_name" name="product_name" class="form-control input-md" required="" type="text" required>
+  <input id="familly_product_name" name="familly_product_name" class="form-control input-md" required="" type="text" required>
     
   </div>
 </div>
 
 <!-- Textarea -->
 <div class="form-group">
-  <label class="col-md-4 control-label" for="product_description">Description</label>
+  <label class="col-md-4 control-label" for="familly_product_description">Description de la famille du produit</label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="product_description" name="product_description" required></textarea>
+    <textarea class="form-control" id="familly_product_description" name="familly_product_description" required></textarea>
   </div>
 </div>
 
 <!-- Textarea -->
 
 <!-- Select Basic : A rajouter dynamiquement les options du select : les récupérer de la bdd et les insérer ici, à faire une fois nos travaux mis en commun-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="product_categorie">Catégorie</label>
-  <div class="col-md-4">
-    <select id="product_categorie" name="product_categorie" class="form-control" required> 
-    </select>
-  </div>
-</div>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="available_quantity">Quantité</label>  
-  <div class="col-md-4">
-  <input id="available_quantity" name="available_quantity" class="form-control input-md" required="" type="text">
-    
-  </div>
-</div>
 
-<!-- Text input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="product_weight">Poids</label>  
-  <div class="col-md-4">
-  <input id="product_weight" name="product_weight" class="form-control input-md" required="" type="text">
-    
-  </div>
-</div>
+
+
+
 <div class="jumbotron">
       <div class="col-md">
         <div class="dropzone"></div>
