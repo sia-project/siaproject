@@ -19,8 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Adresse;
 import model.Connect;
 import model.DAO;
+import model.Entreprise;
 import model.Utilisateur;
 
 public class ManageAccount extends HttpServlet {
@@ -69,61 +71,158 @@ public class ManageAccount extends HttpServlet {
 				request.setAttribute("ville", ville);
 				request.setAttribute("tel", tel);
 				request.setAttribute("email", email);
-				
+
 				if(!email.isEmpty()) {
 					mailExists = DAO.mailExists(email);
 				}
 				if (cbPro) {
-					if(entNom.isEmpty()) {
+					if(civilite.isEmpty()||nom.isEmpty()||prenom.isEmpty()||entNom.isEmpty()
+							||siret.isEmpty()||adresse.isEmpty()||cp.isEmpty()||ville.isEmpty()
+							||tel.isEmpty()||email.isEmpty()||mailExists||email.contains("yopmail")
+							||!validateMail(email)||mdp.length()<8||!mdp.equals(mdpConfirmation)) 
+					{
+						request.setAttribute("text", "<ul>");
+						if(civilite.isEmpty()) {
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez choisir votre civilité</li>");
+						}
+						if(nom.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre nom</li>");
+						}
+						if(prenom.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre prénom</li>");
+						}
+						if(entNom.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir la dénomination sociale de votre entreprise</li>");
+						}
+						if(siret.isEmpty())
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir le numéro siret de votre entreprise</li>");
+						}
+						if(adresse.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre adresse professionelle</li>");
+						}
+						if(cp.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir le code postal</li>");
+						}
+						if(ville.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir la ville</li>");
+						}
+						if(tel.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir un numero de téléphone</li>");
+						}
+						if(mailExists) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Cette adresse mail est deja utilisée</li>");
+							request.setAttribute("email", "");
+						}
+						if(email.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre addresse mail</li>");
+						}
+						if(email.contains("yopmail")||!validateMail(email)) {
+							request.setAttribute("text", request.getAttribute("text")+"<li>Adresse mail invalide</li>");
+							request.setAttribute("email", "");
+						}
+						if(mdp.length()<8) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Le mot de passe doit avoir au moins 8 caracteres</li>");
+						}
+						if(!mdp.equals(mdpConfirmation)) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Les mots de passe ne correspondent pas</li>");
+						}
+						request.setAttribute("text", request.getAttribute("text")+"</ul>");
+						pageToSend = "createAccount.jsp";
+					}
+					else {
+						int idAdr = DAO.createAdresse(new Adresse(adresse,cp, ville,"FRANCE"));
+						int idEnt = DAO.createEntreprise(new Entreprise(entNom, siret,idAdr));
+						DAO.createAccountPro(civilite, nom, prenom,tel, email, idEnt, mdp);
+						pageToSend = "createAccountSuccess.jsp";
+					}
+				}
+				else {
+					if(civilite.isEmpty()||nom.isEmpty()||prenom.isEmpty()
+							||adresse.isEmpty()||cp.isEmpty()||ville.isEmpty()
+							||tel.isEmpty()||email.isEmpty()||mailExists||email.contains("yopmail")
+							||!validateMail(email)||mdp.length()<8||!mdp.equals(mdpConfirmation)) 
+					{
+						request.setAttribute("text", "<ul>");
+						if(civilite.isEmpty()) {
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez choisir votre civilité</li>");
+						}
+						if(nom.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre nom</li>");
+						}
+						if(prenom.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre prénom</li>");
+						}
+						if(entNom.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir la dénomination sociale de votre entreprise</li>");
+						}
+						if(siret.isEmpty())
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir le numéro siret de votre entreprise</li>");
+						}
+						if(adresse.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre adresse professionelle</li>");
+						}
+						if(cp.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir le code postal</li>");
+						}
+						if(ville.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir la ville</li>");
+						}
+						if(tel.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir un numero de téléphone</li>");
+						}
+						if(mailExists) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Cette adresse mail est deja utilisée</li>");
+							request.setAttribute("email", "");
+						}
+						if(email.isEmpty()) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre addresse mail</li>");
+						}
+						if(email.contains("yopmail")||!validateMail(email)) {
+							request.setAttribute("text", request.getAttribute("text")+"<li>Adresse mail invalide</li>");
+							request.setAttribute("email", "");
+						}
+						if(mdp.length()<8) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Le mot de passe doit avoir au moins 8 caracteres</li>");
+						}
+						if(!mdp.equals(mdpConfirmation)) 
+						{
+							request.setAttribute("text", request.getAttribute("text")+"<li>Les mots de passe ne correspondent pas</li>");
+						}
+						request.setAttribute("text", request.getAttribute("text")+"</ul>");
+						pageToSend = "createAccount.jsp";
 						
 					}
+					else 
+					{
+						int idAdr = DAO.createAdresse(new Adresse(adresse,cp, ville,"FRANCE"));
+						int uId = DAO.createAccount(civilite,nom, prenom, tel, email, mdp);
+						DAO.createClientAdresse(uId, idAdr);
+						pageToSend = "createAccountSuccess.jsp";
+					}
 				}
-				else {
-					
-				}
-				if (civilite.isEmpty()|| nom.isEmpty()|| prenom.isEmpty()||email.isEmpty()||mailExists|| email.contains("yopmail")||!validateMail(email)||mdp.length()<8
-						||!mdp.equals(mdpConfirmation)){
-					request.setAttribute("text","<ul>");
-					if(mailExists) 
-					{
-						request.setAttribute("text", request.getAttribute("text")+"<li>Cette adresse mail est deja utilisée</li>");
-						request.setAttribute("email", "");
-					}
-					if(prenom.isEmpty()) 
-					{
-						request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre prénom</li>");
-					}
-					if(nom.isEmpty()) 
-					{
-						request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre nom</li>");
-					}
-					if(email.isEmpty()) 
-					{
-						request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre addresse mail</li>");
-					}
-					if(email.contains("yopmail")||!validateMail(email)) {
-						request.setAttribute("text", request.getAttribute("text")+"<li>Adresse mail invalide</li>");
-						request.setAttribute("email", "");
-					}
-					if(mdp.length()<8) 
-					{
-						request.setAttribute("text", request.getAttribute("text")+"<li>Le mot de passe doit avoir au moins 8 caracteres</li>");
-					}
-					if(mdp.equals(mdpConfirmation)) 
-					{
-						request.setAttribute("text", request.getAttribute("text")+"<li>Les mots de passe ne correspondent pas</li>");
-					}
-					request.setAttribute("text", request.getAttribute("text")+"</ul>");
-					pageToSend = "createAccount.jsp";
-				}
-				else {
-					DAO.createAccount(civilite,nom,prenom,email,mdp);
-					sendAccountValidationEmail(email);
-					pageToSend="createAccountSuccess.jsp";
-				}
-				break;
-			case "validateAccount":
-				
 				break;
 			default : pageToSend="index.jsp";
 			break;
@@ -179,9 +278,9 @@ public class ManageAccount extends HttpServlet {
 	 * @return mail content
 	 */
 	private static String getMessageHTMLUser(String email) {
-	
+
 		Utilisateur user  = DAO.getUserByMail(email);
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append("<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 		sb.append("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
@@ -217,7 +316,7 @@ public class ManageAccount extends HttpServlet {
 		sb.append("</html>");
 		return sb.toString();
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest request,HttpServletResponse response)
 			throws ServletException, IOException {

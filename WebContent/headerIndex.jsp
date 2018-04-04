@@ -264,21 +264,23 @@
 					<h3 class="agileinfo_sign">
 						Inscription <span>Maintenant</span>
 					</h3>
-					<form action="manageAccount?page=registerAccount" method="post">
+					<form method="post" id="inscriptionForm"
+						action="manageAccount?page=registerAccount">
 						<div class="form-check">
 							<input class="form-check-input" type="checkbox"
 								onchange="dynInput();" id="Check1"> <label
-								class="form-check-label" for="Check1" name="cbPro"> Client
-								professionnel </label>
+								class="form-check-label" for="Check1" name="cbPro">
+								Client professionnel </label>
 						</div>
 						<div>
 							<span>Civilité</span> <span></span>
 						</div>
-						<div type="radio">
-							<label><input type="radio" name="civilite" required="">
-								M</label> <label><input type="radio" name="civilite" required="">
-								Mme</label> <span></span>
-						</div>
+
+						<select class="form-control" name="civilite">
+							<option value="M">M</option>
+							<option value="Mme">Mme</option>
+						</select>
+
 
 						<div class="styled-input agile-styled-input-top">
 							<input type="text" name="nom" required=""> <label>Nom</label>
@@ -330,8 +332,14 @@
 							<input type="password" name="passwordConfirm" required="">
 							<label>Confirmation du mot de passe</label> <span></span>
 						</div>
-						<input type="submit" value="Valider">
+						<input onclick="form_submitInscription()" type="submit"
+							value="s'inscrire" />
 					</form>
+					<script type="text/javascript">
+						function form_submitInscription() {
+							document.getElementById("inscriptionForm").submit();
+						}
+					</script>
 				</div>
 				<div class="clearfix"></div>
 			</div>
@@ -341,24 +349,23 @@
 </div>
 <!-- //Modal2 -->
 <script>
-    $(document).ready(function(){
-      dynInput();
-    })
+	$(document).ready(function() {
+		dynInput();
+	})
 
-function dynInput(){
-	 
-	 var c1=document.getElementById('c1');
-	 var c2=document.getElementById('c2');
-	
-	
-	if(document.getElementById('Check1').checked == true){
-		c1.style.display ='block';
-		c2.style.display='block';
+	function dynInput() {
+
+		var c1 = document.getElementById('c1');
+		var c2 = document.getElementById('c2');
+
+		if (document.getElementById('Check1').checked == true) {
+			c1.style.display = 'block';
+			c2.style.display = 'block';
+		}
+		if (document.getElementById('Check1').checked == false) {
+			c1.style.display = 'none';
+			c2.style.display = 'none';
+
+		}
 	}
-	if(document.getElementById('Check1').checked == false){
-		c1.style.display ='none';
-		c2.style.display='none';
-       
-	}
-}
 </script>

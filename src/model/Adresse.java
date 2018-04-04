@@ -6,6 +6,7 @@ public class Adresse {
 	private String cp;
 	private String ville;
 	private String pays;
+	
 	public Adresse(int adrId, String rue, String cp, String ville, String pays) {
 		this.adrId = adrId;
 		this.rue = rue;
@@ -13,6 +14,13 @@ public class Adresse {
 		this.ville = ville;
 		this.pays = pays;
 	}
+	public Adresse(String rue, String cp, String ville, String pays) {
+		this.rue = rue;
+		this.cp = cp;
+		this.ville = ville;
+		this.pays = pays;
+	}
+	
 	public int getAdrId() {
 		return adrId;
 	}

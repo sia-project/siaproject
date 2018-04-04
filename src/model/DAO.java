@@ -160,7 +160,7 @@ public class DAO {
 	 * @param email
 	 * @param mdp
 	 */
-	public static void createAccount(String civilite, String nom, String prenom, String email, String mdp) {
+	public static int createAccount(String civilite, String nom, String prenom, String telPrincipal, String email, String mdp) {
 		int lastIdUser=0;
 		String salt = BCrypt.gensalt(14);
 		String encryptedPassword = Encryption.encrypt(BCrypt.hashpw(mdp, salt));
@@ -171,11 +171,53 @@ public class DAO {
 			Connection con = Connect.get();
 			lastIdUser = getLastIdUser();
 			lastIdUser++;
-			PreparedStatement req = con.prepareStatement("INSERT INTO UTILISATEUR (uId, civilite, nom, prenom, adrMail, mdp, cle, sel, dateCreationCompte, etatCompte) VALUES (?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement req = con.prepareStatement("INSERT INTO UTILISATEUR (uId, civilite, nom, prenom, telPrincipal, adrMail, mdp, cle, sel, dateCreationCompte, etatCompte) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 			req.setInt(1, lastIdUser);
 			req.setString(2, civilite);
 			req.setString(3, nom);
 			req.setString(4, prenom);
+			req.setString(5, telPrincipal);
+			req.setString(6, email);
+			req.setString(7, encryptedPassword);
+			req.setString(8, generatedKey);
+			req.setString(9, salt);
+			req.setTimestamp(10, ts);
+			req.setInt(11, 0);
+			req.executeUpdate();
+		}catch(SQLException e) 
+		{
+			System.out.println("ERREUR SQL : "+e); 
+		}
+		return lastIdUser;
+
+	}
+	
+	/**
+	 * Creates user professionnal account 
+	 * @param civilite
+	 * @param nom
+	 * @param prenom
+	 * @param email
+	 * @param entId
+	 * @param mdp
+	 */
+	public static void createAccountPro(String civilite, String nom, String prenom, String telPrincipal, String email,int entId, String mdp) {
+		int lastIdUser=0;
+		String salt = BCrypt.gensalt(14);
+		String encryptedPassword = Encryption.encrypt(BCrypt.hashpw(mdp, salt));
+		String generatedKey = Encryption.getGeneratedKey();
+		java.util.Date date = new java.util.Date(); 
+		Timestamp ts = new Timestamp(date.getTime());
+		try {
+			Connection con = Connect.get();
+			lastIdUser = getLastIdUser();
+			lastIdUser++;
+			PreparedStatement req = con.prepareStatement("INSERT INTO UTILISATEUR (uId, civilite, nom, prenom, telPrincipal, adrMail, mdp, cle, sel, dateCreationCompte, etatCompte) VALUES (?,?,?,?,?,?,?,?,?,?)");
+			req.setInt(1, lastIdUser);
+			req.setString(2, civilite);
+			req.setString(3, nom);
+			req.setString(4, prenom);
+			req.setString(5, telPrincipal);
 			req.setString(5, email);
 			req.setString(6, encryptedPassword);
 			req.setString(7, generatedKey);
@@ -1514,7 +1556,7 @@ public class DAO {
 			lastIdAdresse = getLastIdAdresse();
 			lastIdAdresse++;
 			prepStmt = con.prepareStatement("INSERT INTO Adresse (adrId  ,rue , cp ,ville ,pays) VALUES (?,?,?,?,?)");
-			prepStmt.setInt(1, a.getAdrId());
+			prepStmt.setInt(1, lastIdAdresse);
 			prepStmt.setString(2, a.getRue());
 			prepStmt.setString(3, a.getCp());
 			prepStmt.setString(4, a.getVille());
@@ -1527,7 +1569,7 @@ public class DAO {
 		}finally {
 
 		}
-		return 	lastIdAdresse++;
+		return 	lastIdAdresse;
 	}
 
 	public static Adresse findAdresseById(int id) {
@@ -1739,7 +1781,7 @@ public class DAO {
 	 * @param e the entreprise
 	 * @return the id of the entreprise
 	 */
-	public static void createEntreprise (Entreprise e) {
+	public static int createEntreprise (Entreprise e) {
 		Connection con = Connect.get();
 		int lastIdEntreprise=0;
 
@@ -1747,20 +1789,16 @@ public class DAO {
 		try {
 			lastIdEntreprise = getLastIdEntreprise();
 			lastIdEntreprise++;
-			prepStmt = con.prepareStatement("INSERT INTO PRODUIT (entId , raisonSociale , nom , siret, ape, acitivitePrincipale, nbEmployes, adrId) VALUES (?,?,?,?,?,?,?,?)");
-			prepStmt.setInt(1, e.getEntId());
-			prepStmt.setString(2, e.getRaisonSociale());
-			prepStmt.setString(3, e.getNom());
-			prepStmt.setString(4, e.getSiret());
-			prepStmt.setString(5, e.getApe());
-			prepStmt.setString(6, e.getActivitePrincipale());
-			prepStmt.setInt(7, e.getNbEmployes());
-			prepStmt.setInt(8, e.getAdrId());			
+			prepStmt = con.prepareStatement("INSERT INTO ENTREPRISE (entId , nom , siret, adrId) VALUES (?,?,?,?)");
+			prepStmt.setInt(1, lastIdEntreprise);
+			prepStmt.setString(2, e.getNom());
+			prepStmt.setString(3, e.getSiret());
+			prepStmt.setInt(4, e.getAdrId());			
 			prepStmt.executeUpdate();
-
 		}catch (Exception ex) {
 			ex.printStackTrace();
 		}
+		return lastIdEntreprise;
 	}
 
 	public static Entreprise findById(int id) {
@@ -1841,4 +1879,23 @@ public class DAO {
 
 		}
 	}
+
+	public static int createClientAdresse(int uId, int idAdr) {
+		Connection con = Connect.get();
+		int lastIdClientAdresse=0;
+
+		PreparedStatement prepStmt=null;
+		try {
+			prepStmt = con.prepareStatement("INSERT INTO CLIENTADRESSE VALUES (?,?,?)");
+			prepStmt.setInt(1, uId);
+			prepStmt.setInt(2, idAdr);
+			prepStmt.setString(3, "");			
+			prepStmt.executeUpdate();
+		}catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return lastIdClientAdresse;
+		
+	}
+
 }

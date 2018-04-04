@@ -24,6 +24,21 @@ public class Entreprise {
 		this.nbEmployes = nbEmployes;
 		this.adrId = adrId;
 	}
+	public Entreprise( String raisonSociale, String nom, String siret, String ape, String activitePrincipale,
+			int nbEmployes, int adrId) {
+		this.raisonSociale = raisonSociale;
+		this.nom = nom;
+		this.siret = siret;
+		this.ape = ape;
+		this.activitePrincipale = activitePrincipale;
+		this.nbEmployes = nbEmployes;
+		this.adrId = adrId;
+	}
+	public Entreprise( String nom, String siret, int adrId) {
+		this.nom = nom;
+		this.siret = siret;
+		this.adrId = adrId;
+	}
 	public int getEntId() {
 		return entId;
 	}
