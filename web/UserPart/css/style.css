@@ -234,7 +234,25 @@ li.share {
     color: #0c0b0b;
 }
 
+.informations {
+    width: 510px;
+    height: 405px;
+    float: left;
+    background: #b1e1ec;
+    color: #000;
+    font-size: 12px;
+    border:1px solid #d7cece;
+    }
 
+    .informations1 {
+    width: 510px;
+    height: 400px;
+    float: left;
+    background: #b1e1ec;
+    color: #000;
+    font-size: 12px;
+    border:1px solid #d7cece;
+    }
 
 .logo_agile h1 a {
 
@@ -5549,7 +5567,24 @@ p.w3ls_para {
 		left: 24%;
 		font-size: 1em;
 		letter-spacing: 4px;
+
 	}
+
+    .storelocator-content {
+    width: 100%;
+    float: left;
+    position: relative;
+    margin-bottom: 40px;
+    margin-top: 5px;
+    }
+
+    
+    .note {
+background-color:#FFFFCC;
+border:1px dotted #CCCCCC;
+padding:0.5em;
+[b]display : inline ;[/b]
+}
 	#PPMiniCart form {
 		width: 290px !important;
 		padding: 10px 10px 20px !important;
