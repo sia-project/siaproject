@@ -275,7 +275,7 @@
 							<span>Civilité</span> <span></span>
 						</div>
 						<div type="radio">
-							<label><input type="radio" name="civilite" required="">
+							<label><input type="ra()dio" name="civilite" required="">
 								M</label> <label><input type="radio" name="civilite" required="">
 								Mme</label> <span></span>
 						</div>

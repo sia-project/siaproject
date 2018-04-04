@@ -86,12 +86,12 @@ public class ManageAccount extends HttpServlet {
 					request.setAttribute("text","<ul>");
 					if(mailExists) 
 					{
-						request.setAttribute("text", request.getAttribute("text")+"<li>Cette adresse mail est deja utilisée</li>");
+						request.setAttribute("text", request.getAttribute("text")+"<li>Cette adresse mail est deja utilisï¿½e</li>");
 						request.setAttribute("email", "");
 					}
 					if(prenom.isEmpty()) 
 					{
-						request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre prénom</li>");
+						request.setAttribute("text", request.getAttribute("text")+"<li>Veuillez saisir votre prï¿½nom</li>");
 					}
 					if(nom.isEmpty()) 
 					{
@@ -159,7 +159,7 @@ public class ManageAccount extends HttpServlet {
 			Message message = new MimeMessage(session);
 			InternetAddress recipient = new InternetAddress(email);
 			message.setRecipient(Message.RecipientType.TO, recipient);
-			message.setSubject("Compte crée sur La Vieille Sardine");
+			message.setSubject("Compte crï¿½e sur La Vieille Sardine");
 			message.setContent(getMessageHTMLUser(email),"text/html; charset=utf-8");
 			Transport.send(message);
 		}
@@ -187,7 +187,7 @@ public class ManageAccount extends HttpServlet {
 		sb.append("<html xmlns=\"http://www.w3.org/1999/xhtml\">");
 		sb.append("<head>");
 		sb.append("		<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />");
-		sb.append("			<title>Votre compte a bien été crée</title>");
+		sb.append("			<title>Votre compte a bien ï¿½tï¿½ crï¿½e</title>");
 		sb.append("				<style type=\"text/css\">");
 		sb.append("					body {margin: 0; padding: 0; min-width: 100%!important;}");
 		sb.append("					.content {width: 100%; max-width: 600px;}");
@@ -205,7 +205,7 @@ public class ManageAccount extends HttpServlet {
 		sb.append("							</tr>");
 		sb.append("							<tr>");
 		sb.append("								<td>");
-		sb.append("									Votre compte à bien été crée, vous pouvez dés à present valider votre adresse email afin d'activer votre compte en cliquant sur le le lien suivant" );
+		sb.append("									Votre compte ï¿½ bien ï¿½tï¿½ crï¿½e, vous pouvez dï¿½s ï¿½ present valider votre adresse email afin d'activer votre compte en cliquant sur le le lien suivant" );
 		sb.append("									<a href=\"localhost:8080/lvs/manageAccount?page=validateAccount&user=\""+user.getCle()+"\" target=\"_blank\">Votre lien</a>");
 		sb.append("								</td>");
 		sb.append("							</tr>");
