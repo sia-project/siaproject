@@ -592,7 +592,7 @@ public class DAO {
 			ResultSet res = prepStmt.executeQuery();
 
 			while(res.next()) {
-				collect.add(new Produit(res.getInt(1), res.getString(2), res.getString(3), res.getString(4), res.getDouble(5), res.getDouble(6),
+				collect.add(new Produit(res.getString(2), res.getString(3), res.getString(4), res.getDouble(5), res.getDouble(6),
 						res.getInt(7), res.getString(8), res.getString(9), res.getString(10), res.getInt(11), res.getInt(12)));
 			}
 
