@@ -40,24 +40,46 @@ public class ManageAccount extends HttpServlet {
 		HttpSession session = request.getSession();
 		String pageToSend=null;
 		String page = request.getParameter("page");
+		boolean cbPro = (request.getParameter("cbPro")!=null);
 		String civilite = request.getParameter("civilite");
 		String nom = request.getParameter("nom");
 		String prenom = request.getParameter("prenom");
+		String entNom = request.getParameter("entNom");
+		String siret = request.getParameter("siret");
+		String adresse = request.getParameter("adresse");
+		String cp = request.getParameter("cp");
+		String ville = request.getParameter("ville");
+		String tel = request.getParameter("tel");
 		String email = request.getParameter("email");
-		String mdp = request.getParameter("mdp");
-		String mdpConfirmation = request.getParameter("mdpConfirmation");
+		String mdp = request.getParameter("password");
+		String mdpConfirmation = request.getParameter("passwordConfirm");
 		boolean mailExists = false;
 
 		if(page!=null ||!page.isEmpty()) {
 			switch(page) {
-			case "enregistrementCompte" :
+			case "registerAccount" :
 
+				request.setAttribute("civilite", civilite);
 				request.setAttribute("nom", nom);
 				request.setAttribute("prenom", prenom);
+				request.setAttribute("entNom", entNom);
+				request.setAttribute("siret", siret);
+				request.setAttribute("adresse", adresse);
+				request.setAttribute("cp", cp);
+				request.setAttribute("ville", ville);
+				request.setAttribute("tel", tel);
 				request.setAttribute("email", email);
-				request.setAttribute("civilite", civilite);
+				
 				if(!email.isEmpty()) {
 					mailExists = DAO.mailExists(email);
+				}
+				if (cbPro) {
+					if(entNom.isEmpty()) {
+						
+					}
+				}
+				else {
+					
 				}
 				if (civilite.isEmpty()|| nom.isEmpty()|| prenom.isEmpty()||email.isEmpty()||mailExists|| email.contains("yopmail")||!validateMail(email)||mdp.length()<8
 						||!mdp.equals(mdpConfirmation)){
