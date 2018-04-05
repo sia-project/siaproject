@@ -47,21 +47,22 @@ public class GestionProduit  extends HttpServlet{
 	
 		if(page!=null ||!page.isEmpty()) {
 			switch(page) {
-			case "addproduct.jsp" :
-				Produit p = new Produit(null,product_name,product_description,Integer.parseInt(product_weight),0,0,null,null,product_categorie);
+			case "addproduct" :
+				Produit p = new Produit(product_name,null,product_description,Integer.parseInt(product_weight),0,0,null,null,product_categorie);
 				//REVOIR FORMULAIRE AJOUT DE PRODUIT INCOMPLET 
 				DAO.createProduct(p);
 			break;
-			
 			case  "addfamillyproduct" :
 			FamilleProduit fp = new FamilleProduit(null,familly_product_name,familly_product_description);
 			DAO.createFamille(fp);
 			break;
-			
 			case  "addgammeproduct" :
 			GammeProduit gp = new GammeProduit(null,gamme_product_name,gamme_product_description);
 			DAO.createGammeProduit(gp);
-			break;		
+			break;
+			case "addproductshow" :
+				pageToSend = "addproduct.jsp";
+			break;			
 			}
 		}
 				
