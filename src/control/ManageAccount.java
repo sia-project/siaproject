@@ -139,7 +139,7 @@ public class ManageAccount extends HttpServlet {
 							request.setAttribute("text", request.getAttribute("text")+"<li>Les mots de passe ne correspondent pas</li>");
 						}
 						request.setAttribute("text", request.getAttribute("text")+"</ul>");
-						pageToSend = "createAccount.jsp";
+						pageToSend = "index.jsp";
 					}
 					else {
 						int idAdr = DAO.createAdresse(new Adresse(adresse,cp, ville,"FRANCE"));
@@ -212,7 +212,7 @@ public class ManageAccount extends HttpServlet {
 							request.setAttribute("text", request.getAttribute("text")+"<li>Les mots de passe ne correspondent pas</li>");
 						}
 						request.setAttribute("text", request.getAttribute("text")+"</ul>");
-						pageToSend = "createAccount.jsp";
+						pageToSend = "index.jsp";
 						
 					}
 					else 
