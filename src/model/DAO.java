@@ -313,16 +313,14 @@ public class DAO {
 		try {
 			lastIdProduct = getLastIdProduct();
 			lastIdProduct++;
-			prepStmt = con.prepareStatement("INSERT INTO PRODUIT (ProdId, Libelle, Marque, Description, Poids, PrixHT, TypeTVA, FamilleProduitId, GammeProduitId) VALUES (?,?,?,?,?,?,?,?,?)");
-			prepStmt.setInt(1, p.getProdId());
+			prepStmt = con.prepareStatement("INSERT INTO PRODUIT (ProdId, Libelle, Marque, Description, Poids, PrixHT, TypeTVA) VALUES (?,?,?,?,?,?,?)");
+			prepStmt.setInt(1, lastIdProduct);
 			prepStmt.setString(2, p.getLibelle());
 			prepStmt.setString(3, p.getMarque());
 			prepStmt.setString(4, p.getDescription());
 			prepStmt.setDouble(5, p.getPoids());
 			prepStmt.setDouble(6, p.getPrixHT());
 			prepStmt.setString(7, p.getTypeTVA());
-			prepStmt.setInt(8, p.getFamilleProduitId());			
-			prepStmt.setInt(9, p.getGammeProduitId());
 			prepStmt.executeUpdate();
 
 		}catch (Exception e) {

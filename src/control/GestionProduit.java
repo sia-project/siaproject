@@ -34,34 +34,37 @@ public class GestionProduit  extends HttpServlet{
 		String product_name = request.getParameter("product_name");
 		String product_description = request.getParameter("product_description");
 		String product_categorie = request.getParameter("product_categorie");
-		String available_quantity = request.getParameter("available_quantity"); 
+		String product_price = request.getParameter("product_price"); 
 		String product_weight = request.getParameter("product_weight");
-
+		String product_rayon = request.getParameter("available_quantity");
+		
+		
+		
 		String familly_product_name = request.getParameter("familly_product_name");
 		String familly_product_description = request.getParameter("familly_product_description");
 
 		String gamme_product_name = request.getParameter("gamme_product_name");
 		String gamme_product_description = request.getParameter("gamme_product_description");
+		System.out.println(page);
 		if(page!=null ||!page.isEmpty()) {
 			switch(page) {
 			case "addproduct" :
-				Produit p = new Produit(product_name,null,product_description,Integer.parseInt(product_weight),0,0,null,null,product_categorie);
-				//REVOIR FORMULAIRE AJOUT DE PRODUIT INCOMPLET 
+				Produit p = new Produit(product_name,null,product_description,Integer.parseInt(product_weight),Double.parseDouble(product_price),0,product_rayon,null,product_categorie);
 				DAO.createProduct(p);
 				break;
 			case  "addfamillyproduct" :
-				FamilleProduit fp = new FamilleProduit(null,familly_product_name,familly_product_description);
+				FamilleProduit fp = new FamilleProduit(familly_product_name,familly_product_description);
 				DAO.createFamille(fp);
 				break;
 			case  "addgammeproduct" :
-				GammeProduit gp = new GammeProduit(null,gamme_product_name,gamme_product_description);
-				DAO.createGammeProduit(gp);
+			//	GammeProduit gp = new GammeProduit(gamme_product_name,gamme_product_description);
+			//	DAO.createGammeProduit(gp);
 				break;
 			case "addproductshow" :
 				pageToSend = "addproduct.jsp";
 				break;					
 			case "commande" :
-			DAO.createCommande(null,null,etatCmd,modeLivraison,moyenPriseCmd,adrLivId,adrFactId,userId,fraisPortId);
+				//DAO.createCommande(null,null,etatCmd,modeLivraison,moyenPriseCmd,adrLivId,adrFactId,userId,fraisPortId);
 			break;		
 			}
 			

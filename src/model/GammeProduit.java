@@ -9,6 +9,10 @@ public class GammeProduit {
 		this.libelle = libelle;
 		this.description = description;
 	}
+	public GammeProduit(String libelle, String description) {
+		this.libelle = libelle;
+		this.description = description;
+	}
 	public GammeProduit() {
 		super();
 		// TODO Auto-generated constructor stub
