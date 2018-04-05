@@ -59,7 +59,10 @@ public class GestionProduit  extends HttpServlet{
 				break;
 			case "addproductshow" :
 				pageToSend = "addproduct.jsp";
-				break;			
+				break;					
+			case "commande" :
+			DAO.createCommande(null,null,etatCmd,modeLivraison,moyenPriseCmd,adrLivId,adrFactId,userId,fraisPortId);
+			break;		
 			}
 			
 		}
