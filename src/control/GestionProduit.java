@@ -11,6 +11,9 @@ import javax.servlet.http.HttpSession;
 import model.Connect;
 import model.DAO;
 import model.Produit;
+import model.FamilleProduit;
+import model.GammeProduit;
+
 
 public class GestionProduit  extends HttpServlet{
 
@@ -34,6 +37,13 @@ public class GestionProduit  extends HttpServlet{
 		String available_quantity = request.getParameter("available_quantity"); 
 		String product_weight = request.getParameter("product_weight");
 		
+		String familly_product_name = request.getParameter("familly_product_name");
+		String familly_product_description = request.getParameter("familly_product_description");
+		
+		String gamme_product_name = request.getParameter("gamme_product_name");
+		String gamme_product_description = request.getParameter("gamme_product_description");
+		
+		
 	
 		if(page!=null ||!page.isEmpty()) {
 			switch(page) {
@@ -41,7 +51,17 @@ public class GestionProduit  extends HttpServlet{
 				Produit p = new Produit(null,product_name,product_description,Integer.parseInt(product_weight),0,0,null,null,product_categorie);
 				//REVOIR FORMULAIRE AJOUT DE PRODUIT INCOMPLET 
 				DAO.createProduct(p);
+			break;
 			
+			case : "addfamillyproduct" :
+			FamilleProduit fp = new FamilleProduit(null,familly_product_name,familly_product_description);
+			DAO.createFamille(fp);
+			break;
+			
+			case : "addgammeproduct" :
+			GammeProduit gp = new GammeProduit(null,gamme_product_name,gamme_product_description);
+			DAO.createGammeProduit(gp);
+			break;		
 			}
 		}
 				
