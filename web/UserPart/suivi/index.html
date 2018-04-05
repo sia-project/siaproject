@@ -11,7 +11,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <title>Suivi de commande</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="keywords" content="Shipment Track Widget Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+<meta name="keywords" content="Shipment Track Widget Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login signup Responsive web template, Smartphone Compatible	 web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
 <link href="css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -32,7 +32,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <label class="field field_type1">
           <input class="field__input" placeholder="e.g. VS65432S">
           <span class="field__label-wrap">
-            <span class="field__label">Entrez votre numéro de suivi :</span> <input type="submit" value="Valider"> </span>
+            <span class="field__label">Entrez votre numéro de suivi :</span> <input type="submit" value="Valider" onclick="afficher();"> </span>
             </span>
         </label>
       </div>
@@ -41,10 +41,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
   </div>
 </div>
 </form>
-
-<div class="content">
+	
+<div style="display: none;" class="content" id="suivi">
 	<div class="content1">
-		<h2>Commande numéro : </h2>
+		
 	</div>
 	<div class="content2">
 		<div class="content2-header1">
@@ -98,6 +98,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		</div>
 	</div>
 </div>
+<script> 
+function afficher(){
+	$('#suivi').show();
+	console.log("hello 1");		
+
+}
+</script>
 
 </body>
 </html>
