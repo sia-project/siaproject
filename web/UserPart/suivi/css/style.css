@@ -31,7 +31,7 @@ body {
 	background-color:#F5F5F5;
 }
 .content1 {
-	background-color:#98d091;
+	background-color:#0e68ab;
 	text-align:center;
 	padding:2em;
 }
@@ -42,7 +42,7 @@ body {
 	color:#fff;
 }
 .content2 {
-	background-color:#b5e6ae;
+	background-color:#aedae6;
 }
 .content2-header1 {
 	float:left;
@@ -54,7 +54,7 @@ body {
 	font-family: 'Open Sans', sans-serif;
 	font-size:16px;
 	font-weight:700;
-	color:#4E7D48;
+	color:#000300;
 	margin:0;
 }
 .content2-header1 span {
@@ -68,7 +68,7 @@ body {
 span.line {
     height: 5px;
     width: 90px;
-    background-color:#F5998E;
+    background-color:#368AF8;
     display: block;
     position: absolute;
     top: 28%;
@@ -82,10 +82,11 @@ span.line {
 	margin-left:5%;
 }
 .confirm .imgcircle , .process .imgcircle, .quality .imgcircle {
-	background-color:#98D091;
+	background-color:#95C8D1;
 }
 .confirm span.line, .process span.line {
-	background-color:#98D091; 
+  background-color:#95C8D1;
+	
 }
 .content3 p {
 	margin-left:-50%;
