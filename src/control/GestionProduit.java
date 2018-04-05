@@ -49,7 +49,7 @@ public class GestionProduit  extends HttpServlet{
 		if(page!=null ||!page.isEmpty()) {
 			switch(page) {
 			case "addproduct" :
-				Produit p = new Produit(product_name,null,product_description,Integer.parseInt(product_weight),Double.parseDouble(product_price),0,product_rayon,null,product_categorie);
+				Produit p = new Produit(product_name,null,product_description,Integer.parseInt(product_weight),Integer.parseInt(product_price),0,product_rayon,null,product_categorie);
 				DAO.createProduct(p);
 				break;
 			case  "addfamillyproduct" :

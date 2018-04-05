@@ -28,18 +28,36 @@ public class Authentication extends HttpServlet {
 		String loggout = request.getParameter("page");
 		String login = request.getParameter("email");
 		String password = request.getParameter("password");
-		if(loggout==null ||loggout.isEmpty()) {
-			user = DAO.authenticate(login,password);
-			if(user!=null) {
-				DAO.updateLastConnectionDateTime(user.getuId());
-				session.setAttribute("user", user);
-				pageToSend = "index.jsp";
+		if(loggout!=null && !loggout.isEmpty()) {
+			switch(loggout) {
+			case "userConnexion":
+				user = DAO.authenticate(login,password);
+				if(user!=null) {
+					DAO.updateLastConnectionDateTime(user.getuId());
+					session.setAttribute("user", user);
+					pageToSend = "index.jsp";
+				}
+				else {
+					String text = "Nom d'utilisateur et/ou mot de passe incorrect";
+					request.setAttribute("text", text);
+					pageToSend = "index.jsp";
+				}
+				break;
+			case "adminConnexion":
+				user = DAO.authenticate(login,password);
+				if(user!=null) {
+					DAO.updateLastConnectionDateTime(user.getuId());
+					session.setAttribute("admin", user);
+					pageToSend = "adminIndex.jsp";
+				}
+				else {
+					String text = "Nom d'utilisateur et/ou mot de passe incorrect";
+					request.setAttribute("text", text);
+					pageToSend = "adminIndex.jsp";
+				}
+				break;
 			}
-			else {
-				String text = "Nom d'utilisateur et/ou mot de passe incorrect";
-				request.setAttribute("text", text);
-				pageToSend = "index.jsp";
-			}
+
 		}
 		else if(loggout.equals("loggout"))
 		{

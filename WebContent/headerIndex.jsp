@@ -31,9 +31,9 @@
 		<ul>
 
 
-			<li><a href="#"><i class="fa fa-external-link-square"
-					aria-hidden="true"></i> Accès Admin</a></li>
 			<li><a href="#" data-toggle="modal" data-target="#myModal3"><i
+					class="glyphicon glyphicon-share-alt" aria-hidden="true"></i>Accès Admin</a></li>
+			<li><a href="#" data-toggle="modal"><i
 					class="glyphicon glyphicon-share-alt" aria-hidden="true"></i> Nos
 					boutiques</a></li>
 			<li><a href="#" data-toggle="modal" data-target="#myModal"><i
@@ -227,7 +227,7 @@
 				<div id="formconnexion"
 					class="col-md-8 modal_body_left modal_body_left1">
 					<h3 class="agileinfo_sign">Connexion</h3>
-					<form id="connexionForm" action="authentication" method="post">
+					<form id="connexionForm" action="authentication?page=userConnexion" method="post">
 
 						<div class="styled-input">
 							<input type="email" name="email" required=""> <label>Email</label>
@@ -352,6 +352,46 @@
 	</div>
 </div>
 <!-- //Modal2 -->
+<!-- Modal3 -->
+<div class="modal fade" id="myModal3" tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body modal-body-sub_agile">
+				<div id="formconnexion"
+					class="col-md-8 modal_body_left modal_body_left1">
+					<h3 class="agileinfo_sign">Connexion</h3>
+					<form id="connexionForm" action="authentication?page=adminConnexion" method="post">
+
+						<div class="styled-input">
+							<input type="email" name="email" required=""> <label>Email</label>
+							<span></span>
+						</div>
+						<div class="styled-input">
+							<input type="password" name="password" required=""> <label>Mot
+								de passe</label> <span></span>
+						</div>
+						<div>
+							<input onclick="form_submitConnexion()" type="submit"
+								value="Connexion">
+						</div>
+					</form>
+					<script type="text/javascript">
+						function form_submitConnexion() {
+							document.getElementById("connexionForm").submit();
+						}
+					</script>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+		<!-- //Modal content-->
+	</div>
+</div>
+<!-- //Modal3 -->
 <script>
 	$(document).ready(function() {
 		dynInput();

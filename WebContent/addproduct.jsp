@@ -1,10 +1,8 @@
 <%@ page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="model.Utilisateur"%>
 <%@ page import="model.DAO"%>
-<%
-		session = request.getSession();
-		Utilisateur userSession = (Utilisateur) session.getAttribute("admin");
-	%>
+
+
 
 	
 </head>
