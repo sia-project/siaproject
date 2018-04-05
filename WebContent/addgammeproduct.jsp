@@ -50,7 +50,7 @@
 <div class="form-group">
   <label class="col-md-4 control-label" for="familly_product_description">Description de la famille du produit</label>
   <div class="col-md-4">                     
-    <textarea class="form-control" id="familly_product_description" name="familly_product_description" required></textarea>
+    <textarea class="form-control" id="gamme_product_description" name="gamme_product_description" required></textarea>
   </div>
 </div>
 
