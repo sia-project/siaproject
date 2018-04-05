@@ -55,7 +55,7 @@ public class GestionProduit  extends HttpServlet{
 			
 			case "addproductshow" :
 				pageToSend = "addproduct.jsp";
-			
+			break;
 			case "addfamillyproduct" :
 			FamilleProduit fp = new FamilleProduit(familly_product_name,familly_product_description);
 			DAO.createFamille(fp);
@@ -63,6 +63,11 @@ public class GestionProduit  extends HttpServlet{
 			
 			case "addgammeproduct" :
 			DAO.createGammeProduit(gamme_product_name,gamme_product_description);
+			
+			break;		
+					
+			case "commande" :
+			DAO.createCommande(null,null,etatCmd,modeLivraison,moyenPriseCmd,adrLivId,adrFactId,userId,fraisPortId);
 			
 			break;		
 			}
