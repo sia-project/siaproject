@@ -53,12 +53,12 @@ public class GestionProduit  extends HttpServlet{
 				DAO.createProduct(p);
 			break;
 			
-			case : "addfamillyproduct" :
+			case  "addfamillyproduct" :
 			FamilleProduit fp = new FamilleProduit(null,familly_product_name,familly_product_description);
 			DAO.createFamille(fp);
 			break;
 			
-			case : "addgammeproduct" :
+			case  "addgammeproduct" :
 			GammeProduit gp = new GammeProduit(null,gamme_product_name,gamme_product_description);
 			DAO.createGammeProduit(gp);
 			break;		

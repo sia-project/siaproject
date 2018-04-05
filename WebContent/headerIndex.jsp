@@ -51,8 +51,11 @@
 					Propos </a></li>
 			<li><a href="suivi/index.html"><i class="fa-location-arrow"
 					aria-hidden="false"></i>Suivre ma commande</a></li>
-
-
+			<%
+					if(userSession!=null){
+						out.print("<li>"+userSession.getPrenom() + " " + userSession.getNom()+"</li>");
+					}
+				%>
 		</ul>
 	</div>
 </div>
@@ -188,25 +191,6 @@
 				</div>
 			</nav>
 		</div>
-		<div id="myModal" class="modal fade" role="dialog">
-			<div class="modal-dialog">
-
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title">Modal Header</h4>
-					</div>
-					<div class="modal-body">
-						<p>Some text in the modal.</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-
-			</div>
-		</div>
 		<div class="top_nav_right">
 			<div class="wthreecartaits wthreecartaits2 cart cart box_1">
 				<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
@@ -240,9 +224,30 @@
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body modal-body-sub_agile">
-				<div id="connexion"
-					class="col-md-8 modal_body_left modal_body_left1"></div>
+				<div id="formconnexion"
+					class="col-md-8 modal_body_left modal_body_left1">
+					<h3 class="agileinfo_sign">Connexion</h3>
+					<form id="connexionForm" action="authentication" method="post">
 
+						<div class="styled-input">
+							<input type="email" name="email" required=""> <label>Email</label>
+							<span></span>
+						</div>
+						<div class="styled-input">
+							<input type="password" name="password" required=""> <label>Mot
+								de passe</label> <span></span>
+						</div>
+						<div>
+							<input onclick="form_submitConnexion()" type="submit"
+								value="Connexion">
+						</div>
+					</form>
+					<script type="text/javascript">
+						function form_submitConnexion() {
+							document.getElementById("connexionForm").submit();
+						}
+					</script>
+				</div>
 				<div class="clearfix"></div>
 			</div>
 		</div>

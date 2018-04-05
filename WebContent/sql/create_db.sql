@@ -206,6 +206,7 @@ CREATE TABLE produit
 	familleProduitId INT(11),
 	gammeProduitId INT(11),
 	destination VARCHAR(30),
+	urlImage VARCHAR (255),
 	FOREIGN KEY (familleProduitId) REFERENCES familleProduit(familleProduitId),
 	FOREIGN KEY (gammeProduitId) REFERENCES gammeProduit(gammeProduitId)
 )ENGINE=InnoDB;

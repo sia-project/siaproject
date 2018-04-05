@@ -26,19 +26,19 @@ public class Authentication extends HttpServlet {
 		Utilisateur user = null;
 		String pageToSend=null;
 		String loggout = request.getParameter("page");
-		String login = request.getParameter("login");
+		String login = request.getParameter("email");
 		String password = request.getParameter("password");
 		if(loggout==null ||loggout.isEmpty()) {
 			user = DAO.authenticate(login,password);
 			if(user!=null) {
 				DAO.updateLastConnectionDateTime(user.getuId());
 				session.setAttribute("user", user);
-				pageToSend = "userHome.jsp";
+				pageToSend = "index.jsp";
 			}
 			else {
 				String text = "Nom d'utilisateur et/ou mot de passe incorrect";
 				request.setAttribute("text", text);
-				pageToSend = "connection.jsp";
+				pageToSend = "index.jsp";
 			}
 		}
 		else if(loggout.equals("loggout"))

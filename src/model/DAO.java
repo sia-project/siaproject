@@ -67,9 +67,9 @@ public class DAO {
 		boolean b = false;
 		try {
 			Connection con = Connect.get();
-			PreparedStatement req = con.prepareStatement("SELECT uId, civilite, nom, prenom, mdp, cle, sel, roleId LIMIT 1"
-					+"FROM UTILISATEUR"
-					+"WHERE adrMail  = ? ");								
+			PreparedStatement req = con.prepareStatement("SELECT uId, civilite, nom, prenom, mdp, cle, sel, roleId "
+					+"FROM UTILISATEUR "
+					+"WHERE adrMail  = ? LIMIT 1");								
 			req.setString(1, adrMail);
 
 			ResultSet rs = req.executeQuery();
