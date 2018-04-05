@@ -412,7 +412,7 @@ public class DAO {
 
 
 
-	public static int createGammeProduit (int gammeProduitId ,String  libelle, String description) {
+	public static int createGammeProduit (String  libelle, String description) {
 		Connection con = Connect.get();
 		int lastIdProductGamme=0;
 
@@ -421,7 +421,7 @@ public class DAO {
 			lastIdProductGamme = getLastIdProductGamme();
 			lastIdProductGamme++;
 			prepStmt = con.prepareStatement("INSERT INTO gammeProduit (gammeProduitId, libelle, description) VALUES (?,?,?)");
-			prepStmt.setInt(1, gammeProduitId);
+			prepStmt.setInt(1, lastIdProductGamme);
 			prepStmt.setString(2, libelle);
 			prepStmt.setString(3, description);
 
@@ -537,7 +537,7 @@ public class DAO {
 			prepStmt.setInt(1, id);
 			rs=prepStmt.executeQuery();
 			if(rs.next()) {
-				f=new FamilleProduit(rs.getInt(1), rs.getString(2), rs.getString(3));
+				f=new FamilleProduit(rs.getString(2), rs.getString(3));
 			}
 
 		}catch (Exception e) {
@@ -613,7 +613,7 @@ public class DAO {
 			ResultSet res = prepStmt.executeQuery();
 
 			while(res.next()) {
-				collect.add(new FamilleProduit(res.getInt(1), res.getString(2), res.getString(3)));
+				collect.add(new FamilleProduit(res.getString(2), res.getString(3)));
 			}
 		}
 		catch(Exception e) {

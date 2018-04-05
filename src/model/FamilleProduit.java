@@ -5,8 +5,7 @@ public class FamilleProduit {
 	private String libelle;
 	private String description;
 	
-	public FamilleProduit(int familleProduitId, String libelle, String description) {
-		this.familleProduitId = familleProduitId;
+	public FamilleProduit(String libelle, String description) {
 		this.libelle = libelle;
 		this.description = description;
 	}

@@ -16,13 +16,10 @@ public class Produit implements Serializable {
 	private String destination;
 	private int familleProduitId;
 	private int gammeProduitId;
-	private static int id = 1;
 	
 	public Produit(String libelle, String marque, String description, double poids, double prixHT, int lot,
 			String placeRayon, String typeTVA, String destination, int familleProduitId, int gammeProduitId) {
 		super();
-		this.prodId = id;
-		id++;
 		this.libelle = libelle;
 		this.marque = marque;
 		this.description = description;
@@ -54,8 +51,6 @@ public class Produit implements Serializable {
 
 	public Produit(String libelle, String marque, String description, double poids, double prixHT, int lot,
 			String placeRayon, String typeTVA, String destination) {
-		this.prodId = id;
-		id++;
 		this.libelle = libelle;
 		this.marque = marque;
 		this.description = description;

@@ -23,6 +23,14 @@
 		<servlet-name>ManageAccount</servlet-name>
 		<url-pattern>/manageAccount</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>ManageProduct</servlet-name>
+		<servlet-class>control.GestionProduit</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ManageProduct</servlet-name>
+		<url-pattern>/manageProduct</url-pattern>
+	</servlet-mapping>
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>
