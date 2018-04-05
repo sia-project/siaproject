@@ -32,8 +32,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
         <label class="field field_type1">
           <input class="field__input" placeholder="e.g. VS65432S">
           <span class="field__label-wrap">
-            <span class="field__label">Entrez votre numéro de suivi :</span> <input type="submit" value="Valider" onclick="afficher();"> </span>
-            </span>
+            <span class="field__label">Entrez votre numéro de suivi :</span> 
+            <input type="button" name="ShowBox" value="Valider" onclick="afficher()">
+
         </label>
       </div>
       
@@ -42,7 +43,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 </div>
 </form>
 	
-<div style="display: none;" class="content" id="suivi">
+<div id="suivi" style="display: none;" class="content" >
 	<div class="content1">
 		
 	</div>
@@ -99,9 +100,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 </div>
 <script> 
+
+
 function afficher(){
-	$('#suivi').show();
-	console.log("hello 1");		
+	document.getElementById("suivi").style.display = "";	
+
 
 }
 </script>
