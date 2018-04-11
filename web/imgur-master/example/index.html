@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>imgur Upload API</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="../build/imgur.min.css" rel="stylesheet" media="screen">
+    <style>
+        .jumbotron h1, .jumbotron p {
+            padding-left: 60px;
+            padding-right: 60px;
+        }
+
+        .col-md {
+            margin: 0 auto;
+            max-width: 500px
+        }
+    </style>
+</head>
+<body>
+    <div class="jumbotron">
+        <h1>imgur Upload API</h1>
+        <p>Upload images to imgur via JavaScript</p>
+    </div>
+
+    <div class="col-md">
+        <div class="dropzone"></div>
+    </div>
+
+    <script type="text/javascript" src="../build/imgur.min.js"></script>
+    <script type="text/javascript">
+        var feedback = function (res) {
+            if (res.success === true) {
+                var status = document.querySelector('.status');
+                var p = document.createElement('p');
+                var t = document.createTextNode('Image url: ' + res.data.link);
+                var url = res.data.link;                
+                console.log(url);
+                p.appendChild(t);
+
+                status.classList.add('bg-success');
+                status.appendChild(p);
+                // document.querySelector('.status').innerHTML = 'Image url: ' + res.data.link;
+            }
+        };
+
+        new Imgur({
+            clientid: 'cc86a8de0e7c459',
+            callback: feedback
+        });
+    </script>
+</body>
+</html>
